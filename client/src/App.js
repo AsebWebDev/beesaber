@@ -1,7 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import api from './api';
 import './App.css';
 
 function App() {
+
+  useEffect(() => {
+    console.log("use effect")
+    api.getScores()
+    return () => {
+      
+    }
+  }, [])
+  
   return (
     <div className="App">
       <header className="App-header">
