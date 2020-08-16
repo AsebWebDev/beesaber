@@ -6,19 +6,16 @@ import './App.css';
 function App() {
 
   let [data, setData] = useState([])
+  let [currentID, setCurrentID] = useState('76561198037132296')
   let scores = []
   let noResult = false
 
   const fetchData = async () => {
     let count = 1;
     while (!noResult) {
-      await axios('https://new.scoresaber.com/api/player/76561198037132296/scores/recent/'+ count++)
+      await axios('https://new.scoresaber.com/api/player/'+ currentID +'/scores/recent/'+ count++)
         .then(scoreReply => {
-          if (scoreReply.ok) {
-            console.log("Scores:", scores)
-            noResult = true;
-            // return scores
-          }
+          if (scoreReply.ok) noResult = true;
           scores.push(...scoreReply.data.scores)
           return scores
         })
@@ -26,12 +23,7 @@ function App() {
   };
 
   useEffect(() => {
-    fetchData()
-     .finally((result) => {
-       console.log("App -> result", result)
-       console.log("Ergebnis: ", scores)
-       setData(scores)
-    })
+    fetchData().finally(() => setData(scores))
   }, [])
 
   
