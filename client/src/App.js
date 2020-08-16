@@ -1,32 +1,48 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios'
 import api from './api';
 import './App.css';
 
 function App() {
 
-  useEffect(() => {
-    console.log("use effect")
-    api.getScores()
-    return () => {
-      
+  let [data, setData] = useState([])
+
+  const fetchData = async () => {
+    // const result = await api.getScores()
+    let scores = []
+    let noResult = false
+    let count = 1;
+
+    while (!noResult) {
+      await axios('https://new.scoresaber.com/api/player/76561198037132296/scores/recent/'+ count++)
+        .then(scoreReply => {
+          console.log("fetchData -> scoreReply", scoreReply)
+          if (scoreReply.ok) {
+            noResult = true;
+            console.log(scores)
+            return
+          }
+          scores.push(...scoreReply.data.scores)
+        })
     }
+    setData(scores)
+  };
+
+  useEffect(() => {
+    console.log("use Effect")
+    fetchData()
+     .finally(() => console.log(data))
   }, [])
+
   
   return (
     <div className="App">
       <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>DATA:</h1>
       </header>
+      <div>
+        {(data.length > 0) && data.map((item, i) => <p key={i}>item.score</p>)}
+      </div>
     </div>
   );
 }
