@@ -1,0 +1,45 @@
+#loginbox {
+
+    .btn-default {
+        width: 50%;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: row-reverse; 
+        margin: 0;
+    }
+
+    .fa-user:before, .fa-lock:before  {
+        margin-right: 30px;
+    }
+}
+
+@media only screen and (max-width: 361px) {
+    #loginbox {
+        width: 100vw;
+
+        button {
+            width: 50%;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group {
+            margin: 0;
+        }
+
+        .h5 {
+            padding: 0 30px;
+        }
+    }
+}
+
+@media (min-width: 1200px) {
+    #loginbox {
+        max-width: 25%;
+    }
+}
