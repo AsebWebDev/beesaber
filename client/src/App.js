@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios'
 import api from './api';
 import './App.css';
+import LoginBox from './components/LoginBox';
 
 function App() {
 
@@ -45,6 +46,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+          <LoginBox />
           <input onChange={e => handleChange(e)} type="number" />
           <button onClick={clickSubmit}>Submit</button>
         <h1>DATA:</h1>
