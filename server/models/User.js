@@ -11,7 +11,11 @@ const userSchema = new Schema({
     type: Boolean,
     default: false
   },
-  settings: userSettings
+  settings: userSettings,
+  scoreData: {
+    lastSync: String,
+    scores: []
+  }
 }, {
     timestamps: {
       createdAt: 'created_at',
