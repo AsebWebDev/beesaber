@@ -31,23 +31,24 @@ router.post("/login", (req, res, next) => {
 })
 
 router.post("/googlelogin", (req, res, next) => {
-//   const { googleId, username, profilePic } = req.body
+  console.log("Google login hit")
+  const { googleId, username, profilePic } = req.body
 
-//   User.findOne({ googleId })
-//     .then(userDoc => {
-//       if (!userDoc) {
-//         console.log('No user in database')
-//         new User({ username, googleId, profilePic }).save()
-//         .then((newUser) => {
-//             console.log('new user created: ' + newUser)
-//         }).catch(err => console.log(err))
-//       }
+  User.findOne({ googleId })
+    .then(userDoc => {
+      if (!userDoc) {
+        console.log('No user in database')
+        new User({ username, googleId, profilePic }).save()
+        .then((newUser) => {
+            console.log('new user created: ' + newUser)
+        }).catch(err => console.log(err))
+      }
 
-//       req.logIn(userDoc, () => {
-//         res.json(userDoc)
-//       })
-//     })
-//     .catch(err => next(err))
+      req.logIn(userDoc, () => {
+        res.json(userDoc)
+      })
+    })
+    .catch(err => next(err))
 })
 
 router.post('/login-with-passport-local-strategy', (req, res, next) => {
