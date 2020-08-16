@@ -11,7 +11,7 @@ const nocache = require('nocache')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')(session)
 
-// require('./configs/database')
+require('./configs/database')
 mongoose.set('useFindAndModify', false) // prevent deprecation warning of fineByIdAndUpdate()
 
 const app_name = require('./package.json').name
@@ -33,7 +33,7 @@ app.use(express.static(path.join(__dirname, '../client/build')))
 
 // Enable authentication using session + passport
 app.use(session({
-  secret: process.env.SESSION_SECRET || 'beebeebee', // TODO: Change Session Secret,
+  secret: process.env.SESSION_SECRET,
   resave: true,
   saveUninitialized: true,
   store: new MongoStore({ mongooseConnection: mongoose.connection })
