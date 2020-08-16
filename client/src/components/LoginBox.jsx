@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { newNotification } from '../actioncreators'
-import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from 'mdbreact';
+import { MDBContainer, MDBRow, MDBCol } from 'mdbreact';
 import GoogleLogin from 'react-google-login';
 // import keys from '../configs/keys';
 import api from '../api';
