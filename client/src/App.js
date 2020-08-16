@@ -8,7 +8,6 @@ function App() {
   let [data, setData] = useState([])
 
   const fetchData = async () => {
-    // const result = await api.getScores()
     let scores = []
     let noResult = false
     let count = 1;
