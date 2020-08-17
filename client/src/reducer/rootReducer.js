@@ -1,10 +1,12 @@
 import { 
     GET_DATA, 
     ADD_NOTIFICATION, 
+    UPDATE_USER_DATA,
   } from '../actioncreators';
   
   const initialState = {
-    
+      username: null,
+      profilePic: '' 
   }
   
   export default function rootReducer(state=initialState, action) {
@@ -25,6 +27,14 @@ import {
             typeOfNotification: action.typeOfNotification,
             created: new Date()
           }]
+        }
+      }
+
+      case UPDATE_USER_DATA: {
+        return {
+          ...newState,
+          username: action.userdata.username,
+          profilePic: action.userdata.profilePic
         }
       }
       
