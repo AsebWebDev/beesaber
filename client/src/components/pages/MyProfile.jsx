@@ -5,20 +5,14 @@ import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBIcon, MDBInput } from 'mdbreac
 function MyProfile(props) {
     const { dispatch } = props;
 
+    let [myScoreSaberId, setMyScoreSaberId] = useState((props.userdata.myScoreSaberId) ? props.userdata.myScoreSaberId : '777')
 
-    let [id, setMyScoreSaberId] = useState((props.userdata.myScoreSaberId) ? props.userdata.myScoreSaberId : '777')
-
-    const handleChange = (e) => setMyScoreSaberId(e.target.val)
+    const handleChange = (e) => setMyScoreSaberId(e.target.value)
 
     const handleSave = () => {
-        console.log("handleSave -> props.userdata", props.userdata)
-        console.log("MyProfile -> id", id)
-        console.log("MyProfile -> props.userdata.myScoreSaberId", props.userdata.myScoreSaberId)
-        
-        const data = { ...props.userdata }
-        data.myScoreSaberId = id
-        console.log("handleSave -> data", data)
-        // props.dispatch({ type: "UPDATE_USER_DATA", userdata })
+        const userdata = { ...props.userdata, myScoreSaberId }
+        console.log("handleSave -> data", userdata)
+        dispatch({ type: "UPDATE_USER_DATA", userdata })
     }
 
     return (
@@ -29,7 +23,7 @@ function MyProfile(props) {
                     <MDBCol md="6">
                     <form>
                         <div className="grey-text">
-                            <MDBInput onChange={e => handleChange(e)} value={id} label="Your ScoreSaber ID" icon="user" group type="text" validate error="wrong"
+                            <MDBInput onChange={e => handleChange(e)} value={myScoreSaberId} label="Your ScoreSaber ID" icon="user" group type="text" validate error="wrong"
                             success="right" />
                         </div>
                         <div className="text-center">
