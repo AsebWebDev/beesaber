@@ -8,7 +8,7 @@ import {
       userdata: {
         username: null,
         profilePic: '',
-        myScoreSaberId: null,
+        myScoreSaberId: '',
         myScores: []
       }
   }
