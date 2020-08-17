@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import axios from 'axios'
 import api from './api';
-import './App.css';
 import LoginBox from './components/LoginBox';
+import Menu from './components/pages/Menu';
+import Main from './components/pages/Main';
+import './styles/pages/App.scss';
 
-function App() {
-
+function App(props) {
+  const { dispatch } = props;
   let [data, setData] = useState([])
   let [query, setQuery] = useState(null)
-  let [currentID, setCurrentID] = useState('76561198037132296')
+  let [currentID, setCurrentID] = useState('76561198101951971')
   let scores = []
   let noResult = false
 
@@ -29,6 +32,17 @@ function App() {
   }, [])
 
   useEffect(() => {
+    if (api.isLoggedIn() && api.getLocalStorageUser()) {
+      const { username, profilePic, _id } = api.getLocalStorageUser()
+      const userdata = { username, profilePic }
+      dispatch({ type: "UPDATE_USER_DATA", userdata })
+      // api.getUserSettings(_id)
+      // .then(settings => dispatch({ type: "UPDATE_USER_SETTINGS", settings}))
+      // .catch(err => dispatch(newNotification(err.toString())))
+    }
+  }, [dispatch])
+
+  useEffect(() => {
     console.log("Data has changed")
     setQuery(null)
   }, [data])
@@ -44,21 +58,18 @@ function App() {
   }
   
   return (
-    <div className="App">
-      <header className="App-header">
-          <LoginBox />
-          <input onChange={e => handleChange(e)} type="number" />
-          <button onClick={clickSubmit}>Submit</button>
-        <h1>DATA:</h1>
-        <p>Länge: {data.length} </p>
-        {(data.length > 0) && data.map((item, i) => <p key={i}>{item.score}</p>)}
-        {(data.length <= 0) && <p>Loading...</p>}
-      </header>
-      <div>
-
-      </div>
+    <div id="App">
+      <Menu />
+      <Main />
     </div>
   );
 }
 
-export default App;
+function mapStateToProps(reduxState){
+  return {
+    profilePic: reduxState.profilePic,
+    username: reduxState.username
+  }
+}
+
+export default connect(mapStateToProps)(App);
