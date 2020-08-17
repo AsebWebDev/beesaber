@@ -86,10 +86,24 @@ export default {
   // Scores
   // ==========
 
-  getScores() {
-    return service
-      .get('/scores')
-      .then(res => res.data)
-      .catch(errHandler)
-  }
+  async getScores(currentID) {
+    let scores = []
+    const fetchData = async () => {
+      let count = 1;
+      let noResult = false
+      while (!noResult) {
+        await axios('https://new.scoresaber.com/api/player/'+ currentID +'/scores/recent/'+ count++, { validateStatus: false })
+          .then(scoreReply => {
+            if (scoreReply.status === 404) {
+              noResult = true;
+              return scores
+            }
+            else scores.push(...scoreReply.data.scores)
+          })
+      }; 
+    }
+
+    await fetchData()
+    return scores
+  } 
 }
