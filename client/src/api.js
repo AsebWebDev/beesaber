@@ -86,13 +86,13 @@ export default {
   // Scores
   // ==========
 
-  async getScores(currentID) {
+  async getScores(currentID, sorting='recent') {
     let scores = []
     const fetchData = async () => {
       let count = 1;
       let noResult = false
       while (!noResult) {
-        await axios('https://new.scoresaber.com/api/player/'+ currentID +'/scores/recent/'+ count++, { validateStatus: false })
+        await axios('https://new.scoresaber.com/api/player/'+ currentID +'/scores/'+sorting+'/'+ count++, { validateStatus: false })
           .then(scoreReply => {
             if (scoreReply.status === 404) {
               noResult = true;
