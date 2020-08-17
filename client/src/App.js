@@ -13,8 +13,13 @@ function App(props) {
   useEffect(() => {
     if (api.isLoggedIn() && api.getLocalStorageUser()) {
       const { username, profilePic, _id } = api.getLocalStorageUser()
-      const userdata = { ...props.userdata, username, profilePic }
-      dispatch({ type: "UPDATE_USER_DATA", userdata })
+      const userdata = { ...props.userdata, username, profilePic, _id }
+      api.getUserData(_id)
+        .then(result => {
+          console.log("Get User Result: ", result)
+          dispatch({ type: "UPDATE_USER_DATA", result })
+        })
+      
     }
   }, [dispatch])
 
