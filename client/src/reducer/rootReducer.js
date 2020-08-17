@@ -6,7 +6,9 @@ import {
   
   const initialState = {
       username: null,
-      profilePic: '' 
+      profilePic: '',
+      myScoreSaberId: null,
+      myScores: []
   }
   
   export default function rootReducer(state=initialState, action) {
@@ -34,7 +36,9 @@ import {
         return {
           ...newState,
           username: action.userdata.username,
-          profilePic: action.userdata.profilePic
+          profilePic: action.userdata.profilePic,
+          myScoreSaberId: action.userdata.myScoreSaberId,
+          myScores: action.userdata.myScores
         }
       }
       
