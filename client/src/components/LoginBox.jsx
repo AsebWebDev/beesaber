@@ -32,12 +32,8 @@ function LoginBox(props) {
     const googleId = response.googleId;
     const username = response.profileObj.name;
     const profilePic = response.profileObj.imageUrl;
-    // setUsername(username);
-    // setProfilePic(profilePic);
     api.googleLogin(googleId, username, profilePic)
-    .then(result => {
-    console.log("responseOauth -> result", result)
-      let userdata = { ...props.userdata, username, profilePic }
+    .then(userdata => {
       props.dispatch({ type: "UPDATE_USER_DATA", userdata })
       if (props.history) props.history.push("/") // Redirect to the home page
     }).catch(err => console.log(err))
