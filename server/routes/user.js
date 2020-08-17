@@ -5,8 +5,8 @@ const User = require("../models/User")
 
 router.post('/:id/', isLoggedIn, (req, res, next) => {
     console.log("Post user/:id hit")
-    User.findByIdAndUpdate(req.params.id, req.body.data)
-    .then(userDoc => {
+    User.findByIdAndUpdate(req.params.id, req.body)
+    .then(userDoc => {  
       if (!userDoc) {
         next(new Error("Could not find user."))
         return
@@ -14,6 +14,19 @@ router.post('/:id/', isLoggedIn, (req, res, next) => {
       res.json(userDoc)
     })
     .catch(err => next(err))
+});
+
+router.get('/:id/', isLoggedIn, (req, res, next) => {
+  console.log("Get user/:id hit")
+  User.findById(req.params.id)
+  .then(userDoc => {  
+    if (!userDoc) {
+      next(new Error("Could not find user."))
+      return
+    } 
+    res.json(userDoc)
+  })
+  .catch(err => next(err))
 });
 
 // router.get('/:id/settings', isLoggedIn, (req, res, next) => {
