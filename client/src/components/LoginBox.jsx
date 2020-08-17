@@ -11,6 +11,7 @@ function LoginBox(props) {
   const { dispatch } = props;
   let [username, setUsername] = useState('');
   let [password, setPassword] = useState('');
+  let [profilePic, setProfilePic] = useState(null);
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -33,15 +34,15 @@ function LoginBox(props) {
     const googleId = response.googleId;
     const username = response.profileObj.name;
     const profilePic = response.profileObj.imageUrl;
-    // setUsername(username);
-    // setProfilePic(profilePic);
+    setUsername(username);
+    setProfilePic(profilePic);
     api.googleLogin(googleId, username, profilePic)
     .then(result => {
       console.log("responseOauth -> result", result)
       // dispatch(newNotification('Successfully logged in, ' +  username))
       let userdata = { username, profilePic }
-      // props.dispatch({ type: "UPDATE_USER_DATA", userdata })
-      // props.history.push("/") // Redirect to the home page
+      props.dispatch({ type: "UPDATE_USER_DATA", userdata })
+      props.history.push("/") // Redirect to the home page
     // }).catch(err => setMessage(err))
     }).catch(err => console.log(err))
   }
