@@ -8,6 +8,16 @@ import Main from './components/pages/Main';
 import './styles/pages/App.scss';
 
 function App(props) {
+  const { dispatch } = props;
+
+  useEffect(() => {
+    if (api.isLoggedIn() && api.getLocalStorageUser()) {
+      const { username, profilePic, _id } = api.getLocalStorageUser()
+      const userdata = { ...props.userdata, username, profilePic }
+      dispatch({ type: "UPDATE_USER_DATA", userdata })
+    }
+  }, [dispatch])
+
   return (
     <div id="App">
       <Menu />
@@ -18,8 +28,7 @@ function App(props) {
 
 function mapStateToProps(reduxState){
   return {
-    profilePic: reduxState.profilePic,
-    username: reduxState.username
+    userdata: reduxState.userdata,
   }
 }
 
