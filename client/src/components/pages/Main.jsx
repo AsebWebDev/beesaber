@@ -19,7 +19,7 @@ function Main(props) {
         <div id="main">
             <div id="header">
                 <h1>Main</h1>
-                {props.userdata.username && <p>{props.userdata.username}</p>}
+                {props.userdata && <p>{props.userdata.username}</p>}
                 {!api.isLoggedIn() && <LoginBox />}
                 {api.isLoggedIn() && <p onClick={handleLogout}>Logout</p>}
             </div>
