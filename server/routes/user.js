@@ -3,7 +3,20 @@ const router = express.Router();
 const { isLoggedIn } = require('../middlewares')
 const User = require("../models/User")
 
-router.get('/:id/settings', isLoggedIn, (req, res, next) => {
+router.post('/:id/', isLoggedIn, (req, res, next) => {
+    console.log("Post user/:id hit")
+    User.findByIdAndUpdate(req.params.id, req.body.data)
+    .then(userDoc => {
+      if (!userDoc) {
+        next(new Error("Could not find user."))
+        return
+      } 
+      res.json(userDoc)
+    })
+    .catch(err => next(err))
+});
+
+// router.get('/:id/settings', isLoggedIn, (req, res, next) => {
     // User.findById(req.params.id)
     // .then(userDoc => {
     //   if (!userDoc) {
@@ -13,9 +26,9 @@ router.get('/:id/settings', isLoggedIn, (req, res, next) => {
     //   res.json(userDoc.settings)
     // })
     // .catch(err => next(err))
-});
+// });
 
-router.post('/:id/settings', isLoggedIn, (req, res, next) => {
+// router.post('/:id/settings', isLoggedIn, (req, res, next) => {
     // User.findByIdAndUpdate(req.params.id, { settings: req.body }, { new: true })
     // .then(userDoc => {
     //   if (!userDoc) {
@@ -26,6 +39,6 @@ router.post('/:id/settings', isLoggedIn, (req, res, next) => {
     //   res.json(userDoc.settings)
     // })
     // .catch(err => next(err))
-});
+// });
 
 module.exports = router;
