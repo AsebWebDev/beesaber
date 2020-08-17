@@ -18,7 +18,7 @@ export default {
   service: service,
 
   // ===========
-  // AUTH + USER
+  // AUTH 
   // ===========
 
   isLoggedIn() {
@@ -67,9 +67,28 @@ export default {
       .get('/logout')
   },
 
+  // ===========
+  // USER 
+  // ===========
+
   getUserSettings(userId) {
     return service
       .get('/user/' + userId + '/settings')
+      .then(res => res.data)
+      .catch(errHandler)
+  },
+
+  getUserData(userId) {
+    return service
+      .get('/user/' + userId)
+      .then(res => res.data)
+      .catch(errHandler)
+  },
+
+  saveUserData(userId, userdata) {
+    console.log("saveUserData -> userdata", userdata)
+    return service
+      .post('/user/' + userId, userdata)
       .then(res => res.data)
       .catch(errHandler)
   },
