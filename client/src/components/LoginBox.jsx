@@ -42,7 +42,7 @@ function LoginBox(props) {
       // dispatch(newNotification('Successfully logged in, ' +  username))
       let userdata = { username, profilePic }
       props.dispatch({ type: "UPDATE_USER_DATA", userdata })
-      props.history.push("/") // Redirect to the home page
+      if (props.history) props.history.push("/") // Redirect to the home page
     // }).catch(err => setMessage(err))
     }).catch(err => console.log(err))
   }
@@ -52,8 +52,6 @@ function LoginBox(props) {
       <MDBRow>
         <MDBCol md="12">
           {/* GOOGLE OAUTH */}
-          <hr />
-          <p className="h5 text-center mb-4">Google Login...</p>
           <GoogleLogin
             clientId={process.env.REACT_APP_GOOGLE_CLIENTID}
             buttonText="Google Login"
