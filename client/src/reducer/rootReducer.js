@@ -5,10 +5,12 @@ import {
   } from '../actioncreators';
   
   const initialState = {
-      username: null,
-      profilePic: '',
-      myScoreSaberId: null,
-      myScores: []
+      userdata: {
+        username: null,
+        profilePic: '',
+        myScoreSaberId: null,
+        myScores: []
+      }
   }
   
   export default function rootReducer(state=initialState, action) {
@@ -35,10 +37,12 @@ import {
       case UPDATE_USER_DATA: {
         return {
           ...newState,
-          username: action.userdata.username,
-          profilePic: action.userdata.profilePic,
-          myScoreSaberId: action.userdata.myScoreSaberId,
-          myScores: action.userdata.myScores
+          userdata: {
+            username: action.userdata.username,
+            profilePic: action.userdata.profilePic,
+            myScoreSaberId: action.userdata.myScoreSaberId,
+            myScores: action.userdata.myScores
+          }  
         }
       }
       
