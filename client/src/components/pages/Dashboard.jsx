@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios'
 import api from '../../api';
 
 function Dashboard(props) {
@@ -33,10 +32,9 @@ function Dashboard(props) {
         setQuery(null)
     }, [data])
     
-    function clickSubmit (e) {
-        console.log(query)
+    async function clickSubmit (e) {
         setCurrentID(query)
-        api.getScores(query).finally((scores) => setData(scores))
+        await api.getScores(query).then((scores) => setData(scores))
     }
     
     function handleChange (e) {
@@ -51,7 +49,7 @@ function Dashboard(props) {
                 <button onClick={clickSubmit}>Submit</button>
                 <h1>DATA:</h1>
                 <p>Länge: {data.length} </p>
-                {(data.length > 0) && data.map((item, i) => <p key={i}>{item.score}</p>)}
+                {(data.length > 0) && data.map((item, i) => <p key={i}>Rank: {item.rank} Score: {item.score}</p>)}
                 {(data.length <= 0) && <p>Loading...</p>}
             </header>
         </div>
@@ -60,9 +58,7 @@ function Dashboard(props) {
 
 function mapStateToProps(reduxState){
     return {
-      profilePic: reduxState.profilePic,
-      username: reduxState.username,
-      myScores: reduxState.myScores
+        userdata: reduxState.userdata
     }
 }
 

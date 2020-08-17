@@ -1,9 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import api from '../../api';
 import '../../styles/pages/Menu.scss'
 import brandlogo from '../../media/brandlogo.jpg'
 
-export default function Menu() {
+function Menu() {
     return (
         <div id="menu">
             <div id="brandlogo">
@@ -14,9 +16,17 @@ export default function Menu() {
                 <h1>Menu</h1>
                 <ul>
                     <li><Link to="/">Dashboard</Link></li>
-                    <li><Link to="/myprofile">My Profile</Link></li>
+                    {api.isLoggedIn() && <li><Link to="/myprofile">My Profile</Link></li>}
                 </ul>
             </div>
         </div>
     )
 }
+
+function mapStateToProps(reduxState){
+    return {
+      userdata: reduxState.userdata,
+    }
+  }
+  
+export default connect(mapStateToProps)(Menu)

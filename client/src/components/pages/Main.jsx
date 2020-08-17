@@ -19,7 +19,7 @@ function Main(props) {
         <div id="main">
             <div id="header">
                 <h1>Main</h1>
-                {props.username && <p>{props.username}</p>}
+                {props.userdata.username && <p>{props.userdata.username}</p>}
                 {!api.isLoggedIn() && <LoginBox />}
                 {api.isLoggedIn() && <p onClick={handleLogout}>Logout</p>}
             </div>
@@ -34,8 +34,7 @@ function Main(props) {
 
 function mapStateToProps(reduxState){
     return {
-      username: reduxState.username,
-      profilePic: reduxState.profilePic
+        userdata: reduxState.userdata
     }
   }
   

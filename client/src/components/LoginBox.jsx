@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { newNotification } from '../actioncreators'
-import { MDBContainer, MDBRow, MDBCol } from 'mdbreact';
 import GoogleLogin from 'react-google-login';
 // import keys from '../configs/keys';
 import api from '../api';
@@ -30,27 +29,22 @@ function LoginBox(props) {
   }
 
   const responseOauth = (response) => {
-    console.log("responseOauth hit")
     const googleId = response.googleId;
     const username = response.profileObj.name;
     const profilePic = response.profileObj.imageUrl;
-    setUsername(username);
-    setProfilePic(profilePic);
+    // setUsername(username);
+    // setProfilePic(profilePic);
     api.googleLogin(googleId, username, profilePic)
     .then(result => {
-      console.log("responseOauth -> result", result)
-      // dispatch(newNotification('Successfully logged in, ' +  username))
-      let userdata = { username, profilePic }
+    console.log("responseOauth -> result", result)
+      let userdata = { ...props.userdata, username, profilePic }
       props.dispatch({ type: "UPDATE_USER_DATA", userdata })
       if (props.history) props.history.push("/") // Redirect to the home page
-    // }).catch(err => setMessage(err))
     }).catch(err => console.log(err))
   }
 
   return (
-    <MDBContainer id="loginbox">
-      <MDBRow>
-        <MDBCol md="12">
+    <div id="loginbox">
           {/* GOOGLE OAUTH */}
           <GoogleLogin
             clientId={process.env.REACT_APP_GOOGLE_CLIENTID}
@@ -59,16 +53,13 @@ function LoginBox(props) {
             onFailure={responseOauth}
             cookiePolicy={'single_host_origin'}
           />
-        </MDBCol>
-      </MDBRow>
-    </MDBContainer>
+    </div>
   )
 }
 
 function mapStateToProps(reduxState){
   return {
-    username: reduxState.username,
-    profilePic: reduxState.profilePic
+    userdata: reduxState.userdata,
   }
 }
 
