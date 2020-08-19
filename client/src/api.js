@@ -86,7 +86,6 @@ export default {
   },
 
   saveUserData(userId, userdata) {
-    console.log("saveUserData -> userdata", userdata)
     return service
       .post('/user/' + userId, userdata)
       .then(res => res.data)
@@ -113,7 +112,7 @@ export default {
       while (!noResult) {
         await axios('https://new.scoresaber.com/api/player/'+ currentID +'/scores/'+sorting+'/'+ count++, { validateStatus: false })
           .then(scoreReply => {
-            if (scoreReply.status === 404) {
+            if (scoreReply.status === 404 || scoreReply.status === 429 || scoreReply.status === 422)  {
               noResult = true;
               return scores
             }
@@ -124,5 +123,25 @@ export default {
 
     await fetchData()
     return scores
+  },
+
+  async getlatestScore(currentID) {
+    let score = null
+    const fetchData = async () => {
+        await axios('https://new.scoresaber.com/api/player/'+ currentID +'/scores/recent/1', { validateStatus: false })
+          .then(scoreReply => {
+            console.log("fetchData -> scoreReply", scoreReply)
+            if (scoreReply.status === 404 || scoreReply.status === 429 || scoreReply.status === 422)  {
+              return score
+            }
+            else {
+              score = scoreReply.data.scores[0]
+            }
+          })
+    }
+
+    await fetchData()
+    return score
   } 
 }
+
