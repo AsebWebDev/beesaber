@@ -3,38 +3,42 @@ import { connect } from 'react-redux';
 import api from '../../api';
 
 function Dashboard(props) {
-    const { dispatch, myScoreSaberId } = props;
+    const { myScoreSaberId } = props.userdata;
+    const { dispatch } = props;
     let [data, setData] = useState([])
     let [query, setQuery] = useState(null)
-    let [myScores, setMyScores] = useState(null)
-    let [currentID, setCurrentID] = useState(myScoreSaberId ? myScoreSaberId : '76561198101951971')
-    
-    useEffect(() => {
-        if (api.isLoggedIn() && api.getLocalStorageUser()) {
-            const { username, profilePic, _id } = api.getLocalStorageUser()
-            const userdata = { username, profilePic, myScores }
-            props.dispatch({ type: "UPDATE_USER_DATA", userdata })
-            // api.getUserSettings(_id)
-            // .then(settings => dispatch({ type: "UPDATE_USER_SETTINGS", settings}))
-            // .catch(err => dispatch(newNotification(err.toString())))
-        }
-    }, [dispatch])
+    let [currentID, setCurrentID] = useState((myScoreSaberId) ? myScoreSaberId : '76561198101951971')
 
     useEffect(() => {
+        console.log("Dashboard2 -> props.userdata", props.userdata)
+
         const fetchData = async () => {
-            await api.getScores(currentID).then((scores) => setData(scores))
+            await api.getScores('76561198101951971').then((scores) => {
+                console.log("fetchData -> props.userdata", props.userdata)
+                console.log("fetchData -> scores", scores)
+                const userdata = { ...props.userdata }
+                // setCurrentID(userdata.myScoreSaberId)
+                // dispatch({ type: "UPDATE_USER_DATA", userdata })
+                setData(scores)
+            })
         }
-        fetchData()
-    }, [])
+        if (props.userdata) fetchData()
+    }, [props.userdata])
     
     useEffect(() => {
         console.log("Data has changed")
+        
         setQuery(null)
     }, [data])
+
+    useEffect(() => {
+        console.log("Data has changed")
+        setCurrentID(props.myScoreSaberId)
+    }, [props.myScoreSaberId])
     
     async function clickSubmit (e) {
-        setCurrentID(query)
-        await api.getScores(query).then((scores) => setData(scores))
+        // setCurrentID(query)
+        // await api.getScores(query).then((scores) => setData(scores))
     }
     
     function handleChange (e) {
@@ -51,6 +55,7 @@ function Dashboard(props) {
                 <p>Länge: {data.length} </p>
                 {(data.length > 0) && data.map((item, i) => <p key={i}>Rank: {item.rank} Score: {item.score}</p>)}
                 {(data.length <= 0) && <p>Loading...</p>}
+                {!currentID && <p>No ID provided.</p>}
             </header>
         </div>
     )
