@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import api from '../../api';
 import ScoreOverview from "../ScoreOverview";
+import ScoreBox from "../ScoreBox";
 
 function Dashboard(props) {
     const { dispatch, myScoreSaberId } = props;
@@ -48,6 +49,7 @@ function Dashboard(props) {
             <header className="App-header">
                 <input onChange={e => handleChange(e)} type="number" />
                 <button onClick={clickSubmit}>Submit</button>
+                {data.length > 0 ? <ScoreBox data={data} /> : <p>Loading...</p>}
                 {data.length > 0 ? <ScoreOverview data={data} /> : <p>Loading...</p>}
                 {/*{(data.length > 0) && data.map((item, i) => <p key={i}>Rank: {item.rank} Score: {item.score}</p>)}*/}
             </header>
