@@ -5,7 +5,9 @@ import {
   } from '../actioncreators';
   
   const initialState = {
-      userdata: {}
+      userdata: {},
+      userDataNeedsRefresh: false,
+      friendsDataNeedsReresh: false
   }
   
   export default function rootReducer(state=initialState, action) {
