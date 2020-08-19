@@ -7,7 +7,11 @@ function MyProfile(props) {
     const { dispatch } = props;
     // console.log("MyProfile ->  props.userdata",  props.userdata)
 
-    let [myScoreSaberId, setMyScoreSaberId] = useState((props.userdata) ? props.userdata.myScoreSaberId : '777')
+    let [myScoreSaberId, setMyScoreSaberId] = useState(
+            (props.userdata.myScoreSaberId) 
+                ? props.userdata.myScoreSaberId 
+                : ''
+        )
 
     const handleChange = (e) => setMyScoreSaberId(e.target.value)
 
