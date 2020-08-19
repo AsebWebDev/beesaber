@@ -5,8 +5,6 @@ import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBIcon, MDBInput } from 'mdbreac
 
 function MyProfile(props) {
     const { dispatch } = props;
-    // console.log("MyProfile ->  props.userdata",  props.userdata)
-
     let [myScoreSaberId, setMyScoreSaberId] = useState(
             (props.userdata.myScoreSaberId) 
                 ? props.userdata.myScoreSaberId 
@@ -17,7 +15,6 @@ function MyProfile(props) {
 
     const handleSave = () => {
         const userdata = { ...props.userdata, myScoreSaberId }
-        console.log("handleSave -> userdata", userdata)
         api.saveUserData(props.userdata._id, userdata)
         dispatch({ type: "UPDATE_USER_DATA", userdata })
     }
