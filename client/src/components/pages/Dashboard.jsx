@@ -28,8 +28,8 @@ function Dashboard(props) {
             <header className="App-header">
                 {scoreData && scoreData.scoresRecent &&
                     <div>
-                        <p>Länge: {scoreData.length} </p>
-                        {scoreData && scoreData.scoresRecent.map((item, i) => <p key={i}>Rank: {item.rank} Score: {item.score}</p>)}
+                        <ScoreBox data={scoreData.scoresRecent} />
+                        <ScoreOverview data={scoreData.scoresRecent} />
                     </div>}
                 {scoreData && !scoreData.scoresRecent && <p>Loading...</p>}
                 {!myScoreSaberId && <p>No ID provided.</p>}
