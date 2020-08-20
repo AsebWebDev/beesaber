@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import api from '../../api';
+import ScoreOverview from "../ScoreOverview";
+import ScoreBox from "../ScoreBox";
 
 function Dashboard(props) {
     const { myScoreSaberId, scoreData } = props.userdata;

@@ -1,0 +1,65 @@
+.table-box {
+  table-layout:fixed;
+}
+
+.table-box td {
+  max-width: 300px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+th.rank, th.score {
+  width: 20%;
+}
+
+table img {
+  max-width: 40px;
+  margin-right: 8px;
+  border-radius: 3px;
+}
+
+.card-container {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  border-radius: 5px;
+  padding: 2px 8px;
+  margin-left: 120px;
+  max-width: 500px;
+}
+
+.card-container:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+#page-numbers {
+  display: flex;
+  list-style: none;
+  overflow: hidden;
+}
+
+#page-numbers > li {
+  cursor: pointer;
+  background: #CACFD6;
+  color: #1C3144;
+  border: none;
+  padding: 0.5em 0.75rem;
+  transition: transform 50ms ease-out;
+  margin: 0.4rem;
+/*  margin-right: 0.3em;
+  color: blue;
+  user-select: none;
+  cursor: pointer;*/
+}
+
+#page-numbers > li:focus,
+#page-numbers > li:hover {
+    transform: scale(1.1);
+}
+
+.pagination {
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
