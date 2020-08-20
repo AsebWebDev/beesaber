@@ -22,22 +22,46 @@ class ScoreBox extends Component {
         return Math.ceil(this.props.data.length / this.state.scoresPerPage);
     };
 
-/*    createPagesUtility = (pages, index) => {
-        return function getPages (number) {
-            const offset = Math.floor(number / 2);
-            let start, end;
+    pageNumber = (number) => {
+        return (
+            <li
+                key={number}
+                id={number}
+                onClick={this.handleClick}
+            >
+                {number}
+            </li>
+        );
+    };
 
-            if (index + offset >= pages.length) {
-                start = Math.max(0, pages.length - number);
-                end = pages.length
-            } else {
-                start = Math.max(0, index - offset);
-                end = Math.min(start + number, pages.length)
-            }
+    renderPagination = (number, currentPage) => {
+        const showSDots = currentPage > 4;
+        const showEDots = currentPage < number - 3;
 
-            return pages.slice(start, end)
+        const pagination = [];
+        if (currentPage !== 1) {
+            pagination.push(this.pageNumber(1));
         }
-    };*/
+        if (showSDots) {
+            pagination.push(this.pageNumber('..'));
+        } else {
+            for (let i = 2; i < currentPage-1; i++) {
+                pagination.push(this.pageNumber(i));
+            }
+        }
+        if (currentPage > 2) pagination.push(this.pageNumber(currentPage-1));
+        pagination.push(this.pageNumber(currentPage));
+        if (currentPage < number-1) pagination.push(this.pageNumber(currentPage+1));
+        if (showEDots) {
+            pagination.push(this.pageNumber('...'));
+        } else {
+            for (let i = currentPage + 2; i <number; i++) {
+                pagination.push(this.pageNumber(i));
+            }
+        }
+        /*pagination.push(this.pageNumber(number));*/
+        return pagination;
+    };
 
     prevPage = () => {
         if (this.state.currentPage > 1) {
@@ -91,21 +115,9 @@ class ScoreBox extends Component {
         const currentScores = data.slice(indexOfFirstScore, indexOfLastScore);
 
         const pageNumbers = [];
-        for (let i = 1; i <= Math.ceil(data.length / scoresPerPage); i++) {
+        for (let i = 1; i <= this.numPages(); i++) {
             pageNumbers.push(i);
         }
-
-        const renderPageNumbers = pageNumbers.map(number => {
-            return (
-                <li
-                    key={number}
-                    id={number}
-                    onClick={this.handleClick}
-                >
-                    {number}
-                </li>
-            );
-        });
 
         return (
             <div className="card-container">
@@ -134,7 +146,7 @@ class ScoreBox extends Component {
                     <div className="pagination">
                         <ul id="page-numbers">
                             <li type="button" id="btn_prev" className="arrow-left" onClick={this.prevPage}>&#60;</li>
-                            {renderPageNumbers}
+                            {this.renderPagination(pageNumbers, currentPage)}
                             <li type="button" id="btn_next" className="arrow-right" onClick={this.nextPage}>&#62;</li>
                         </ul>
 
