@@ -13,12 +13,13 @@ const userSchema = new Schema({
   },
   settings: userSettings,
   myScoreSaberId: {
-    type: Number,
+    type: String,
     default: null
   },
   scoreData: {
     lastSync: String,
-    scores: []
+    scoresRecent: [],
+    scoresTop: []
   }
 }, {
     timestamps: {
