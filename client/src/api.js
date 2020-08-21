@@ -38,10 +38,7 @@ export default {
 
   login(username, password) {
     return service
-      .post('/login', {
-        username,
-        password,
-      })
+      .post('/login', { username, password })
       .then(res => {
         // If we have localStorage.getItem('user') saved, the application will consider we are loggedin
         localStorage.setItem('user', JSON.stringify(res.data))
@@ -130,18 +127,32 @@ export default {
     const fetchData = async () => {
         await axios('https://new.scoresaber.com/api/player/'+ currentID +'/scores/recent/1', { validateStatus: false })
           .then(scoreReply => {
-            console.log("fetchData -> scoreReply", scoreReply)
             if (scoreReply.status === 404 || scoreReply.status === 429 || scoreReply.status === 422)  {
               return score
             }
-            else {
-              score = scoreReply.data.scores[0]
-            }
+            else score = scoreReply.data.scores[0]
           })
     }
 
     await fetchData()
     return score
+  },
+
+  async dataUpdateNeeded(currentData, currentID) {
+    let latestFetchedScore = null
+
+    const fetchData = async () => {
+        await axios('https://new.scoresaber.com/api/player/'+ currentID +'/scores/recent/1', { validateStatus: false })
+          .then(scoreReply => {
+            if (scoreReply.status === 404 || scoreReply.status === 429 || scoreReply.status === 422)  {
+              return null
+            }
+            else latestFetchedScore = scoreReply.data.scores[0]
+          })
+    }
+
+    await fetchData()
+    return (latestFetchedScore.timeSet !== currentData.timeSet)
   } 
 }
 
