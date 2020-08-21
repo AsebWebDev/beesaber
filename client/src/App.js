@@ -12,7 +12,8 @@ function App(props) {
   const myScoreSaberId = (props.userdata) ? props.userdata.myScoreSaberId : null;
 
   const fetchData = async () => {
-    let scoreDataExist = (props.userdata.scoreData.scoreRecent && props.userdata.scoreData.scoreRecent.length > 0)
+    console.log("Fetch Data triggered")
+    let scoreDataExist = (props.userdata.scoreData.scoresRecent && props.userdata.scoreData.scoresRecent.length > 0)
     let dataUpdateNeeded = false; 
 
     // check if Database latest Score is different from Scoresaber...
