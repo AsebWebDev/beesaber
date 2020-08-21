@@ -4,7 +4,6 @@ const { isLoggedIn } = require('../middlewares')
 const User = require("../models/User")
 
 router.post('/:id/', isLoggedIn, (req, res, next) => {
-    console.log("Post user/:id hit")
     User.findByIdAndUpdate(req.params.id, req.body)
     .then(userDoc => {  
       if (!userDoc) {

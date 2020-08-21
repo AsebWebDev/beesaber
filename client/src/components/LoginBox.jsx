@@ -7,26 +7,6 @@ import api from '../api';
 import '../styles/LoginBox.scss'
 
 function LoginBox(props) {
-  const { dispatch } = props;
-  let [username, setUsername] = useState('');
-  let [password, setPassword] = useState('');
-  let [profilePic, setProfilePic] = useState(null);
-
-  const handleClick = (e) => {
-    e.preventDefault();
-    api.login(username, password)
-    //   .then(() => {
-    //     api.getUserSettings(api.getLocalStorageUser()._id)
-    //     .then(settings => dispatch({ type: "UPDATE_USER_SETTINGS", settings}))
-    //     .catch(err => dispatch(newNotification(err.toString())))
-    //   })
-      .then(() => {
-        // dispatch(newNotification('Successfully logged in, ' +  username))
-        // props.history.push("/") // Redirect to the home page
-        console.log("Successfull login")
-      // }).catch(err => setMessage(err))
-    }).catch(err => console.log(err))
-  }
 
   const responseOauth = (response) => {
     const googleId = response.googleId;
@@ -34,8 +14,10 @@ function LoginBox(props) {
     const profilePic = response.profileObj.imageUrl;
     api.googleLogin(googleId, username, profilePic)
     .then(userdata => {
-      props.dispatch({ type: "UPDATE_USER_DATA", userdata })
-      if (props.history) props.history.push("/") // Redirect to the home page
+      if (userdata ) {
+        props.dispatch({ type: "UPDATE_USER_DATA", userdata })
+        if (props.history) props.history.push("/") // Redirect to the home page
+      }
     }).catch(err => console.log(err))
   }
 

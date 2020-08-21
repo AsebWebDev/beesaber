@@ -12,13 +12,16 @@ router.post("/googlelogin", (req, res, next) => {
         console.log('No user in database')
         new User({ username, googleId, profilePic }).save()
         .then((newUser) => {
-            console.log('new user created: ' + newUser)
+            req.logIn(userDoc, () => {
+              res.json(newUser)
+            })
         }).catch(err => console.log(err))
       }
-
-      req.logIn(userDoc, () => {
-        res.json(userDoc)
-      })
+      if (userDoc) {
+        req.logIn(userDoc, () => {
+          res.json(userDoc)
+        })
+      }
     })
     .catch(err => next(err))
 })
