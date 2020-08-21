@@ -10,14 +10,13 @@ import './styles/pages/App.scss';
 function App(props) {
   const { dispatch } = props;
   const myScoreSaberId = (props.userdata) ? props.userdata.myScoreSaberId : null;
-  // let scoresRecent = (props.userdata.scoreData) ? props.userdata.scoreData.scoresRecent : null
 
   const fetchData = async () => {
     let scoreDataExist = (props.userdata.scoreData.scoreRecent && props.userdata.scoreData.scoreRecent.length > 0)
     let dataUpdateNeeded = false; 
 
     // check if Database latest Score is different from Scoresaber...
-    await api.dataUpdateNeeded(props.userdata.scoreData.scoresRecent[0], props.userdata.myScoreSaberId)
+    if (scoreDataExist) await api.dataUpdateNeeded(props.userdata.scoreData.scoresRecent[0], props.userdata.myScoreSaberId)
         .then(result => {
           console.log("Data refresh needed?: ", result)
           dataUpdateNeeded = result
@@ -47,14 +46,6 @@ function App(props) {
   useEffect(() => {
       if (myScoreSaberId) fetchData(myScoreSaberId)
   }, [myScoreSaberId])
-
-  // CHECK IF REFRESH IS NEEDED TODO: Use this function to check with database
-  // useEffect(() => {
-  //   if (scoresRecent) {
-  //     api.dataUpdateNeeded(props.userdata.scoreData.scoresRecent[0], props.userdata.myScoreSaberId)
-  //       .then(result => console.log("Data refresh needed?: ", result))
-  //   }
-  // }, [props.userdata.scoreData])
 
   return (
     <div id="App">
