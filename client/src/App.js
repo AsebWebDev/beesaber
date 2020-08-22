@@ -43,9 +43,13 @@ function App(props) {
     }
   }, [dispatch])
 
-  // GET SCORES FROM SCORESABER 
+  // GET SCORES FROM SCORESABER WHEN ID EXISTS
   useEffect(() => {
       if (myScoreSaberId) fetchData(myScoreSaberId)
+      setInterval(() => {
+        console.log("Interval: check for Data...")
+        if (myScoreSaberId) fetchData(myScoreSaberId)
+      }, 30000);
   }, [myScoreSaberId])
 
   return (
