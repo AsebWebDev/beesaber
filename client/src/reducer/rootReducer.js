@@ -6,6 +6,7 @@ import {
   
   const initialState = {
       userdata: {},
+      notifications: [],
       userDataNeedsRefresh: false,
       friendsDataNeedsReresh: false
   }

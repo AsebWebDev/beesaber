@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { newNotification } from './actioncreators'
 import api from './api';
 import Menu from './components/pages/Menu';
 import Main from './components/pages/Main';
+import Notification from './components/Notification'
 import './styles/pages/App.scss';
 
 function App(props) {
@@ -14,6 +16,7 @@ function App(props) {
 
   const fetchData = async () => {
     console.log("Fetch Data triggered")
+    dispatch(newNotification("Fetch Data triggered"))
     let scoreDataExist = (props.userdata.scoreData.scoresRecent && props.userdata.scoreData.scoresRecent.length > 0) //check for any Scoredata
     let dataUpdateNeeded = false; 
 
@@ -57,6 +60,14 @@ function App(props) {
     <div id="App">
       <Menu />
       <Main />
+      <div style={{
+              position: "fixed",
+              top: "10px",
+              right: "10px",
+              zIndex: 9999
+          }}>
+          {props.notifications && !!props.notifications.length && <Notification notifications={props.notifications}/>}
+      </div>
     </div>
   );
 }
@@ -64,6 +75,7 @@ function App(props) {
 function mapStateToProps(reduxState){
   return {
     userdata: reduxState.userdata,
+    notifications: reduxState.notifications
   }
 }
 
