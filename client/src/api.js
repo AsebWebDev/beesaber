@@ -96,6 +96,24 @@ export default {
       .catch(errHandler)
   },
 
+  // ===============
+  // ScoreSaber Info
+  // ===============
+
+  async getScoreSaberUserInfo(query, mode) {
+    let result = null
+    if (mode === 'id') {
+      await axios('https://new.scoresaber.com/api/player/'+ query +'/full', { validateStatus: false })
+      .then(scoreReply => {
+      console.log("getScoreSaberUserInfo -> scoreReply", scoreReply)
+        if (scoreReply.status === 404 || scoreReply.status === 429 || scoreReply.status === 422)  {
+          return null
+        }
+        else result=scoreReply.data
+      })
+    }
+    return result
+  },
 
   // ==========
   // Scores
