@@ -14,11 +14,15 @@ export default function AddFriendModal(props) {
     const handleChange = (e) => setQuery(e.target.value)
     
     const handleSearch = () => {
-        api.getScoreSaberUserInfo(query, 'id')
+        const mode = activeItem === '1' ? 'id' : 'username'
+        api.getScoreSaberUserInfo(query, mode)
             .then(result => {
-                foundUser = result ? { ...result.playerInfo, ...result.scoreStats } : null
+                console.log("handleSearch -> result", result)
+                let foundUser = null
+                if (mode === 'id') foundUser = result ? { ...result.playerInfo, ...result.scoreStats } : null
+                if (mode === 'username') foundUser = result ? { ...result.players[0] } : null
                 console.log("handleSearch -> foundUser", foundUser)
-                setFoundUser(result)
+                setFoundUser(foundUser)
             })
     }
 
@@ -28,6 +32,7 @@ export default function AddFriendModal(props) {
 
     const switchTab = (tab) => {
         setQuery('')
+        setFoundUser(null)
         if (activeItem !== tab) setActiveItem(tab)
     }
 
@@ -57,10 +62,11 @@ export default function AddFriendModal(props) {
                                     <MDBInput onChange={e => handleChange(e)} value={query} label="Search by ScoreSaber ID" icon="hashtag" group type="number" validate error="wrong"
                                     success="right" />
                                 </div>
-                                {foundUser && <div className="result">
-                                    User found
-                                    {foundUser.playerInfo.playerName}
-                                </div>}
+                                {foundUser && 
+                                    <div className="result">
+                                        User found
+                                        {foundUser.playerName}
+                                        </div>}
                             </MDBTabPane>
                             {/* // Search by Username // */}
                             <MDBTabPane tabId="2" role="tabpanel">
@@ -74,7 +80,7 @@ export default function AddFriendModal(props) {
                     <MDBModalFooter>
                     {query !== '' && <MDBBtn color="primary" onClick={handleSearch}>Search</MDBBtn>}
                     <MDBBtn color="secondary" onClick={props.toggleModal}>Close</MDBBtn>
-                    {foundUser !== null && <MDBBtn color="success" onClick={handleSave}>Add {foundUser.playerInfo.playerName}</MDBBtn>}
+                    {foundUser && <MDBBtn color="success" onClick={handleSave}>Add {foundUser.playerName}</MDBBtn>}
                     </MDBModalFooter>
                 </MDBModal>
             </MDBContainer>
