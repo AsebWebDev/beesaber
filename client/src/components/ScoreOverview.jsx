@@ -21,7 +21,7 @@ class ScoreOverview extends Component {
         const difficulties = ['', 'Easy', '', 'Normal', '','Hard', '', 'Expert', '', 'Expert+'];
         return (
             <MDBContainer>
-                <h2 style={{"textAlign":"center", "marginTop":"20px", "marginBottom":"20px"}}>Score Overview:</h2>
+                <h2>Score Overview:</h2>
                 <MDBNav className="nav-tabs mt-5">
                     <MDBNavItem>
                         <MDBNavLink link to="#" active={this.state.activeItem === "1"} onClick={this.toggle("1")} role="tab" >

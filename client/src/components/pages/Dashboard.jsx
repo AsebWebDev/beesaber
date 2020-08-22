@@ -16,6 +16,8 @@ function Dashboard(props) {
                         {scoreData && scoreData.scoresRecent &&
                             <div>
                                 <ScoreBox data={scoreData.scoresRecent} />
+                                <br/>
+                                <br/>
                                 <ScoreOverview dataRecent={scoreData.scoresRecent} dataTop={scoreData.scoresTop} />
                             </div>}
                         {scoreData && !scoreData.scoresRecent && <p>Loading...</p>}
