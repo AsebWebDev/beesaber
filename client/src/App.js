@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios'
 import api from './api';
-import LoginBox from './components/LoginBox';
 import Menu from './components/pages/Menu';
 import Main from './components/pages/Main';
 import './styles/pages/App.scss';
 
 function App(props) {
   const { dispatch } = props;
-  const myScoreSaberId = (props.userdata) ? props.userdata.myScoreSaberId : null;
+  const myScoreSaberId = (props.userdata) ? props.userdata.myScoreSaberId : null; // get ScoreSaberID from Store or use null
+  let intervalUpdatecheck = (props.userdata & props.userdata.settings) 
+                                  ? props.userdata.settings.Performance.intervalUpdatecheck // get Interval Frequency for cheking data
+                                  : 30000 // or use 30 second as default
 
   const fetchData = async () => {
     console.log("Fetch Data triggered")
-    let scoreDataExist = (props.userdata.scoreData.scoresRecent && props.userdata.scoreData.scoresRecent.length > 0)
+    let scoreDataExist = (props.userdata.scoreData.scoresRecent && props.userdata.scoreData.scoresRecent.length > 0) //check for any Scoredata
     let dataUpdateNeeded = false; 
 
     // check if Database latest Score is different from Scoresaber...
@@ -49,7 +50,7 @@ function App(props) {
       setInterval(() => {
         console.log("Interval: check for Data...")
         if (myScoreSaberId) fetchData(myScoreSaberId)
-      }, 30000);
+      }, intervalUpdatecheck);
   }, [myScoreSaberId])
 
   return (
