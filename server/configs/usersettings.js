@@ -12,8 +12,8 @@ const userSettings = {
         }
       },
       Performance: {
-        numberOfNewsToDisplay: {
-          val: 10, name: "Number of News to display"
+        intervalUpdatecheck: {
+          val: 30000, name: "Frequency: Check for Update" // Default: 30 Sekunden 
         },
       },
       Effects: {
