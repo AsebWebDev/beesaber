@@ -1,18 +1,33 @@
 import React, { useEffect, useState } from 'react';
 import {    MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, 
-            MDBTabPane, MDBTabContent, MDBNav, MDBNavItem, MDBNavLink 
+            MDBTabPane, MDBTabContent, MDBNav, MDBNavItem, MDBNavLink, MDBInput
         } from 'mdbreact';
+import api from '../api';
 import '../styles/AddFriendsModal.scss'
 
 export default function AddFriendModal(props) {
 
     let [activeItem, setActiveItem] = useState('1')
+    let [query, setQuery] = useState('')
+    let [foundUser, setFoundUser] = useState(null)
+
+    const handleChange = (e) => setQuery(e.target.value)
+    
+    const handleSearch = () => {
+        api.getScoreSaberUserInfo(query, 'id')
+            .then(result => {
+                foundUser = result ? { ...result.playerInfo, ...result.scoreStats } : null
+                console.log("handleSearch -> foundUser", foundUser)
+                setFoundUser(result)
+            })
+    }
 
     const handleSave = () => {
-        console.log("Handle Savee")
+        console.log("Handle Save")
     }
 
     const switchTab = (tab) => {
+        setQuery('')
         if (activeItem !== tab) setActiveItem(tab)
     }
 
@@ -20,8 +35,8 @@ export default function AddFriendModal(props) {
         <div id="addfriendsmodal">
             <MDBContainer>
                 {/* <MDBBtn onClick={toggle}>Modal</MDBBtn> */}
-                <MDBModal isOpen={true} toggle={props.handleSave}>
-                    <MDBModalHeader toggle={props.handleSave}>Add a new friend</MDBModalHeader>
+                <MDBModal isOpen={true} toggle={props.toggleModal}>
+                    <MDBModalHeader toggle={props.toggleModal}>Add a new friend</MDBModalHeader>
                     <MDBModalBody>
                         <MDBNav className="nav-tabs mt-5">
                             <MDBNavItem>
@@ -38,17 +53,28 @@ export default function AddFriendModal(props) {
                         <MDBTabContent activeItem={activeItem} >
                             {/* // Search by ID // */}
                             <MDBTabPane tabId="1" role="tabpanel">
-                                <p>Search by ID</p>
+                                <div className="grey-text">
+                                    <MDBInput onChange={e => handleChange(e)} value={query} label="Search by ScoreSaber ID" icon="hashtag" group type="number" validate error="wrong"
+                                    success="right" />
+                                </div>
+                                {foundUser && <div className="result">
+                                    User found
+                                    {foundUser.playerInfo.playerName}
+                                </div>}
                             </MDBTabPane>
                             {/* // Search by Username // */}
                             <MDBTabPane tabId="2" role="tabpanel">
-                                <p>Search by Username</p>
+                            <div className="grey-text">
+                                    <MDBInput onChange={e => handleChange(e)} value={query} label="Search by ScoreSaber Username" icon="user" group type="text" validate error="wrong"
+                                    success="right" />
+                                </div>
                             </MDBTabPane>
                         </MDBTabContent>
                     </MDBModalBody>
                     <MDBModalFooter>
+                    {query !== '' && <MDBBtn color="primary" onClick={handleSearch}>Search</MDBBtn>}
                     <MDBBtn color="secondary" onClick={props.toggleModal}>Close</MDBBtn>
-                    <MDBBtn color="primary" onClick={handleSave}>Save changes</MDBBtn>
+                    {foundUser !== null && <MDBBtn color="success" onClick={handleSave}>Add {foundUser.playerInfo.playerName}</MDBBtn>}
                     </MDBModalFooter>
                 </MDBModal>
             </MDBContainer>
