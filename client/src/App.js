@@ -10,6 +10,7 @@ import './styles/pages/App.scss';
 function App(props) {
   const { dispatch } = props;
   const myScoreSaberId = (props.userdata) ? props.userdata.myScoreSaberId : null; // get ScoreSaberID from Store or use null
+  console.log("App -> myScoreSaberId", myScoreSaberId)
   let intervalUpdatecheck = (props.userdata & props.userdata.settings) 
                                   ? props.userdata.settings.Performance.intervalUpdatecheck // get Interval Frequency for cheking data
                                   : 30000 // or use 30 second as default
@@ -50,9 +51,9 @@ function App(props) {
   // GET SCORES FROM SCORESABER WHEN ID EXISTS
   useEffect(() => {
       if (myScoreSaberId) fetchData(myScoreSaberId)
-      setInterval(() => {
-        console.log("Interval: check for Data...")
-        if (myScoreSaberId) fetchData(myScoreSaberId)
+      if (api.isLoggedIn()) setInterval(() => {
+          console.log("Interval: check for Data...")
+          if (myScoreSaberId) fetchData(myScoreSaberId)
       }, intervalUpdatecheck);
   }, [myScoreSaberId])
 
