@@ -118,6 +118,17 @@ export default {
     return result
   },
 
+  // ===============
+  // Friends
+  // ===============
+
+  saveFriend(userId, friend) {
+    return service
+      .post('/user/' + userId + '/friend', friend)
+      .then(res => res.data)
+      .catch(errHandler)
+  },
+
   // ==========
   // Scores
   // ==========
