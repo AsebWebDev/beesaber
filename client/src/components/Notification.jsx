@@ -13,12 +13,12 @@ function Notification (props) {
     return (
         <MDBContainer>
                 {props.notifications.map((notification,i) => {
+
                     if (notification.toBeDeleted) return (<div key={i}/>)
                     else return (
                         <div className="notification" key={i}>
                             <MDBNotification
                             autohide={7000} 
-                            pauseOnHover={true}
                             bodyClassName="notification-body"
                             show
                             fade

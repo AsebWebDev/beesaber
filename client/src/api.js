@@ -96,6 +96,38 @@ export default {
       .catch(errHandler)
   },
 
+  // ===============
+  // ScoreSaber Info
+  // ===============
+
+  async getScoreSaberUserInfo(query, mode) {
+    console.log("getScoreSaberUserInfo -> mode", mode)
+    let result = null
+    const url = (mode === 'id') 
+                  ? 'https://new.scoresaber.com/api/player/'+ query +'/full'
+                  : 'https://new.scoresaber.com/api/players/by-name/' + query
+    
+    await axios(url, { validateStatus: false })
+    .then(scoreReply => {
+    console.log("getScoreSaberUserInfo -> scoreReply", scoreReply)
+      if (scoreReply.status === 404 || scoreReply.status === 429 || scoreReply.status === 422)  {
+        return null
+      }
+      else result=scoreReply.data
+    })
+    return result
+  },
+
+  // ===============
+  // Friends
+  // ===============
+
+  saveFriend(userId, friend) {
+    return service
+      .post('/user/' + userId + '/friend', friend)
+      .then(res => res.data)
+      .catch(errHandler)
+  },
 
   // ==========
   // Scores

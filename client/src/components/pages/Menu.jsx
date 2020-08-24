@@ -17,6 +17,7 @@ function Menu() {
                 <ul>
                     <li><Link to="/">Dashboard</Link></li>
                     {api.isLoggedIn() && <li><Link to="/myprofile">My Profile</Link></li>}
+                    {api.isLoggedIn() && <li><Link to="/myfriends">My Friends</Link></li>}
                 </ul>
             </div>
         </div>

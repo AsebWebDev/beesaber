@@ -17,9 +17,13 @@ const userSchema = new Schema({
     default: null
   },
   scoreData: {
-    lastSync: String,
+    lastSync: String, //lastSync currently not used
     scoresRecent: [],
     scoresTop: []
+  },
+  friends: {
+    type: Array,
+    default: null
   }
 }, {
     timestamps: {

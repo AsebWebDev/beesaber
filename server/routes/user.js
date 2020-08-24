@@ -28,6 +28,18 @@ router.get('/:id/', isLoggedIn, (req, res, next) => {
   .catch(err => next(err))
 });
 
+router.post('/:id/friend', isLoggedIn, (req, res, next) => {
+  User.findByIdAndUpdate(req.params.id, {$push: {"friends": req.body}},{safe: true, upsert: true})
+  .then(userDoc => {  
+    if (!userDoc) {
+      next(new Error("Could not find user."))
+      return
+    } 
+    res.json(userDoc)
+  })
+  .catch(err => next(err))
+});
+
 // router.get('/:id/settings', isLoggedIn, (req, res, next) => {
     // User.findById(req.params.id)
     // .then(userDoc => {

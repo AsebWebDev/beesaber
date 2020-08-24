@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Dashboard from './Dashboard';
 import MyProfile from './MyProfile';
+import MyFriends from './MyFriends';
 import LoginBox from '../LoginBox';
 import '../../styles/pages/Main.scss'
 import api from '../../api';
@@ -26,6 +27,7 @@ function Main(props) {
             <Switch>
                 <Route path="/" exact component={Dashboard} />
                 <Route path="/myprofile" component={MyProfile} />
+                <Route path="/myfriends" component={MyFriends} />
                 <Route render={() => <h2>404</h2>} />
             </Switch>
         </div>
