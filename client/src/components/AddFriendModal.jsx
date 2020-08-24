@@ -1,15 +1,23 @@
 import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import {    MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, 
             MDBTabPane, MDBTabContent, MDBNav, MDBNavItem, MDBNavLink, MDBInput
         } from 'mdbreact';
+import { newNotification } from '../actioncreators'
 import api from '../api';
 import '../styles/AddFriendsModal.scss'
 
-export default function AddFriendModal(props) {
+function AddFriendModal(props) {
 
     let [activeItem, setActiveItem] = useState('1')
     let [query, setQuery] = useState('')
     let [foundUser, setFoundUser] = useState(null)
+    let [userAlreadyAdded, setUserAlreadyAdded] = useState(null)
+
+    useEffect(() => {
+        // check if user alread exists in friends list
+        if (foundUser) setUserAlreadyAdded(props.userdata.friends.some(item => item.playerId === foundUser.playerId))
+    }, [foundUser])
 
     const handleChange = (e) => setQuery(e.target.value)
     
@@ -26,13 +34,30 @@ export default function AddFriendModal(props) {
             })
     }
 
+    const cleanUp = () => {
+        setQuery('')
+        setFoundUser(null)
+    }
+
     const handleSave = () => {
         console.log("Handle Save")
+        console.log(props.userdata.friends.some(item => item.playerId === foundUser.playerId))
+        if (!userAlreadyAdded) {
+            console.log("Saving...")
+            api.saveFriend(props.userdata._id, foundUser)
+            .then(userdata => {
+                console.log("handleSave -> userdata", userdata)
+                props.dispatch(newNotification("User " + foundUser.playerName + " successfully added."))
+                cleanUp()
+            })
+        } else {
+            console.log("User existiert bereits")
+            // TODO: Error Message
+        }
     }
 
     const switchTab = (tab) => {
-        setQuery('')
-        setFoundUser(null)
+        cleanUp()
         if (activeItem !== tab) setActiveItem(tab)
     }
 
@@ -62,28 +87,45 @@ export default function AddFriendModal(props) {
                                     <MDBInput onChange={e => handleChange(e)} value={query} label="Search by ScoreSaber ID" icon="hashtag" group type="number" validate error="wrong"
                                     success="right" />
                                 </div>
+                                {/* // TODO: Create Component for this part, DRY code:  */}
+                                {foundUser && 
+                                    <div className="result"> 
+                                        User found
+                                        {foundUser.playerName}
+                                        {userAlreadyAdded && <b>User already added</b>}
+                                    </div>}
+                            </MDBTabPane>
+                            {/* // Search by Username // */}
+                            <MDBTabPane tabId="2" role="tabpanel">
+                                <div className="grey-text">
+                                    <MDBInput onChange={e => handleChange(e)} value={query} label="Search by ScoreSaber Username" icon="user" group type="text" validate error="wrong"
+                                    success="right" />
+                                </div>
+                                {/* // TODO: Create Component for this part, DRY code:  */}
                                 {foundUser && 
                                     <div className="result">
                                         User found
                                         {foundUser.playerName}
-                                        </div>}
-                            </MDBTabPane>
-                            {/* // Search by Username // */}
-                            <MDBTabPane tabId="2" role="tabpanel">
-                            <div className="grey-text">
-                                    <MDBInput onChange={e => handleChange(e)} value={query} label="Search by ScoreSaber Username" icon="user" group type="text" validate error="wrong"
-                                    success="right" />
-                                </div>
+                                        {userAlreadyAdded && <b>User already added</b>}
+                                    </div>}
                             </MDBTabPane>
                         </MDBTabContent>
                     </MDBModalBody>
                     <MDBModalFooter>
                     {query !== '' && <MDBBtn color="primary" onClick={handleSearch}>Search</MDBBtn>}
                     <MDBBtn color="secondary" onClick={props.toggleModal}>Close</MDBBtn>
-                    {foundUser && <MDBBtn color="success" onClick={handleSave}>Add {foundUser.playerName}</MDBBtn>}
+                    {foundUser && !userAlreadyAdded && <MDBBtn color="success" onClick={handleSave}>Add {foundUser.playerName}</MDBBtn>}
                     </MDBModalFooter>
                 </MDBModal>
             </MDBContainer>
         </div>
     )
 }
+
+function mapStateToProps(reduxState){
+    return {
+      userdata: reduxState.userdata,
+    }
+  }
+  
+export default connect(mapStateToProps)(AddFriendModal)
