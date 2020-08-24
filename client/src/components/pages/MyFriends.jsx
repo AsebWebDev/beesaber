@@ -6,6 +6,7 @@ import api from '../../api';
 
 function MyFriends(props) {
     let [modal, setModal] = useState(false);
+    let friendsExists = (props.userdata.friends) ? props.userdata.friends > 0 : false
 
     const toggleModal = () => setModal(!modal)
 
@@ -18,9 +19,9 @@ function MyFriends(props) {
                     <MDBIcon icon="plus" className="ml-1" />
                 </MDBBtn>
                 {props.userdata.friends && props.userdata.friends.map(friend => <div>
-                    friend.userName
+                    {friend.playerName}
                 </div>)}
-                {props.userdata.friends && <p>No friends yet</p>}
+                {!friendsExists && <p>No friends yet</p>}
 
                 {/* // MODAL ADD FRIENDS //  */}
                 {modal && <AddFriendModal toggleModal={toggleModal}/>}
