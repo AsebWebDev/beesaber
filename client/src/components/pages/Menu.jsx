@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import api from '../../api';
 import '../../styles/pages/Menu.scss'
-import brandlogo from '../../media/brandlogo.jpg'
+import brandlogo from '../../media/brandlogo.png'
 
 function Menu() {
     return (
@@ -13,7 +13,7 @@ function Menu() {
                 <img src={brandlogo} alt="brandlogo"/>   
             </div>
             <div id="menu-main">
-                <h1>Menu</h1>
+                <h1 className="beesaber-title">Beesaber</h1>
                 <ul>
                     <li><Link to="/">Dashboard</Link></li>
                     {api.isLoggedIn() && <li><Link to="/myprofile">My Profile</Link></li>}
