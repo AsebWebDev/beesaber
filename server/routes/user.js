@@ -28,8 +28,8 @@ router.get('/:id/', isLoggedIn, (req, res, next) => {
   .catch(err => next(err))
 });
 
-router.post('/:id/friend', isLoggedIn, (req, res, next) => {
-  User.findByIdAndUpdate(req.params.id, {$push: {"friends": req.body}},{safe: true, upsert: true})
+router.post('/:id/bee', isLoggedIn, (req, res, next) => {
+  User.findByIdAndUpdate(req.params.id, {$push: {"bees": req.body}},{safe: true, upsert: true, new: true})
   .then(userDoc => {  
     if (!userDoc) {
       next(new Error("Could not find user."))
