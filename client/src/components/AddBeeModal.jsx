@@ -5,9 +5,9 @@ import {    MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBMod
         } from 'mdbreact';
 import { newNotification } from '../actioncreators'
 import api from '../api';
-import '../styles/AddFriendsModal.scss'
+import '../styles/AddBeeModal.scss'
 
-function AddFriendModal(props) {
+function AddBeeModal(props) {
 
     let [activeItem, setActiveItem] = useState('1')
     let [query, setQuery] = useState('')
@@ -15,8 +15,8 @@ function AddFriendModal(props) {
     let [userAlreadyAdded, setUserAlreadyAdded] = useState(null)
 
     useEffect(() => {
-        // check if user alread exists in friends list
-        if (foundUser) setUserAlreadyAdded(props.userdata.friends.some(item => item.playerId === foundUser.playerId))
+        // check if user alread exists in bees list
+        if (foundUser) setUserAlreadyAdded(props.userdata.bees.some(item => item.playerId === foundUser.playerId))
     }, [foundUser])
 
     const handleChange = (e) => setQuery(e.target.value)
@@ -41,13 +41,14 @@ function AddFriendModal(props) {
 
     const handleSave = () => {
         console.log("Handle Save")
-        console.log(props.userdata.friends.some(item => item.playerId === foundUser.playerId))
+        console.log(props.userdata.bees.some(item => item.playerId === foundUser.playerId))
         if (!userAlreadyAdded) {
             console.log("Saving...")
-            api.saveFriend(props.userdata._id, foundUser)
+            api.saveBee(props.userdata._id, foundUser)
             .then(userdata => {
                 console.log("handleSave -> userdata", userdata)
                 props.dispatch(newNotification("User " + foundUser.playerName + " successfully added."))
+                props.dispatch({ type: "UPDATE_USER_DATA", userdata })
                 cleanUp()
             })
         } else {
@@ -62,11 +63,11 @@ function AddFriendModal(props) {
     }
 
     return (
-        <div id="addfriendsmodal">
+        <div id="adbeesmodal">
             <MDBContainer>
                 {/* <MDBBtn onClick={toggle}>Modal</MDBBtn> */}
                 <MDBModal isOpen={true} toggle={props.toggleModal}>
-                    <MDBModalHeader toggle={props.toggleModal}>Add a new friend</MDBModalHeader>
+                    <MDBModalHeader toggle={props.toggleModal}>Add a new Bee</MDBModalHeader>
                     <MDBModalBody>
                         <MDBNav className="nav-tabs mt-5">
                             <MDBNavItem>
@@ -129,4 +130,4 @@ function mapStateToProps(reduxState){
     }
   }
   
-export default connect(mapStateToProps)(AddFriendModal)
+export default connect(mapStateToProps)(AddBeeModal)

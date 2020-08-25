@@ -21,7 +21,7 @@ const userSchema = new Schema({
     scoresRecent: [],
     scoresTop: []
   },
-  friends: {
+  bees: {
     type: Array,
     default: null
   }

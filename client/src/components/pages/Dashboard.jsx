@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import ScoreBox from "../ScoreBox";
+import HiveBox from "../HiveBox";
 import Spinner from "../Spinner";
 
 function Dashboard(props) {
@@ -17,12 +18,10 @@ function Dashboard(props) {
             <header className="App-header">
                 {myScoreSaberId &&
                     <div>
-                        
                         {scoreData && scoreData.scoresRecent &&
                             <div>
                                 <ScoreBox data={scoreData.scoresRecent} />
-                                <br/>
-                                <br/>
+                                <HiveBox />
                             </div>}
                         {scoreData && !scoreData.scoresRecent && < Spinner text="Loading..." />}
                     </div>}
