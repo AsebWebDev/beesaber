@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Pagination from "./Pagination";
-import '../styles/pages/Dashboard.scss';
+import '../styles/ScoreBox.scss';
 
 class ScoreBox extends Component {
     constructor(props) {
@@ -36,7 +36,7 @@ class ScoreBox extends Component {
         if (totalScores === 0) return null;
 
         return (
-            <div className="card-container">
+            <div id="scorebox" className="card-container">
                 <div className="col-md-12">
                     <h6 style={{"textAlign":"left", "marginTop":"20px", "marginBottom":"20px"}}>Latest Scores:</h6>
                     <table className="table table-box table-hover">
