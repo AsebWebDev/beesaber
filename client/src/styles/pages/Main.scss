@@ -1,10 +1,37 @@
 #main {
     width: 80%;
     height: 100vh;
+    padding: 0 3px 3px 3px;
 
     #header {
         display: flex;
         justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid black;
+
+        p {margin: 0;}
+
+        LoginBox {
+            border: 3px solid green; 
+        }
+    }
+
+    #profile-login-icon {
+        // position: fixed; // Can be fixed to upper left into logo if prefered
+        top: 0;
+        left: 0;
+        margin: 1%;
+        z-index: 1;
+        width: 400px;
+        display: flex; 
+        justify-content: flex-start;
+        align-items: center;
+      }
+      
+    #profile-pic-sm {
+        width: 50px;
+        margin-right: 2%;
+        border-radius: 50%;
     }
 
     /* REMOVE ARROWS FROM INPUT FIELD */
