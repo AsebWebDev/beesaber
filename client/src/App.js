@@ -8,21 +8,19 @@ import Notification from './components/Notification'
 import './styles/pages/App.scss';
 
 function App(props) {
-  const { dispatch } = props;
-  const myScoreSaberId = (props.userdata) ? props.userdata.myScoreSaberId : null; // get ScoreSaberID from Store or use null
-  console.log("App -> myScoreSaberId", myScoreSaberId)
-  let intervalUpdatecheck = (props.userdata & props.userdata.settings) 
-                                  ? props.userdata.settings.Performance.intervalUpdatecheck // get Interval Frequency for cheking data
-                                  : 30000 // or use 30 second as default
+  const { dispatch, userdata, notifications } = props;
+  const myScoreSaberId = (userdata) ? userdata.myScoreSaberId : null; // get ScoreSaberID from Store or use null
+  let intervalUpdatecheck = (userdata & userdata.settings) // set Interval Frequency
+                                  ? userdata.settings.Performance.intervalUpdatecheck // get Interval Frequency for cheking data
+                                  : 1200000 // or use 2 minutes as default
 
   const fetchData = async () => {
-    console.log("Fetch Data triggered")
-    dispatch(newNotification("Fetch Data triggered"))
-    let scoreDataExist = (props.userdata.scoreData.scoresRecent && props.userdata.scoreData.scoresRecent.length > 0) //check for any Scoredata
+    dispatch(newNotification("Updating your data..."))
+    let scoreDataExist = (userdata.scoreData.scoresRecent && userdata.scoreData.scoresRecent.length > 0) //check for any Scoredata
     let dataUpdateNeeded = false; 
 
     // check if Database latest Score is different from Scoresaber...
-    if (scoreDataExist) await api.dataUpdateNeeded(props.userdata.scoreData.scoresRecent[0], props.userdata.myScoreSaberId)
+    if (scoreDataExist) await api.dataUpdateNeeded(userdata.scoreData.scoresRecent[0], userdata.myScoreSaberId)
         .then(result => {
           console.log("Data refresh needed?: ", result)
           dataUpdateNeeded = result
@@ -32,7 +30,7 @@ function App(props) {
         const scoresTop = [...scoresRecent] 
         scoresTop.sort((a,b) => b.score - a.score )
         const userdata = { ...props.userdata, scoreData: { scoresRecent, scoresTop } }
-        api.saveUserData(props.userdata._id, userdata)
+        api.saveUserData(userdata._id, userdata)
         dispatch({ type: "UPDATE_USER_DATA", userdata })
     })
   }
@@ -42,32 +40,31 @@ function App(props) {
     if (api.isLoggedIn() && api.getLocalStorageUser()) {
       const { _id } = api.getLocalStorageUser()
       api.getUserData(_id)
-        .then(userdata => {
-          dispatch({ type: "UPDATE_USER_DATA", userdata })
-        })
+        .then(userdata => dispatch({ type: "UPDATE_USER_DATA", userdata }))
     }
   }, [dispatch])
 
   // GET SCORES FROM SCORESABER WHEN ID EXISTS
   useEffect(() => {
-      if (myScoreSaberId) fetchData(myScoreSaberId)
-      if (api.isLoggedIn()) setInterval(() => {
-          console.log("Interval: check for Data...")
+        if (myScoreSaberId) fetchData(myScoreSaberId) // check for data once when new id is provided 
+        if (api.isLoggedIn()) setInterval(() => {     // then setting interval to check regularly
           if (myScoreSaberId) fetchData(myScoreSaberId)
-      }, intervalUpdatecheck);
+        }, intervalUpdatecheck);
   }, [myScoreSaberId])
 
   return (
     <div id="App">
       <Menu />
       <Main />
+
+      {/* Notifications Top Right */}
       <div style={{
               position: "fixed",
               top: "10px",
               right: "10px",
               zIndex: 9999
           }}>
-          {props.notifications && !!props.notifications.length && <Notification notifications={props.notifications}/>}
+          {notifications && !!notifications.length && <Notification notifications={notifications}/>}
       </div>
     </div>
   );
