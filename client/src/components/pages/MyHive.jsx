@@ -1,30 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { MDBBtn, MDBIcon } from 'mdbreact';
-import AddFriendModal from '../AddFriendModal';
+import AddBeeModal from '../AddBeeModal';
 import api from '../../api';
 
-function MyFriends(props) {
+function MyHive(props) {
+    let { userdata } = props
     let [modal, setModal] = useState(false);
-    let friendsExists = (props.userdata.friends) ? props.userdata.friends > 0 : false
+    let beesExists = (userdata.bees) ? userdata.bees.length > 0 : false
 
     const toggleModal = () => setModal(!modal)
 
     if ( api.isLoggedIn() ) {
         return (
             <div>
-                <h1>My Friends</h1>
+                <h1>My Hive</h1>
                 <MDBBtn onClick={toggleModal} outline color="success">
-                    Add a friend
+                    Add a bee
                     <MDBIcon icon="plus" className="ml-1" />
                 </MDBBtn>
-                {props.userdata.friends && props.userdata.friends.map(friend => <div>
-                    {friend.playerName}
+                {userdata.bees && userdata.bees.map(bee => <div>
+                    {bee.playerName}
                 </div>)}
-                {!friendsExists && <p>No friends yet</p>}
+                {!beesExists && <p>No bees yet</p>}
 
-                {/* // MODAL ADD FRIENDS //  */}
-                {modal && <AddFriendModal toggleModal={toggleModal}/>}
+                {/* // MODAL ADD beeS //  */}
+                {modal && <AddBeeModal toggleModal={toggleModal}/>}
 
             </div>
         )
@@ -42,4 +43,4 @@ function mapStateToProps(reduxState){
     }
 }
 
-export default connect(mapStateToProps)(MyFriends);
+export default connect(mapStateToProps)(MyHive);

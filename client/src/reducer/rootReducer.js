@@ -8,7 +8,7 @@ import {
       userdata: {},
       notifications: [],
       userDataNeedsRefresh: false,
-      friendsDataNeedsReresh: false
+      beesDataNeedsReresh: false
   }
   
   export default function rootReducer(state=initialState, action) {

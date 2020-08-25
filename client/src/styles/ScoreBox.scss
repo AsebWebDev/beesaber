@@ -1,0 +1,56 @@
+#scorebox {
+    width: 50%
+}
+
+#page-numbers {
+    display: flex;
+    list-style: none;
+    overflow: hidden;
+  }
+  
+  #page-numbers > li {
+    cursor: pointer;
+    background: #CACFD6;
+    color: #1C3144;
+    border: none;
+    padding: 0.5em 0.75rem;
+    transition: transform 50ms ease-out;
+    margin: 0.4rem;
+  /*  margin-right: 0.3em;
+    color: blue;
+    user-select: none;
+    cursor: pointer;*/
+  }
+  
+  #page-numbers > li:focus,
+  #page-numbers > li:hover {
+      transform: scale(1.1);
+  }
+  
+  .table-box {
+    table-layout:fixed;
+  }
+  
+  .table-box td {
+    max-width: 300px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  
+  th.rank, th.score {
+    width: 20%;
+  }
+  
+  table img {
+    max-width: 40px;
+    margin-right: 8px;
+    border-radius: 3px;
+  }
+  
+  .pagination {
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }

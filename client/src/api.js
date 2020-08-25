@@ -119,12 +119,12 @@ export default {
   },
 
   // ===============
-  // Friends
+  // Hive
   // ===============
 
-  saveFriend(userId, friend) {
+  saveBee(userId, bee) {
     return service
-      .post('/user/' + userId + '/friend', friend)
+      .post('/user/' + userId + '/bee', bee)
       .then(res => res.data)
       .catch(errHandler)
   },

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { MDBIcon, MDBBtn } from 'mdbreact';
 import Dashboard from './Dashboard';
 import MyProfile from './MyProfile';
-import MyFriends from './MyFriends';
+import MyHive from './MyHive';
 import GoolgeLogin from '../GoolgeLogin';
 import '../../styles/pages/Main.scss'
 import api from '../../api';
@@ -40,7 +40,7 @@ function Main(props) {
             <Switch>
                 <Route path="/" exact component={Dashboard} />
                 <Route path="/myprofile" component={MyProfile} />
-                <Route path="/myfriends" component={MyFriends} />
+                <Route path="/myhive" component={MyHive} />
                 <Route render={() => <h2>404</h2>} />
             </Switch>
         </div>
