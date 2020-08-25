@@ -1,5 +1,5 @@
 import React from 'react'
-import minilogo from '../media/brandlogo_mini.png'
+import minilogo from '../media/251.jpg'
 import '../styles/Spinner.scss'
 
 export default function Spinner(props) {
