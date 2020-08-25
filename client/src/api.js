@@ -184,7 +184,7 @@ export default {
     }
 
     await fetchData()
-    return (latestFetchedScore.timeSet !== currentData.timeSet)
+    if (latestFetchedScore && currentData) return (latestFetchedScore.timeSet !== currentData.timeSet)
   } 
 }
 

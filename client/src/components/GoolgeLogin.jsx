@@ -4,7 +4,7 @@ import { newNotification } from '../actioncreators'
 import GoogleLogin from 'react-google-login';
 // import keys from '../configs/keys';
 import api from '../api';
-import '../styles/LoginBox.scss'
+import '../styles/GoolgeLogin.scss'
 
 function LoginBox(props) {
 

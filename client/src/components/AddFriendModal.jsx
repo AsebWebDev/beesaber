@@ -25,10 +25,10 @@ function AddFriendModal(props) {
         const mode = activeItem === '1' ? 'id' : 'username'
         api.getScoreSaberUserInfo(query, mode)
             .then(result => {
-                console.log("handleSearch -> result", result)
                 let foundUser = null
                 if (mode === 'id') foundUser = result ? { ...result.playerInfo, ...result.scoreStats } : null
                 if (mode === 'username') foundUser = result ? { ...result.players[0] } : null
+                // if (mode === 'username') foundUser = result ? { ...result.players } : null //TODO: Integrate multiple users found
                 console.log("handleSearch -> foundUser", foundUser)
                 setFoundUser(foundUser)
             })
@@ -84,7 +84,7 @@ function AddFriendModal(props) {
                             {/* // Search by ID // */}
                             <MDBTabPane tabId="1" role="tabpanel">
                                 <div className="grey-text">
-                                    <MDBInput onChange={e => handleChange(e)} value={query} label="Search by ScoreSaber ID" icon="hashtag" group type="number" validate error="wrong"
+                                    <MDBInput onChange={e => handleChange(e)} value={query} label="Search ID" icon="hashtag" group type="number" validate error="wrong"
                                     success="right" />
                                 </div>
                                 {/* // TODO: Create Component for this part, DRY code:  */}
@@ -95,10 +95,11 @@ function AddFriendModal(props) {
                                         {userAlreadyAdded && <b>User already added</b>}
                                     </div>}
                             </MDBTabPane>
+
                             {/* // Search by Username // */}
                             <MDBTabPane tabId="2" role="tabpanel">
                                 <div className="grey-text">
-                                    <MDBInput onChange={e => handleChange(e)} value={query} label="Search by ScoreSaber Username" icon="user" group type="text" validate error="wrong"
+                                    <MDBInput onChange={e => handleChange(e)} value={query} label="Search Username" icon="user" group type="text" validate error="wrong"
                                     success="right" />
                                 </div>
                                 {/* // TODO: Create Component for this part, DRY code:  */}
