@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import api from '../../api';
 import '../../styles/pages/Menu.scss'
-import brandlogo from '../../media/brandlogo.png'
+import brandlogo from '../../media/1.jpg'
 
 function Menu() {
     return (
