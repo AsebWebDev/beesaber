@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import ScoreOverview from "../ScoreOverview";
 import ScoreBox from "../ScoreBox";
 
 function Dashboard(props) {
@@ -18,7 +17,6 @@ function Dashboard(props) {
                                 <ScoreBox data={scoreData.scoresRecent} />
                                 <br/>
                                 <br/>
-                                <ScoreOverview dataRecent={scoreData.scoresRecent} dataTop={scoreData.scoresTop} />
                             </div>}
                         {scoreData && !scoreData.scoresRecent && <p>Loading...</p>}
                     </div>}
