@@ -1,28 +1,41 @@
 import React, { useEffect, useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { MDBIcon, MDBBtn } from 'mdbreact';
 import Dashboard from './Dashboard';
 import MyProfile from './MyProfile';
 import MyFriends from './MyFriends';
-import LoginBox from '../LoginBox';
+import GoolgeLogin from '../GoolgeLogin';
 import '../../styles/pages/Main.scss'
 import api from '../../api';
 
 function Main(props) {
+    const { dispatch, userdata } = props;
 
     let handleLogout = () => {
         api.logout();
         let userdata = { username: null, profilePic: null }
-        props.dispatch({ type: "UPDATE_USER_DATA", userdata })
+        dispatch({ type: "UPDATE_USER_DATA", userdata })
     }
 
     return (
         <div id="main">
             <div id="header">
-                <h1>Main</h1>
-                {props.userdata && <p>{props.userdata.username}</p>}
-                {!api.isLoggedIn() && <LoginBox />}
-                {api.isLoggedIn() && <p onClick={handleLogout}>Logout</p>}
+                {/* Google Profile Data */}
+                {api.isLoggedIn() && userdata && 
+                    <div id="profile-login-icon">
+                        {userdata.profilePic && <img src={userdata.profilePic} id="profile-pic-sm" alt="profile pic"/>}
+                        {userdata.username}
+                    </div>
+                }
+                {/* TODO: Move Google Login right */}
+                {!api.isLoggedIn() && <GoolgeLogin id="googlelogin"/>} 
+                {api.isLoggedIn() && 
+                    <MDBBtn onClick={handleLogout} size="sm" color="danger">
+                        Logout
+                        <MDBIcon icon="sign-out-alt" className="ml-1" />
+                    </MDBBtn>}
+                
             </div>
             <Switch>
                 <Route path="/" exact component={Dashboard} />
