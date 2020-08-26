@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="291f6e7f-a87e-48d0-ad08-b44eb6eddd8a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/components/UserInfo.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/AddBeeModal.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/AddBeeModal.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/UserInfo.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/UserInfo.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +57,7 @@
       <workItem from="1597684987879" duration="24745000" />
       <workItem from="1597911581804" duration="576000" />
       <workItem from="1597930838256" duration="22541000" />
-      <workItem from="1598383029382" duration="2044000" />
+      <workItem from="1598383029382" duration="2836000" />
     </task>
     <servers />
   </component>

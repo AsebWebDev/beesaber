@@ -15,8 +15,8 @@ console.log(userInfoData);
                             <th scope="col"></th>
                             <th scope="col">Player</th>
                             <th scope="col">Global Rank</th>
-                            <th scope="col">Country Rank</th>
-                            <th scope="col">Total Plays</th>
+                           {userInfoData.countryRank &&<th scope="col">Country Rank</th>}
+                           {userInfoData.totalPlayCount && <th scope="col">Total Plays</th>}
                         </tr>
                     </thead>
                     <tbody>
@@ -26,8 +26,8 @@ console.log(userInfoData);
                                 </td>
                                 <td>{localeEmoji(`${userInfoData.country}`)}&nbsp;{userInfoData.playerName}</td>
                                 <td>#{userInfoData.rank}</td>
-                                <td>#{userInfoData.countryRank}</td>
-                                <td>{userInfoData.totalPlayCount}</td>
+                                {userInfoData.countryRank && <td>#{userInfoData.countryRank}</td>}
+                                {userInfoData.totalPlayCount && <td>{userInfoData.totalPlayCount}</td>}
                             </tr>
                     </tbody>
                 </table>

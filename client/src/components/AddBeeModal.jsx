@@ -107,8 +107,8 @@ function AddBeeModal(props) {
                                 {/* // TODO: Create Component for this part, DRY code:  */}
                                 {foundUser && 
                                     <div className="result">
-                                        User found
-                                        {foundUser.playerName}
+                                        <UserInfo userInfoData={foundUser}/>
+                                        {/*{foundUser.playerName}*/}
                                         {userAlreadyAdded && <b>User already added</b>}
                                     </div>}
                             </MDBTabPane>
