@@ -83,6 +83,7 @@ export default {
   },
 
   saveUserData(userId, userdata) {
+    console.log("Save Userdata hit")
     return service
       .post('/user/' + userId, userdata)
       .then(res => res.data)
@@ -101,7 +102,6 @@ export default {
   // ===============
 
   async getScoreSaberUserInfo(query, mode) {
-    console.log("getScoreSaberUserInfo -> mode", mode)
     let result = null
     const url = (mode === 'id') 
                   ? 'https://new.scoresaber.com/api/player/'+ query +'/full'
@@ -109,7 +109,7 @@ export default {
     
     await axios(url, { validateStatus: false })
     .then(scoreReply => {
-    console.log("getScoreSaberUserInfo -> scoreReply", scoreReply)
+    // console.log("getScoreSaberUserInfo -> scoreReply", scoreReply)
       if (scoreReply.status === 404 || scoreReply.status === 429 || scoreReply.status === 422)  {
         return null
       }
@@ -179,12 +179,12 @@ export default {
             if (scoreReply.status === 404 || scoreReply.status === 429 || scoreReply.status === 422)  {
               return null
             }
-            else latestFetchedScore = scoreReply.data.scores[0]
+            else latestFetchedScore = scoreReply.data.scores
           })
     }
 
     await fetchData()
-    if (latestFetchedScore && currentData) return (latestFetchedScore.timeSet !== currentData.timeSet)
+    if (latestFetchedScore && currentData) return (latestFetchedScore[0].timeSet !== currentData[0].timeSet)
   } 
 }
 
