@@ -39,18 +39,20 @@ function AddBeeModal(props) {
         setFoundUser(null)
     }
 
-    const handleSave = () => {
-        console.log("Handle Save")
-        console.log(props.userdata.bees.some(item => item.playerId === foundUser.playerId))
+    const handleSave = async() => {
         if (!userAlreadyAdded) {
-            console.log("Saving...")
-            api.saveBee(props.userdata._id, foundUser)
-            .then(userdata => {
-                console.log("handleSave -> userdata", userdata)
-                props.dispatch(newNotification("User " + foundUser.playerName + " successfully added."))
-                props.dispatch({ type: "UPDATE_USER_DATA", userdata })
-                cleanUp()
+            await api.getScores(foundUser.playerId  ).then((scoresRecent) => {
+                const scoresTop = [...scoresRecent] 
+                scoresTop.sort((a,b) => b.score - a.score )
+                const userdata = { ...foundUser, scoreData: { scoresRecent, scoresTop } }
+                api.saveBee(props.userdata._id, userdata)
+                    .then(userdata => {
+                        props.dispatch(newNotification("User " + foundUser.playerName + " successfully added."))
+                        props.dispatch({ type: "UPDATE_USER_DATA", userdata })
+                        cleanUp()
+                    })
             })
+            
         } else {
             console.log("User existiert bereits")
             // TODO: Error Message
