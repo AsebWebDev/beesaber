@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="291f6e7f-a87e-48d0-ad08-b44eb6eddd8a" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/AddBeeModal.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/AddBeeModal.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/UserInfo.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/UserInfo.jsx" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution>
+      <executable />
+    </execution>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1gEg5xLe8x1j9RkObg5OtyZawR5" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="291f6e7f-a87e-48d0-ad08-b44eb6eddd8a" name="Default Changelist" comment="" />
+      <created>1597684985471</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1597684985471</updated>
+      <workItem from="1597684987879" duration="24745000" />
+      <workItem from="1597911581804" duration="576000" />
+      <workItem from="1597930838256" duration="22541000" />
+      <workItem from="1598383029382" duration="2836000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="431" y="314" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1598382235290">
+      <screen x="0" y="23" width="1680" height="982" />
+    </state>
+    <state x="431" y="314" key="#com.intellij.fileTypes.FileTypeChooser/0.23.1680.982@0.23.1680.982" timestamp="1598382235290" />
+    <state x="488" y="260" width="703" height="508" key="find.popup" timestamp="1598110348753">
+      <screen x="0" y="23" width="1680" height="982" />
+    </state>
+    <state x="488" y="260" width="703" height="508" key="find.popup/0.23.1680.982@0.23.1680.982" timestamp="1598110348753" />
+    <state x="431" y="239" width="670" height="676" key="search.everywhere.popup" timestamp="1598384253806">
+      <screen x="0" y="23" width="1680" height="982" />
+    </state>
+    <state x="431" y="239" width="670" height="676" key="search.everywhere.popup/0.23.1680.982@0.23.1680.982" timestamp="1598384253806" />
+  </component>
+</project>
