@@ -6,6 +6,7 @@ import {    MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBMod
 import { newNotification } from '../actioncreators'
 import api from '../api';
 import '../styles/AddBeeModal.scss'
+import UserInfo from './UserInfo.jsx';
 
 function AddBeeModal(props) {
 
@@ -91,10 +92,10 @@ function AddBeeModal(props) {
                                     success="right" />
                                 </div>
                                 {/* // TODO: Create Component for this part, DRY code:  */}
-                                {foundUser && 
-                                    <div className="result"> 
-                                        User found
-                                        {foundUser.playerName}
+                                {foundUser &&
+                                    <div className="result">
+                                        <UserInfo userInfoData={foundUser}/>
+                                        {/*{foundUser.playerName}*/}
                                         {userAlreadyAdded && <b>User already added</b>}
                                     </div>}
                             </MDBTabPane>
@@ -108,8 +109,8 @@ function AddBeeModal(props) {
                                 {/* // TODO: Create Component for this part, DRY code:  */}
                                 {foundUser && 
                                     <div className="result">
-                                        User found
-                                        {foundUser.playerName}
+                                        <UserInfo userInfoData={foundUser}/>
+                                        {/*{foundUser.playerName}*/}
                                         {userAlreadyAdded && <b>User already added</b>}
                                     </div>}
                             </MDBTabPane>
