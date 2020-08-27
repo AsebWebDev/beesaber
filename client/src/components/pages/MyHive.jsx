@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { MDBBtn, MDBIcon } from 'mdbreact';
 import AddBeeModal from '../AddBeeModal';
+import UserInfo from '../UserInfo';
 import api from '../../api';
 
 function MyHive(props) {
@@ -19,9 +20,7 @@ function MyHive(props) {
                     Add a bee
                     <MDBIcon icon="plus" className="ml-1" />
                 </MDBBtn>
-                {userdata.bees && userdata.bees.map(bee => <div>
-                    {bee.playerName}
-                </div>)}
+                {userdata.bees && userdata.bees.map((bee, i) => <UserInfo key={i} userInfoData={bee}/>)}
                 {!beesExists && <p>No bees yet</p>}
 
                 {/* // MODAL ADD beeS //  */}
