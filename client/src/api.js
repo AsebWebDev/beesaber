@@ -83,11 +83,10 @@ export default {
   },
 
   saveUserData(userId, userdata) {
-    console.log("Save Userdata hit")
-    return service
-      .post('/user/' + userId, userdata)
-      .then(res => res.data)
-      .catch(errHandler)
+      return service
+        .post('/user/' + userId, userdata)
+        .then(res => res.data)
+        .catch(errHandler)
   },
 
   saveUserSettings(userId, settings, settingType) {
