@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import localeEmoji from 'locale-emoji';
+import avatar from '../media/251.jpg'
 
 export default class UserInfo extends Component {
 
     render() {
         const { userInfoData } = this.props;
-console.log(userInfoData);
+        const url = ( userInfoData.avatar === '/images/steam.png' || userInfoData.avatar === '/images/oculus.png')
+            ? avatar 
+            : `https://new.scoresaber.com/api/static/avatars/${userInfoData.playerId}.jpg`
         return (
             <div className="col-md-12">
                 <p>{userInfoData.userName} </p>
@@ -22,7 +25,8 @@ console.log(userInfoData);
                     <tbody>
                             <tr>
                                 <td>
-                                    <img src={`https://new.scoresaber.com/api/static/avatars/${userInfoData.playerId}.jpg`} alt="Avatar"/>
+                                    {/* <img src={`https://new.scoresaber.com/api/static/avatars/${userInfoData.playerId}.jpg`} alt="Avatar"/> */}
+                                    <img src={url} alt="Avatar"/>
                                 </td>
                                 <td>{localeEmoji(`${userInfoData.country}`)}&nbsp;{userInfoData.playerName}</td>
                                 <td>#{userInfoData.rank}</td>
