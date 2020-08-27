@@ -19,7 +19,8 @@ const userSchema = new Schema({
   scoreData: {
     lastSync: String, //lastSync currently not used
     scoresRecent: [],
-    scoresTop: []
+    scoresTop: [],
+    scoredSongsIds: []
   },
   bees: {
     type: Array,

@@ -43,9 +43,11 @@ function AddBeeModal(props) {
     const handleSave = async() => {
         if (!userAlreadyAdded) {
             await api.getScores(foundUser.playerId  ).then((scoresRecent) => {
+                const  scoredSongsIds = []
+                scoresRecent.forEach(element => scoredSongsIds.push(element.scoreId));
                 const scoresTop = [...scoresRecent] 
                 scoresTop.sort((a,b) => b.score - a.score )
-                const userdata = { ...foundUser, scoreData: { scoresRecent, scoresTop } }
+                const userdata = { ...foundUser, scoreData: { scoresRecent, scoresTop, scoredSongsIds } }
                 api.saveBee(props.userdata._id, userdata)
                     .then(userdata => {
                         props.dispatch(newNotification("User " + foundUser.playerName + " successfully added."))
