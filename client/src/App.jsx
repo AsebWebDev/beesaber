@@ -20,7 +20,7 @@ function App(props) {
     let dataUpdateNeeded = false; 
 
     // check if Database latest Score is different from Scoresaber...
-    if (scoreDataExist) await api.dataUpdateNeeded(userdata.scoreData.scoresRecent[0], userdata.myScoreSaberId)
+    if (scoreDataExist) await api.dataUpdateNeeded(userdata.scoreData.scoresRecent, userdata.myScoreSaberId)
         .then(result => {
           console.log("Data refresh needed?: ", result)
           dataUpdateNeeded = result
