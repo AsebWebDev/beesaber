@@ -83,11 +83,10 @@ export default {
   },
 
   saveUserData(userId, userdata) {
-    console.log("Save Userdata hit")
-    return service
-      .post('/user/' + userId, userdata)
-      .then(res => res.data)
-      .catch(errHandler)
+      return service
+        .post('/user/' + userId, userdata)
+        .then(res => res.data)
+        .catch(errHandler)
   },
 
   saveUserSettings(userId, settings, settingType) {
@@ -109,11 +108,10 @@ export default {
     
     await axios(url, { validateStatus: false })
     .then(scoreReply => {
-    // console.log("getScoreSaberUserInfo -> scoreReply", scoreReply)
       if (scoreReply.status === 404 || scoreReply.status === 429 || scoreReply.status === 422)  {
         return null
       }
-      else result=scoreReply.data
+      else result = { ...scoreReply.data.playerInfo, ...scoreReply.data.scoreStats }
     })
     return result
   },
@@ -129,29 +127,49 @@ export default {
       .catch(errHandler)
   },
 
+  updateBeeScore(userId, bees) {
+    return service
+      .post('/user/' + userId + '/bee/update', bees)
+      .then(res => res.data)
+      .catch(errHandler)
+  },
+
   // ==========
   // Scores
   // ==========
 
-  async getScores(currentID, sorting='recent') {
-    let scores = []
+  async getScores(currentID) {
+    let scoreData
+    let scoresRecent = []
     const fetchData = async () => {
       let count = 1;
       let noResult = false
       while (!noResult) {
-        await axios('https://new.scoresaber.com/api/player/'+ currentID +'/scores/'+sorting+'/'+ count++, { validateStatus: false })
+        await axios('https://new.scoresaber.com/api/player/'+ currentID +'/scores/recent/'+ count++, { validateStatus: false })
           .then(scoreReply => {
             if (scoreReply.status === 404 || scoreReply.status === 429 || scoreReply.status === 422)  {
               noResult = true;
-              return scores
+              return scoresRecent
             }
-            else scores.push(...scoreReply.data.scores)
+            else scoresRecent.push(...scoreReply.data.scores)
           })
       }; 
     }
 
     await fetchData()
-    return scores
+
+    // PREPARE DATE FOR RETURNING 
+    const scoresTop = [...scoresRecent] 
+    scoresTop.sort((a,b) => b.score - a.score )
+    const scoredSongsIds = []
+    scoresRecent.forEach(element => scoredSongsIds.push(element.scoreId));
+    
+    scoreData = {
+      scoresRecent,
+      scoresTop, 
+      scoredSongsIds
+    }
+    return scoreData
   },
 
   async getlatestScore(currentID) {
@@ -170,21 +188,25 @@ export default {
     return score
   },
 
-  async dataUpdateNeeded(currentData, currentID) {
+  async dataUpdateNeeded(currentTotalPlayCount, currentId) {
     let latestFetchedScore = null
 
     const fetchData = async () => {
-        await axios('https://new.scoresaber.com/api/player/'+ currentID +'/scores/recent/1', { validateStatus: false })
+        await axios('https://new.scoresaber.com/api/player/'+ currentId +'/full', { validateStatus: false })
           .then(scoreReply => {
             if (scoreReply.status === 404 || scoreReply.status === 429 || scoreReply.status === 422)  {
               return null
             }
-            else latestFetchedScore = scoreReply.data.scores
+            else latestFetchedScore = scoreReply.data.scoreStats.totalPlayCount
           })
     }
 
     await fetchData()
-    if (latestFetchedScore && currentData) return (latestFetchedScore[0].timeSet !== currentData[0].timeSet)
+    console.log("dataUpdateNeeded -> currentTotalPlayCount", currentTotalPlayCount)
+    console.log("dataUpdateNeeded -> latestFetchedScore", latestFetchedScore)
+    if (latestFetchedScore && currentTotalPlayCount) return (latestFetchedScore !== currentTotalPlayCount)
+  
+   
   } 
 }
 

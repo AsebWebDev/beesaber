@@ -7,6 +7,10 @@ const userSchema = new Schema({
   password: String,
   googleId: String,
   profilePic: String,
+  totalPlayCount: Number,
+  county: String, 
+  rank: Number, 
+  countryRank: Number,
   isAdmin: {
     type: Boolean,
     default: false
@@ -16,14 +20,19 @@ const userSchema = new Schema({
     type: String,
     default: null
   },
+  notifications: {
+    type: Array,
+    default: []
+  },
   scoreData: {
     lastSync: String, //lastSync currently not used
     scoresRecent: [],
-    scoresTop: []
+    scoresTop: [],
+    scoredSongsIds: []
   },
   bees: {
     type: Array,
-    default: null
+    default: []
   }
 }, {
     timestamps: {
