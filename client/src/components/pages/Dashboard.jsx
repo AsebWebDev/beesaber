@@ -11,10 +11,6 @@ function Dashboard(props) {
     const { scoreData } = userdata;
     const myScoreSaberId = (userdata) ? (userdata.myScoreSaberId) : null;
 
-    useEffect(() => {
-        console.log("Dashboard useeffect")
-    }, [userdata])
-
     return (
         <div>
             <h1>Dashboard</h1>
