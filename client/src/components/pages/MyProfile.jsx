@@ -17,9 +17,12 @@ function MyProfile(props) {
     const handleChange = (e) => setMyScoreSaberId(e.target.value)
 
     const handleSave = () => {
-        const userdata = { ...props.userdata, myScoreSaberId }
-        api.saveUserData(props.userdata._id, userdata)
-        dispatch({ type: "UPDATE_USER_DATA", userdata })
+        api.getScoreSaberUserInfo(myScoreSaberId, 'id')
+            .then(scoreSaberUserInfo => {
+                const userdata = { ...props.userdata, ...scoreSaberUserInfo, myScoreSaberId }
+                api.saveUserData(props.userdata._id, userdata)
+                dispatch({ type: "UPDATE_USER_DATA", userdata })
+            })       
     }
 
     if ( api.isLoggedIn() ) {
