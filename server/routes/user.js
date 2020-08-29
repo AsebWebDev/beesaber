@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
 const { isLoggedIn } = require('../middlewares')
 const User = require("../models/User")
 
@@ -28,7 +29,26 @@ router.get('/:id/', isLoggedIn, (req, res, next) => {
   .catch(err => next(err))
 });
 
+router.post('/:id/bee/update', isLoggedIn, (req, res, next) => {
+  console.log("'/:id/bee/update' -> SET")
+  console.log("params", req.params.id)
+
+  if (req.params.id !== undefined) {
+    User.findByIdAndUpdate({
+      "_id": req.params.id
+    }, {$set: {bees: req.body}},{safe: true, new: true})
+    .then(userDoc => {  
+      if (!userDoc) {
+        next(new Error("Could not find user."))
+        return
+      } 
+      res.json(userDoc)
+    }).catch(err => next(err))
+  } else console.log("No ID in Params")
+});
+
 router.post('/:id/bee', isLoggedIn, (req, res, next) => {
+  console.log("'/:id/bee' -> PUSH")
   User.findByIdAndUpdate(req.params.id, {$push: {"bees": req.body}},{safe: true, upsert: true, new: true})
   .then(userDoc => {  
     if (!userDoc) {
@@ -36,8 +56,7 @@ router.post('/:id/bee', isLoggedIn, (req, res, next) => {
       return
     } 
     res.json(userDoc)
-  })
-  .catch(err => next(err))
+  }).catch(err => next(err))
 });
 
 // router.get('/:id/settings', isLoggedIn, (req, res, next) => {
