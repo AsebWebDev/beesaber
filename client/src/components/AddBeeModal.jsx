@@ -4,11 +4,12 @@ import {    MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBMod
             MDBTabPane, MDBTabContent, MDBNav, MDBNavItem, MDBNavLink, MDBInput
         } from 'mdbreact';
 import { newNotification } from '../actioncreators'
+import UserInfo from './UserInfo.jsx';
 import api from '../api';
 import '../styles/AddBeeModal.scss'
-import UserInfo from './UserInfo.jsx';
 
 function AddBeeModal(props) {
+    const { dispatch } = props
 
     let [activeItem, setActiveItem] = useState('1')
     let [query, setQuery] = useState('')
@@ -27,10 +28,9 @@ function AddBeeModal(props) {
         api.getScoreSaberUserInfo(query, mode)
             .then(result => {
                 let foundUser = null
-                if (mode === 'id') foundUser = result ? { ...result.playerInfo, ...result.scoreStats } : null
+                if (mode === 'id') foundUser = result ? result : null
                 if (mode === 'username') foundUser = result ? { ...result.players[0] } : null
                 // if (mode === 'username') foundUser = result ? { ...result.players } : null //TODO: Integrate multiple users found
-                console.log("handleSearch -> foundUser", foundUser)
                 setFoundUser(foundUser)
             })
     }
@@ -42,16 +42,13 @@ function AddBeeModal(props) {
 
     const handleSave = async() => {
         if (!userAlreadyAdded) {
-            await api.getScores(foundUser.playerId  ).then((scoresRecent) => {
-                const  scoredSongsIds = []
-                scoresRecent.forEach(element => scoredSongsIds.push(element.scoreId));
-                const scoresTop = [...scoresRecent] 
-                scoresTop.sort((a,b) => b.score - a.score )
-                const userdata = { ...foundUser, scoreData: { scoresRecent, scoresTop, scoredSongsIds } }
+            await api.getScores(foundUser.playerId).then((scoreData) => {
+                const userdata = { ...foundUser, scoreData }
                 api.saveBee(props.userdata._id, userdata)
                     .then(userdata => {
-                        props.dispatch(newNotification("User " + foundUser.playerName + " successfully added."))
-                        props.dispatch({ type: "UPDATE_USER_DATA", userdata })
+                        console.log("handleSave -> userdata", userdata)
+                        dispatch(newNotification("User " + foundUser.playerName + " successfully added."))
+                        dispatch({ type: "UPDATE_USER_DATA", userdata })
                         cleanUp()
                     })
             })
