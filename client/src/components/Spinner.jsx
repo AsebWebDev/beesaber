@@ -8,7 +8,7 @@ export default function Spinner(props) {
     return (
         <div id="spinner">
             <div className="spinner-border text-warning" role="status">
-                <span><img id="minilogo" src={minilogo}/></span>
+                <span><img id="minilogo" src={minilogo} alt="loading-icon"/></span>
             </div>
             {text}  
         </div>
