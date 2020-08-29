@@ -36,7 +36,6 @@ import {
         return {
           ...newState,
           userdata: action.userdata
-  
         }
       }
       
