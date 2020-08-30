@@ -1,25 +1,21 @@
 import { 
-    GET_DATA, 
     ADD_NOTIFICATION, 
     UPDATE_USER_DATA,
+    SET_FETCH_STATUS
   } from '../actioncreators';
   
   const initialState = {
       userdata: {},
       notifications: [],
-      userDataNeedsRefresh: false,
-      beesDataNeedsReresh: false
+      fetchingData: { 
+        status: false,
+        statusText: null
+      }
   }
   
   export default function rootReducer(state=initialState, action) {
     let newState = { ...state }
     switch(action.type) {
-      case GET_DATA: {
-        return {
-          ...newState,
-          collections: action.collections
-        };
-      }
   
       case ADD_NOTIFICATION: {
         return {
@@ -36,6 +32,16 @@ import {
         return {
           ...newState,
           userdata: action.userdata
+        }
+      }
+
+      case SET_FETCH_STATUS: {
+        return {
+          ...newState,
+          fetchingData: {
+            status: action.fetchingData.status,
+            text: action.fetchingData.text
+          }
         }
       }
       

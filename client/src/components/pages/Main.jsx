@@ -8,9 +8,10 @@ import MyHive from './MyHive';
 import GoolgeLogin from '../GoolgeLogin';
 import '../../styles/pages/Main.scss'
 import api from '../../api';
+import Spinner from '../Spinner';
 
 function Main(props) {
-    const { dispatch, userdata } = props;
+    const { dispatch, userdata, fetchingData } = props;
 
     let handleLogout = () => {
         api.logout();
@@ -21,20 +22,30 @@ function Main(props) {
     return (
         <div id="main">
             <div id="header">
-                {/* Google Profile Data */}
-                {api.isLoggedIn() && userdata && 
-                    <div id="profile-login-icon">
-                        {userdata.profilePic && <img src={userdata.profilePic} id="profile-pic-sm" alt="profile pic"/>}
-                        {userdata.username}
-                    </div>
-                }
-                {/* TODO: Move Google Login right */}
-                {!api.isLoggedIn() && <GoolgeLogin id="googlelogin"/>} 
-                {api.isLoggedIn() && 
-                    <MDBBtn onClick={handleLogout} size="sm" color="danger">
-                        Logout
-                        <MDBIcon icon="sign-out-alt" className="ml-1" />
-                    </MDBBtn>}
+                <div className="headerpart" id="header-left">
+                    {/* Google Profile Data */}
+                    {api.isLoggedIn() && userdata && 
+                                        <div id="profile-login-icon">
+                                            {userdata.profilePic && <img src={userdata.profilePic} id="profile-pic-sm" alt="profile pic"/>}
+                                            {userdata.username}
+                                        </div>
+                                    }
+                </div>
+                <div className="headerpart" id="header-center">
+                    {/* Fechting Data Status Update */}
+                    {(fetchingData.status) && <Spinner text="Updating data..." />}
+                </div>
+                <div className="headerpart" id="header-right">
+                    {/* TODO: Move Google Login right */}
+                    {!api.isLoggedIn() && <GoolgeLogin id="googlelogin"/>} 
+                    {api.isLoggedIn() && 
+                        <MDBBtn onClick={handleLogout} size="sm" color="danger">
+                            Logout
+                            <MDBIcon icon="sign-out-alt" className="ml-1" />
+                        </MDBBtn>}
+                </div>
+
+                
                 
             </div>
             <Switch>
@@ -49,7 +60,8 @@ function Main(props) {
 
 function mapStateToProps(reduxState){
     return {
-        userdata: reduxState.userdata
+        userdata: reduxState.userdata,
+        fetchingData: reduxState.fetchingData
     }
   }
   
