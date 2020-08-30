@@ -5,15 +5,17 @@ const { isLoggedIn } = require('../middlewares')
 const User = require("../models/User")
 
 router.post('/:id/', isLoggedIn, (req, res, next) => {
-    User.findByIdAndUpdate(req.params.id, req.body)
-    .then(userDoc => {  
-      if (!userDoc) {
-        next(new Error("Could not find user."))
-        return
-      } 
-      res.json(userDoc)
-    })
-    .catch(err => next(err))
+    if( mongoose.Types.ObjectId.isValid(req.params.id) ) {
+      User.findByIdAndUpdate(req.params.id, req.body)
+      .then(userDoc => {  
+        if (!userDoc) {
+          next(new Error("Could not find user."))
+          return
+        } 
+        res.json(userDoc)
+      }).catch(err => next(err))
+    } else next(new Error("Invalid Mongoos User ID"))
+    
 });
 
 router.get('/:id/', isLoggedIn, (req, res, next) => {

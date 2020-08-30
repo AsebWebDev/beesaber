@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { checkForNews } from './helper/checkForNews'
 
 const service = axios.create({
   baseURL: process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:5000/api',
@@ -83,6 +84,9 @@ export default {
   },
 
   saveUserData(userId, userdata) {
+      console.log("saveUserData -> userdata", userdata)
+      console.log("saveUserData -> userId", userId)
+      console.log("Saving User Data...")
       return service
         .post('/user/' + userId, userdata)
         .then(res => res.data)
@@ -138,14 +142,14 @@ export default {
   // Scores
   // ==========
 
-  async getScores(currentID) {
+  async getScores(currentId) {
     let scoreData
     let scoresRecent = []
     const fetchData = async () => {
       let count = 1;
       let noResult = false
       while (!noResult) {
-        await axios('https://new.scoresaber.com/api/player/'+ currentID +'/scores/recent/'+ count++, { validateStatus: false })
+        await axios('https://new.scoresaber.com/api/player/'+ currentId +'/scores/recent/'+ count++, { validateStatus: false })
           .then(scoreReply => {
             if (scoreReply.status === 404 || scoreReply.status === 429 || scoreReply.status === 422)  {
               noResult = true;
@@ -172,10 +176,10 @@ export default {
     return scoreData
   },
 
-  async getlatestScore(currentID) {
+  async getlatestScore(currentId) {
     let score = null
     const fetchData = async () => {
-        await axios('https://new.scoresaber.com/api/player/'+ currentID +'/scores/recent/1', { validateStatus: false })
+        await axios('https://new.scoresaber.com/api/player/'+ currentId +'/scores/recent/1', { validateStatus: false })
           .then(scoreReply => {
             if (scoreReply.status === 404 || scoreReply.status === 429 || scoreReply.status === 422)  {
               return score
@@ -207,6 +211,44 @@ export default {
     if (latestFetchedScore && currentTotalPlayCount) return (latestFetchedScore !== currentTotalPlayCount)
   
    
+  },
+
+  async updateData(currentId, _id) {
+    let dbUserData, ssUserData, newUserData, checkForNewsResult
+    let updatedNews = []
+    let needsUpdate = false
+    // GET USERDATA FROM DATABASE
+    await this.getUserData(_id).then(result => dbUserData = result)
+    
+    // GET USERDATA FROM SCORESABER
+    await this.getScoreSaberUserInfo(currentId, 'id').then(result => ssUserData = result)
+
+    // PREPARE NEW USERDATA
+    newUserData = { ...dbUserData, ...ssUserData }
+
+    // CHECK FOR CHANGES ON FRIENDS
+    await checkForNews(dbUserData).then(result => checkForNewsResult = result)
+
+    // CREATE NEWS FROM CHANGES
+      // CHECK FOR CHANGES ON OWN DATA ( DB vs. SCORESABER )
+      if (dbUserData && ssUserData) {
+        if(dbUserData.totalPlayCount !== ssUserData.totalPlayCount) {
+          needsUpdate = true
+          const diff = ssUserData.totalPlayCount - dbUserData.totalPlayCount
+          updatedNews.push(`You gained ${diff} new Scores!`)
+          await this.getScores(currentId).then( result => newUserData = { ...newUserData, scoreData: result })
+        }
+      }
+      // FRIENDS
+        if (!!checkForNewsResult.news.length) {                         // ==> Changes Exists
+          needsUpdate = true
+          updatedNews = [ ...updatedNews, ...checkForNewsResult.news]   // Push new News to news Array
+          newUserData.bees = checkForNewsResult.bees                    // Use updated Bees that comes from checkForNews
+        }
+
+    // RETURN NEW USERDATA AND NEW TO SHOW IN NOTIFICATIONS
+        newUserData = { ...newUserData, news: [...newUserData.news, ...updatedNews] }
+        return { newUserData, updatedNews, needsUpdate }
   } 
 }
 
