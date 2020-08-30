@@ -1,5 +1,4 @@
 import { 
-    GET_DATA, 
     ADD_NOTIFICATION, 
     UPDATE_USER_DATA,
   } from '../actioncreators';
@@ -14,12 +13,6 @@ import {
   export default function rootReducer(state=initialState, action) {
     let newState = { ...state }
     switch(action.type) {
-      case GET_DATA: {
-        return {
-          ...newState,
-          collections: action.collections
-        };
-      }
   
       case ADD_NOTIFICATION: {
         return {
