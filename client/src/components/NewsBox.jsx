@@ -1,12 +1,22 @@
 import React from 'react'
+import { connect } from 'react-redux';
+
 import '../styles/NewsBox.scss'
 
-export default function NewsBox() {
+function NewsBox(props) {
+    const news = props.userdata.news.slice(0,5)
     return (
         <div id="newsbox" className="card-container">
             <h3>NewsBox</h3>
-            <p>Bee XX beats Bee YY on Song XY</p>
-            <p>Bee 12 hit a new highscore on Song XY</p>
+            {news.map(oneNews => <div>{oneNews.text}</div>)}
         </div>
     )
 }
+
+function mapStateToProps(reduxState){
+    return {
+      userdata: reduxState.userdata,
+    }
+  }
+  
+export default connect(mapStateToProps)(NewsBox)
