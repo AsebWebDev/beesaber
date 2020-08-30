@@ -22,7 +22,7 @@ function Notification (props) {
                         icon={returnNotificationSymbol(notification.typeOfNotification)}
                         iconClassName={returnNotificationColor(notification.typeOfNotification)}
                         title={notification.typeOfNotification}
-                        message={notification.notification}
+                        message={notification.notification.text}
                         text={<TimeAgo date={notification.created} formatter={formatter} />}                        
                         />
                     </div>

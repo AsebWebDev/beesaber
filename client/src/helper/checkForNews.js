@@ -16,7 +16,8 @@ export async function checkForNews(userdata) {
                 if (newTotalPlayCount !== oldTotalPlayCount) {                              // if different === new highscores exist
                     const numPlayedMore = newTotalPlayCount - oldTotalPlayCount             // calc the difference
                     if (userInfo) console.log(userInfo.playerName, " played ", numPlayedMore, " more!")
-                    if (userInfo) news.push(`Your Bee ${userInfo.playerName} played ${numPlayedMore} new songs!`)
+                    // if (userInfo) news.push(`Your Bee ${userInfo.playerName} played ${numPlayedMore} new songs!`)
+                    if (userInfo) news.push({text: `Your Bee ${userInfo.playerName} played ${numPlayedMore} new songs!`, type:"newSong", date: new Date() })
                     await api.getScores(playerId)                                           // FETCH SCORES for current Bee
                         .then(scoreData => {
                             if (scoreData && scoreData.scoresRecent) {
@@ -30,7 +31,8 @@ export async function checkForNews(userdata) {
                                         const myScore = myScoreIds.filter(item => item.scoreId === scoresRecent[j].scoreId).score 
                                         // const myScore = 279100 //FIXME: For testing...
                                         if (score > myScore) {
-                                            news.push(`Your Bee ${playerName} beat you at ${songName} (${songAuthorName}): ${score} ( You: ${myScore}  ) `)
+                                            // news.push(`Your Bee ${playerName} beat you at ${songName} (${songAuthorName}): ${score} ( You: ${myScore}  ) `)
+                                            news.push({text: `Your Bee ${playerName} beat you at ${songName} (${songAuthorName}): ${score} ( You: ${myScore}  ) `, type: "beatScore", date: new Date()})
                                         }                           
                                     }
                                 }
@@ -40,5 +42,6 @@ export async function checkForNews(userdata) {
                 } 
             })
     }
+    console.log("checkForNews -> news", news)
     return { news, bees }
 };

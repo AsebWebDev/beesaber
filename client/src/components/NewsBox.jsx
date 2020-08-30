@@ -8,7 +8,7 @@ function NewsBox(props) {
     return (
         <div id="newsbox" className="card-container">
             <h3>NewsBox</h3>
-            {news.map(oneNews => <div>{oneNews}</div>)}
+            {news.map(oneNews => <div>{oneNews.text}</div>)}
         </div>
     )
 }
