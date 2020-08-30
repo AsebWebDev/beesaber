@@ -20,7 +20,7 @@ const userSchema = new Schema({
     type: String,
     default: null
   },
-  notifications: {
+  news: {
     type: Array,
     default: []
   },

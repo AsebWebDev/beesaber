@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { checkForNews } from './helper/checkForNews'
 import { newNotification } from './actioncreators'
 import api from './api';
 import Menu from './components/pages/Menu';
@@ -10,67 +9,43 @@ import './styles/pages/App.scss';
 
 function App(props) {
   const { dispatch, userdata, notifications } = props;
-  const { bees, scoreData, _id } = userdata
+  const { _id } = userdata
   const myScoreSaberId = (userdata) ? userdata.myScoreSaberId : null; // get ScoreSaberID from Store or use null
   let intervalUpdatecheck = (userdata & userdata.settings) // set Interval Frequency
                                   ? userdata.settings.Performance.intervalUpdatecheck // get Interval Frequency for cheking data
-                                  : 9000 // or use 2 minutes as default 120000
+                                  : 15000 // or use 2 minutes as default 120000
 
   const fetchData = async () => {
     console.log("Updating your data...")
-    const { scoresRecent, scoredSongsIds } = userdata.scoreData
-    let scoreDataExist = (scoresRecent && scoresRecent.length > 0 && userdata.totalPlayCount) //check for any Scoredata
-    let dataUpdateNeeded = false; 
-
-    // check if Database latest Score is different from Scoresaber...
-    if (scoreDataExist) await api.dataUpdateNeeded(userdata.totalPlayCount, userdata.myScoreSaberId)
-        .then(result => {
-          console.log("Data refresh needed?: ", result)
-          dataUpdateNeeded = (result) ? result : null
-          // dataUpdateNeeded = true //FIXME: Testing...
-        })
-
-    //... if yes / or no Data ever has been fetched, get all Scores
-    if (dataUpdateNeeded || !scoreDataExist) {
-      await api.getScores(myScoreSaberId)
-        .then((scoreData) => {
-          api.getScoreSaberUserInfo(myScoreSaberId, 'id')
-            .then(scoreSaberUserInfo => {
-              const userdata = { ...props.userdata, ...scoreSaberUserInfo, scoreData }
-              api.saveUserData(userdata._id, userdata)
-              dispatch({ type: "UPDATE_USER_DATA", userdata })
-            })
-      })
-    }
-    dispatch(newNotification("Updated your data..."))
+    await api.updateData(myScoreSaberId, _id).then(async result => {
+      const { updatedNews, newUserData, needsUpdate } = result
+      console.log("UPDATE DATA RESULT: ", result)
+      if (!!updatedNews.length) updatedNews.map( news => dispatch(newNotification(news) ) )
+      if (needsUpdate) await api.saveUserData(_id, newUserData)
+        .then(() => dispatch({ type: "UPDATE_USER_DATA", userdata: newUserData }))
+    })
   }
 
   // GET BASIC USERDATA FROM BACKEND DATABASE
   useEffect(() => {
     if (api.isLoggedIn() && api.getLocalStorageUser()) {
       const { _id } = api.getLocalStorageUser()
-      api.getUserData(_id).then(userdata => {
-        dispatch({ type: "UPDATE_USER_DATA", userdata })
-      })
+      api.getUserData(_id).then(userdata => dispatch({ type: "UPDATE_USER_DATA", userdata }) )
     }
   }, [dispatch])
 
-  // GET SCORES ONCE & THEN REGULARLY FROM SCORESABER WHEN ID EXISTS
+  // GET SCORES ONCE
   useEffect(() => {
     if (myScoreSaberId) fetchData(myScoreSaberId) // check for data once when new id is provided 
-  }, [myScoreSaberId, userdata.totalPlayCount])
-
-
-  useEffect(() => {
-    if (userdata && bees && scoreData && scoreData.scoresRecent && _id ) checkForNews(bees, scoreData.scoresRecent, scoreData.scoredSongsIds, _id)
-        .then(async result =>  {
-          let data = { ...userdata, bees: result.bees}
-          await api.saveUserData(_id, data)
-            .then(() => dispatch({ type: "UPDATE_USER_DATA", userdata: data }))
-            dispatch({ type: "UPDATE_USER_DATA", userdata: data })
-    })
-      // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [myScoreSaberId])
+
+
+
+  // CHECK REGULARLY FOR UPDATES
+  useEffect(() => {
+    const id = setInterval(() => fetchData(), intervalUpdatecheck);
+    return () => clearInterval(id)
+  }, [userdata])
 
   return (
     <div id="App">
