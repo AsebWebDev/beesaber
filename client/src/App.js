@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { newNotification } from './actioncreators'
+import { newNotification, setFetchStatus } from './actioncreators'
 import api from './api';
 import Menu from './components/pages/Menu';
 import Main from './components/pages/Main';
@@ -13,10 +13,10 @@ function App(props) {
   const myScoreSaberId = (userdata) ? userdata.myScoreSaberId : null; // get ScoreSaberID from Store or use null
   let intervalUpdatecheck = (userdata & userdata.settings) // set Interval Frequency
                                   ? userdata.settings.Performance.intervalUpdatecheck // get Interval Frequency for cheking data
-                                  : 15000 // or use 2 minutes as default 120000
+                                  : 120000 // or use 2 minutes as default 120000
 
   const fetchData = async () => {
-    console.log("Updating your data...")
+    dispatch(setFetchStatus(true, 'Checking data...'))
     await api.updateData(myScoreSaberId, _id).then(async result => {
       const { updatedNews, newUserData, needsUpdate } = result
       console.log("UPDATE DATA RESULT: ", result)
@@ -24,6 +24,7 @@ function App(props) {
       if (needsUpdate) await api.saveUserData(_id, newUserData)
         .then(() => dispatch({ type: "UPDATE_USER_DATA", userdata: newUserData }))
     })
+    dispatch(setFetchStatus(false))
   }
 
   // GET BASIC USERDATA FROM BACKEND DATABASE
@@ -68,7 +69,8 @@ function App(props) {
 function mapStateToProps(reduxState){
   return {
     userdata: reduxState.userdata,
-    notifications: reduxState.notifications
+    notifications: reduxState.notifications,
+    fetchingData: reduxState.fetchingData
   }
 }
 
