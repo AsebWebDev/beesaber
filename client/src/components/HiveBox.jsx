@@ -1,11 +1,20 @@
 import React from 'react'
+import { connect } from 'react-redux';
 import '../styles/HiveBox.scss'
 
-export default function HiveBox() {
+function HiveBox(props) {
     return (
         <div id="hivebox" className="card-container">
             <h3>HiveBox</h3>
-            <p>Small List of Friends, like Scores, Pagination</p>
+            {props.userdata.bees.slice(0,5).map(bee => <p>{bee.playerName}</p>)}
         </div>
     )
 }
+
+function mapStateToProps(reduxState){
+    return {
+      userdata: reduxState.userdata,
+    }
+  }
+  
+export default connect(mapStateToProps)(HiveBox)
