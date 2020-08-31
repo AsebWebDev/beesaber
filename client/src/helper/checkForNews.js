@@ -19,6 +19,10 @@ export async function checkForNews(userdata) {
                     // if (userInfo) news.push(`Your Bee ${userInfo.playerName} played ${numPlayedMore} new songs!`)
                     if (userInfo) news.push({
                         text: `Your Bee ${userInfo.playerName} played ${numPlayedMore} new songs!`, 
+                        title: `Your Bee ${userInfo.playerName} played ${numPlayedMore} new songs!`,
+                        bee: userInfo.playerName,
+                        numPlayedMore,
+                        type: "morePlayed",
                         date: new Date() 
                     })
                     await api.getScores(playerId)                                           // FETCH SCORES for current Bee
