@@ -18,3 +18,29 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.neon-red {
+  color: #ff0025;
+}
+
+.neon-blue {
+  color: blue;
+}
+
+.neon-red,
+.neon-blue {
+  -webkit-transition: color 0.6s ease-out, text-shadow 0.6s ease-out;
+  -moz-transition: color 0.6s ease-out, text-shadow 0.6s ease-out;
+  -o-transition: color 0.6s ease-out, text-shadow 0.6s ease-out;
+  transition: color 0.6s ease-out, text-shadow 0.6s ease-out;
+}
+
+a:hover .neon-red {
+  color:  #fff0f0;
+  text-shadow: #ff0025 -2px -1px 5px, #ff0025 2px 1px 5px, #ff0025 0px 0px 10px, #ff0025 0px 0px 15px, #ff0025 0px 0px 20px, #ff0025 0px 0px 30px;
+}
+
+a:hover .neon-blue {
+  color: #edf5ff;
+  text-shadow: blue -2px -1px 5px, blue 2px 1px 5px, blue 0px 0px 10px, blue 0px 0px 15px, blue 0px 0px 20px, blue 0px 0px 30px;
+}

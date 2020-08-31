@@ -1,25 +1,83 @@
 #menu {
     width: 20%;
+    height: 100vh;
+    position: fixed;
     display: flex;
     flex-direction: column;
     align-items: center;
-
+    font-family: 'NeonTubes2';
+    background-color: #00111f;
+    padding: 25px 20px;
+    
     #brandlogo {
+        position: relative;
+        height: 150px;
+        width: 150px;
+        font-size: 80px;
+
+        .neon-yellow {
+            color: #fffcdd;;
+            text-shadow: #ffeb00 -2px -1px 5px, #ffeb00 2px 1px 5px, #ffeb00 0px 0px 10px, #ffeb00 0px 0px 15px, #ffeb00 0px 0px 20px, #ffeb00 0px 0px 30px;
+        }
+        
+        div {
+            position: absolute;
+            transform-origin: center;
+        }
+
+        div:first-child {
+            transform: rotate(90deg) translate(-30px, -67px);
+        }
+
+        div:nth-child(2) {
+            transform: rotate(150deg) translate(-101px, -54px);
+        }
+
+        div:nth-child(3) {
+            transform: rotate(30deg) translate(124px, -14px);
+        }
+
+        div:nth-child(4) {
+            transform: rotate(90deg) translate(76px, -67px);
+        }
+
+        div:nth-child(5) {
+            transform: rotate(150deg) translate(8px, -53px);
+        }
+
+        div:nth-child(6) {
+            transform: rotate(30deg) translate(15px, -13px);
+        }
+
         img {
-            width: 100%
+            width: 95%;
+        }
+    }
+    
+    #menu-main {
+        margin-top: 20px;
+        
+        .beesaber-title {
+            text-align: center;
+            margin-bottom: 20px;
+
+            .neon-red {
+                color: #fff0f0;;
+                text-shadow: #ff0025 -2px -1px 5px, #ff0025 2px 1px 5px, #ff0025 0px 0px 10px, #ff0025 0px 0px 15px, #ff0025 0px 0px 20px, #ff0025 0px 0px 30px;
+            }
+
+            .neon-blue {
+                color: #edf5ff;
+                text-shadow: blue -2px -1px 5px, blue 2px 1px 5px, blue 0px 0px 10px, blue 0px 0px 15px, blue 0px 0px 20px, blue 0px 0px 30px;
+            }
+        }
+
+        a {
+            display: block;
+            font-size: 1.4rem;
+            text-align: center;
+            margin-bottom: 10px;
         }
     }
 
-    #menu-main {
-        height: 100vh;
-    }
-
-    li {
-        text-decoration: none;
-        list-style: none; 
-    }
-    a {
-        color: black;
-
-    }
 }
