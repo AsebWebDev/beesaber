@@ -1,3 +1,10 @@
+@font-face{
+  font-family:"NeonTubes2";
+  src:url("./styles/fonts/NeonTubes2.otf") format("woff"),
+  url("./styles/fonts/NeonTubes2.otf") format("opentype"),
+  url("./styles/fonts/NeonTubes2.otf") format("truetype");
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
