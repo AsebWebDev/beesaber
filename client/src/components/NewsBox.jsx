@@ -11,7 +11,6 @@ function NewsBox(props) {
     return (
         <div id="newsbox" className="card-container">
             <h3>NewsBox</h3>
-            <DiffTag diff="1"/>
             {news.map(oneNews => <OneNews oneNews={oneNews}/>)}
         </div>
     ) 
