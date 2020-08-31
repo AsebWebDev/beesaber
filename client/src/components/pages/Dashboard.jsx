@@ -21,11 +21,11 @@ function Dashboard(props) {
                         <div id="dashboard-top"> 
                             <ScoreBox data={scoreData.scoresRecent} />
                             <div id="dashboard-right">
-                                <HiveBox />
                                 <NewsBox />
                             </div> 
                         </div>
                         <div id="dashboard-bottom"> 
+                            <HiveBox />
                         </div>
                     </div>
                 }
