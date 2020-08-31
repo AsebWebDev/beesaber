@@ -17,7 +17,10 @@ export async function checkForNews(userdata) {
                     const numPlayedMore = newTotalPlayCount - oldTotalPlayCount             // calc the difference
                     if (userInfo) console.log(userInfo.playerName, " played ", numPlayedMore, " more!")
                     // if (userInfo) news.push(`Your Bee ${userInfo.playerName} played ${numPlayedMore} new songs!`)
-                    if (userInfo) news.push({text: `Your Bee ${userInfo.playerName} played ${numPlayedMore} new songs!`, type:"newSong", date: new Date() })
+                    if (userInfo) news.push({
+                        text: `Your Bee ${userInfo.playerName} played ${numPlayedMore} new songs!`, 
+                        date: new Date() 
+                    s})
                     await api.getScores(playerId)                                           // FETCH SCORES for current Bee
                         .then(scoreData => {
                             if (scoreData && scoreData.scoresRecent) {
@@ -28,11 +31,15 @@ export async function checkForNews(userdata) {
                                         const { songName, songAuthorName, score, difficulty } = scoresRecent[j]   // grab Song Infos
 
                                         // Get my score: filter my Songlist for same songId (can only be 1) and grab score
-                                        const myScore = myScoreIds.filter(item => item.scoreId === scoresRecent[j].scoreId).score 
-                                        // const myScore = 279100 //FIXME: For testing...
+                                        // const myScore = myScoreIds.filter(item => item.scoreId === scoresRecent[j].scoreId).score 
+                                        const myScore = 279100 //FIXME: For testing...
                                         if (score > myScore) {
                                             // news.push(`Your Bee ${playerName} beat you at ${songName} (${songAuthorName}): ${score} ( You: ${myScore}  ) `)
-                                            news.push({text: `Your Bee ${playerName} beat you at ${songName} (${songAuthorName}): ${score} ( You: ${myScore}  ) `, type: "beatScore", date: new Date()})
+                                            news.push({
+                                                text: `Your Bee ${playerName} beat you at ${songName} (${songAuthorName}): ${score} ( You: ${myScore}  ) `, 
+                                                type: "beatScore",
+                                                song: scoresRecent[j], 
+                                                date: new Date()})
                                         }                           
                                     }
                                 }
