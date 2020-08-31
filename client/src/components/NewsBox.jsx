@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux';
+import DiffTag from './DiffTag'
 
 import '../styles/NewsBox.scss'
 
@@ -8,6 +9,7 @@ function NewsBox(props) {
     return (
         <div id="newsbox" className="card-container">
             <h3>NewsBox</h3>
+            <DiffTag diff="1"/>
             {news.map(oneNews => <div>{oneNews.text}</div>)}
         </div>
     )
