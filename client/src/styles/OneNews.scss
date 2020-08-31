@@ -1,3 +1,25 @@
 #one-news{
-    margin: 1px;
+    margin: 10px;
+
+    .card-body {
+        padding: 10px;
+    }
+
+    .card-title {
+        display: flex;
+
+        span {
+            margin-right: 15px
+        }
+    }
+
+    .card-text {
+        margin: 0;
+    }
+
+    time {
+        font-size: 0.5rem;
+        margin: 2px;
+        align-self: flex-end;
+    }
 }
