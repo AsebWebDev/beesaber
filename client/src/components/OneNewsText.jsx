@@ -1,6 +1,5 @@
 import React from 'react'
 import BeeTag from './BeeTag'
-import { createNewsText } from "../helper/createNewsText";
 
 export default function OneNewsText(props) {
     const { type, diff, bee, song} = props.oneNews
