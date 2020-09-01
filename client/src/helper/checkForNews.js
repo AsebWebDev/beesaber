@@ -42,6 +42,9 @@ export async function checkForNews(userdata) {
                                             news.push({
                                                 text: `Your Bee ${playerName} beat you at ${songName} (${songAuthorName}): ${score} ( You: ${myScore}  ) `, 
                                                 type: "beatScore",
+                                                bee: playerName,
+                                                beeSocre: score,
+                                                myScore, 
                                                 song: scoresRecent[j], 
                                                 date: new Date()
                                             })
