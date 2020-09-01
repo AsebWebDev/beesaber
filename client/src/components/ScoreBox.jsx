@@ -38,7 +38,8 @@ class ScoreBox extends Component {
         return (
             <div id="scorebox" className="card-container">
                 <div className="col-md-12">
-                    <h6 style={{"textAlign":"left", "marginTop":"20px", "marginBottom":"20px"}}>Latest Scores:</h6>
+                    {/* <h6 style={{"textAlign":"left", "marginTop":"20px", "marginBottom":"20px"}}>Latest Scores:</h6> */}
+                    <h3>Latest Scores</h3>
                     <table className="table table-box table-hover">
                         <thead>
                         <tr>
