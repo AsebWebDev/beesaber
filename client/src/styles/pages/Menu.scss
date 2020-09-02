@@ -26,27 +26,27 @@
         }
 
         div:first-child {
-            transform: rotate(90deg) translate(-30px, -67px);
+            transform: rotate(90deg) translate(-36px, -68px);
         }
 
         div:nth-child(2) {
-            transform: rotate(150deg) translate(-101px, -54px);
+            transform: rotate(150deg) translate(-103px, -49px);
         }
 
         div:nth-child(3) {
-            transform: rotate(30deg) translate(124px, -14px);
+            transform: rotate(30deg) translate(120px, -19px);
         }
 
         div:nth-child(4) {
-            transform: rotate(90deg) translate(76px, -67px);
+            transform: rotate(90deg) translate(70px, -68px);
         }
 
         div:nth-child(5) {
-            transform: rotate(150deg) translate(8px, -53px);
+            transform: rotate(150deg) translate(2px, -49px);
         }
 
         div:nth-child(6) {
-            transform: rotate(30deg) translate(15px, -13px);
+            transform: rotate(30deg) translate(15px, -20px);
         }
 
         img {
@@ -55,7 +55,8 @@
     }
     
     #menu-main {
-        margin-top: 20px;
+        margin-top: 16px;
+        margin-bottom: 16px;
         
         .beesaber-title {
             text-align: center;
