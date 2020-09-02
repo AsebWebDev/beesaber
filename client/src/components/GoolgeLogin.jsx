@@ -8,11 +8,12 @@ import '../styles/GoolgeLogin.scss'
 
 function LoginBox(props) {
 
-  const responseOauth = (response) => {
+  const responseOauth = async (response) => {
+    console.log("responseOauth -> response", response)
     const googleId = response.googleId;
     const username = response.profileObj.name;
     const profilePic = response.profileObj.imageUrl;
-    api.googleLogin(googleId, username, profilePic)
+    await api.googleLogin(googleId, username, profilePic)
     .then(userdata => {
       if (userdata ) {
         props.dispatch({ type: "UPDATE_USER_DATA", userdata })
