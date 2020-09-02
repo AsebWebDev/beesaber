@@ -1,7 +1,7 @@
 import React from 'react'
 
 export default function OneNewsText(props) {
-    const { type, diff, bee, song} = props.oneNews
+    const { type, diff, bee, song, numPlayedMore} = props.oneNews
     console.log("OneNewsText -> props.oneNews", props.oneNews)
     const classNm = 'card-text'
     const beeNm = <b className="bee-yellow"><i className="fab fa-forumbee" aria-hidden="true"></i>  {bee}</b>
@@ -15,7 +15,7 @@ export default function OneNewsText(props) {
 
         case 'morePlayed': {
             return (<p className={classNm}>
-                Your Bee {beeNm} played <b>{diff}</b> new song{(diff > 1)?'s':''}!
+                {beeNm} played <b>{numPlayedMore}</b> new song{(numPlayedMore > 1)?'s':''}!
             </p>)
 
         }
@@ -23,7 +23,7 @@ export default function OneNewsText(props) {
         case 'beatScore': {
             const { songName, songAuthorName, score, myScore  } = song
             return (<p className={classNm}>
-                Your Bee {beeNm} beat you at<br/> <b className="neon-blue">{songName}</b> <i>({songAuthorName})</i>!<br/>
+                {beeNm} beat you at<br/> <b className="neon-blue">{songName}</b> <i>({songAuthorName})</i>!<br/>
                 {beeNm}: {score} <span className="greyed-out">( You: {myScore} )</span>
             </p>)
         }
