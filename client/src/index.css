@@ -44,3 +44,11 @@ a:hover .neon-blue {
   color: #edf5ff;
   text-shadow: blue -2px -1px 5px, blue 2px 1px 5px, blue 0px 0px 10px, blue 0px 0px 15px, blue 0px 0px 20px, blue 0px 0px 30px;
 }
+
+.bee-yellow {
+  color: #FFBB31  
+}
+
+.greyed-out {
+  color: grey
+}
