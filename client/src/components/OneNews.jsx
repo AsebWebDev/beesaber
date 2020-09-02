@@ -19,7 +19,7 @@ export default function OneNews(props) {
                 <div className="card-body">
                     <h5 className="card-title">{type && <Symbol type={type}/>}{parseNewsTitle(type)}</h5>
                     <OneNewsText oneNews={props.oneNews} />
-                    <a className="card-link"><DiffTags diff={difficulty} /></a>
+                    {difficulty && <a className="card-link"><DiffTags diff={difficulty} /></a>}
                     <a className="card-link"><TimeAgo date={date} formatter={formatter} /></a>
                 </div>
                 {song && <img className="pic-preview img-thumbnail" src={`https://new.scoresaber.com/api/static/covers/${song.songHash}.png`} alt="Cover"/>}
