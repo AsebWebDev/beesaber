@@ -1,11 +1,10 @@
 import React from 'react'
-import BeeTag from './BeeTag'
 
 export default function OneNewsText(props) {
     const { type, diff, bee, song} = props.oneNews
     console.log("OneNewsText -> props.oneNews", props.oneNews)
-    const classNm = 'one-news-text card-text'
-    const beeNm = <b><i className="fab fa-forumbee" aria-hidden="true"></i>  {bee}</b>
+    const classNm = 'card-text'
+    const beeNm = <b className="bee-yellow"><i className="fab fa-forumbee" aria-hidden="true"></i>  {bee}</b>
 
     switch(type) {
         case 'ownNewScores': {
@@ -24,8 +23,8 @@ export default function OneNewsText(props) {
         case 'beatScore': {
             const { songName, songAuthorName, score, myScore  } = song
             return (<p className={classNm}>
-                Your Bee {beeNm} beat you at {songName} ({songAuthorName})!
-                {beeNm}:{score} / You: {myScore}
+                Your Bee {beeNm} beat you at<br/> <b className="neon-blue">{songName}</b> <i>({songAuthorName})</i>!<br/>
+                {beeNm}: {score} <span className="greyed-out">( You: {myScore} )</span>
             </p>)
         }
 

@@ -1,6 +1,18 @@
 #one-news{
     margin: 10px;
 
+    .card {
+        position: relative;
+
+        .pic-preview {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            margin: 0 15px 15px 0;
+            width: 15%;
+        }
+    }
+
     .card-body {
         padding: 10px;
     }
@@ -17,10 +29,8 @@
         margin: 0;
     }
 
-    .one-news-text {
-        b {
-            color: #FFBB31  
-        }
+    .pic-preview {
+        
     }
 
     time {
