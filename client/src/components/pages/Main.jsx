@@ -9,9 +9,11 @@ import GoolgeLogin from '../GoolgeLogin';
 import '../../styles/pages/Main.scss'
 import api from '../../api';
 import Spinner from '../Spinner';
+import profilePicPlaceholderUrl from '../../media/beesaberlogo.png'
 
 function Main(props) {
     const { dispatch, userdata, fetchingData } = props;
+    const profilePicPlaceholderUrl = ''
 
     let handleLogout = () => {
         api.logout();
@@ -26,7 +28,10 @@ function Main(props) {
                     {/* Google Profile Data */}
                     {api.isLoggedIn() && userdata && 
                                         <div id="profile-login-icon">
-                                            {userdata.profilePic && <img src={userdata.profilePic} id="profile-pic-sm" alt="profile pic"/>}
+                                            {userdata.profilePic && 
+                                                <img 
+                                                    src={userdata.profilePic ? userdata.profilePic : profilePicPlaceholderUrl} 
+                                                    id="profile-pic-sm" alt="profile pic"/>}
                                             {userdata.username}
                                         </div>
                                     }
