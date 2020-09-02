@@ -15,7 +15,7 @@ function MyHive(props) {
     if ( api.isLoggedIn() ) {
         return (
             <div>
-                <h1>My Hive</h1>
+                <h1 className="page-title"><span className="neon-red">My</span> <span className="neon-blue">Hive</span></h1>
                 <MDBBtn onClick={toggleModal} outline color="success">
                     Add a bee
                     <MDBIcon icon="plus" className="ml-1" />

@@ -29,7 +29,7 @@ function MyProfile(props) {
     if ( api.isLoggedIn() ) {
         return (
             <div id="my-profile">
-                <h1>My Profile</h1>
+                <h1 className="page-title"><span className="neon-red">My</span> <span className="neon-blue">Profile</span></h1>
                 <MDBContainer>
                     <MDBRow>
                         <MDBCol md="6">
