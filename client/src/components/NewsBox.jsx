@@ -6,8 +6,11 @@ import OneNews from './OneNews'
 import '../styles/NewsBox.scss'
 
 function NewsBox(props) {
-    const numOfNews = 5
-    const news = props.userdata.news.slice(props.userdata.news.length-numOfNews,props.userdata.news.length).reverse() // show last 5 news
+    const newsLength = props.userdata.news.length
+    const startIndex = (newsLength > 5) ? newsLength : 0 // If News Length < 5 show all news
+    const numOfNews = (newsLength > 5) ? 5 : 0           // If News Length < 5 show all news
+    const news = props.userdata.news.slice(startIndex - numOfNews, newsLength).reverse() // show last 5 news
+    console.log("NewsBox -> news", news)
     return (
         <div id="newsbox" className="card-container">
             <h3>NewsBox</h3>

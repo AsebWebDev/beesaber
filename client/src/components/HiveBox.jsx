@@ -1,12 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux';
+import BeeTag from './BeeTag'
 import '../styles/HiveBox.scss'
 
 function HiveBox(props) {
     return (
         <div id="hivebox" className="card-container">
             <h3>HiveBox</h3>
-            {props.userdata.bees.slice(0,5).map(bee => <p>{bee.playerName}</p>)}
+            {props.userdata.bees.slice(0,5).map(bee => <BeeTag userName={bee.playerName}/>)}
         </div>
     )
 }

@@ -19,6 +19,10 @@ export async function checkForNews(userdata) {
                     // if (userInfo) news.push(`Your Bee ${userInfo.playerName} played ${numPlayedMore} new songs!`)
                     if (userInfo) news.push({
                         text: `Your Bee ${userInfo.playerName} played ${numPlayedMore} new songs!`, 
+                        title: `Your Bee ${userInfo.playerName} played ${numPlayedMore} new songs!`,
+                        bee: userInfo.playerName,
+                        numPlayedMore,
+                        type: "morePlayed",
                         date: new Date() 
                     })
                     await api.getScores(playerId)                                           // FETCH SCORES for current Bee
@@ -38,6 +42,9 @@ export async function checkForNews(userdata) {
                                             news.push({
                                                 text: `Your Bee ${playerName} beat you at ${songName} (${songAuthorName}): ${score} ( You: ${myScore}  ) `, 
                                                 type: "beatScore",
+                                                bee: playerName,
+                                                beeSocre: score,
+                                                myScore, 
                                                 song: scoresRecent[j], 
                                                 date: new Date()
                                             })

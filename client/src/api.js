@@ -235,7 +235,7 @@ export default {
         if(dbUserData.totalPlayCount !== ssUserData.totalPlayCount) {
           needsUpdate = true
           const diff = ssUserData.totalPlayCount - dbUserData.totalPlayCount
-          updatedNews.push({text: `You gained ${diff} new Scores!`, type: "ownNewScores", date: new Date()})
+          updatedNews.push({text: `You gained ${diff} new Scores!`, diff, type: "ownNewScores", date: new Date()})
           await this.getScores(currentId).then( result => newUserData = { ...newUserData, scoreData: result })
         }
       }

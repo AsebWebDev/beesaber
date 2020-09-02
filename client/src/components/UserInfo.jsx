@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import BeeTag from './BeeTag'
 import localeEmoji from 'locale-emoji';
 import avatar from '../media/251.jpg'
+import '../styles/UserInfo.scss'
 
 export default class UserInfo extends Component {
 
@@ -10,7 +12,7 @@ export default class UserInfo extends Component {
             ? avatar 
             : `https://new.scoresaber.com/api/static/avatars/${userInfoData.playerId}.jpg`
         return (
-            <div className="col-md-12">
+            <div id="userinfo" className="col-md-12">
                 <p>{userInfoData.userName} </p>
                 <table className="table table-sm">
                    <thead>
@@ -28,7 +30,7 @@ export default class UserInfo extends Component {
                                     {/* <img src={`https://new.scoresaber.com/api/static/avatars/${userInfoData.playerId}.jpg`} alt="Avatar"/> */}
                                     <img src={url} alt="Avatar"/>
                                 </td>
-                                <td>{localeEmoji(`${userInfoData.country}`)}&nbsp;{userInfoData.playerName}</td>
+                                <td>{localeEmoji(`${userInfoData.country}`)}&nbsp;<BeeTag userName={userInfoData.playerName}/></td>
                                 <td>#{userInfoData.rank}</td>
                                 {userInfoData.countryRank && <td>#{userInfoData.countryRank}</td>}
                                 {userInfoData.totalPlayCount && <td>{userInfoData.totalPlayCount}</td>}

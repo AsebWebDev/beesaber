@@ -13,7 +13,7 @@ function Dashboard(props) {
 
     return (
         <div>
-            <h1>Dashboard</h1>
+            <h1 className="page-title">Dashboard</h1>
             <div>
                 {/* SHOW DASHBOARD */}
                 {myScoreSaberId && scoreData && scoreData.scoresRecent &&
@@ -21,11 +21,11 @@ function Dashboard(props) {
                         <div id="dashboard-top"> 
                             <ScoreBox data={scoreData.scoresRecent} />
                             <div id="dashboard-right">
-                                <HiveBox />
                                 <NewsBox />
                             </div> 
                         </div>
                         <div id="dashboard-bottom"> 
+                            <HiveBox />
                         </div>
                     </div>
                 }

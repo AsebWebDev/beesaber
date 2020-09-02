@@ -1,5 +1,15 @@
 #hivebox {
     width: 100%;
     min-height: 45%;
-    margin: 0 0 0 10px;
+    margin: 10px 0 0 0;
+    display: flex;
+    flex-direction: column;
+
+    background-color: #4b3e3e;
+    
+    h3 { 
+      color: whitesmoke;
+      font-family: 'NeonTubes2';
+      margin: 5px 0 20px 5px;
+    }
 }
