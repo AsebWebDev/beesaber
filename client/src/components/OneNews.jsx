@@ -17,8 +17,14 @@ export default function OneNews(props) {
         <div id="one-news">
             <div className="card"> 
                 <div className="card-body">
-                    <h5 className="card-title">{type && <Symbol type={type}/>}{parseNewsTitle(type)}</h5>
-                    <OneNewsText oneNews={props.oneNews} />
+                    {type === 'beatScore' && <div>
+                        <h5 className="card-title">{type && <Symbol type={type}/>}{parseNewsTitle(type)}</h5>
+                        <OneNewsText oneNews={props.oneNews} />
+                    </div>}
+                    
+                    {type !== 'beatScore' && 
+                    <h5 className="card-title">{type && <Symbol type={type}/>}<OneNewsText oneNews={props.oneNews} /></h5>}
+                    
                     {difficulty && <a className="card-link"><DiffTags diff={difficulty} /></a>}
                     <a className="card-link"><TimeAgo date={date} formatter={formatter} /></a>
                 </div>
