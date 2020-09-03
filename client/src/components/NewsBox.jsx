@@ -1,21 +1,45 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import DiffTag from './DiffTag'
+import { MDBIcon } from 'mdbreact';
 import OneNews from './OneNews'
-
 import '../styles/NewsBox.scss'
 
 function NewsBox(props) {
-    const newsLength = props.userdata.news.length
-    const startIndex = (newsLength > 5) ? newsLength : 0 // If News Length < 5 show all news
-    const numOfNews = (newsLength > 5) ? 5 : 0           // If News Length < 5 show all news
-    const news = props.userdata.news.slice(startIndex - numOfNews, newsLength).reverse() // show last 5 news
-    console.log("NewsBox -> news", news)
+    const news = props.userdata.news
+    const newsLength = news.length
+    const maxNumOfNews = 5
+    // This part calculates the maximum number of scrolls possible with given array. Start Index is 0 to currently hardcoded 5, or length of
+    // array, if lower than 5. Each time the arrows in the component are clicke start and end index are shiftet forward or backwards, when 
+    // another scroll is possible (maxScrolls).
+    const rest = newsLength % maxNumOfNews
+    const maxScrolls = (rest > 0) ? ( ( ( newsLength - rest ) / maxNumOfNews ) ) : ( newsLength / maxNumOfNews )
+    const [scrollCounter, setScrollCounter] = useState(0)
+    const [startIndex, setStartIndex] = useState(0)
+    const [endIndex, setEndIndex] = useState( newsLength > maxNumOfNews ? maxNumOfNews : newsLength )
+    
+    const handleUpClick = () => {
+      if (scrollCounter > 0) {
+        setScrollCounter(scrollCounter - 1)
+        setStartIndex(startIndex - maxNumOfNews)
+        setEndIndex(endIndex - maxNumOfNews)
+      }
+    }
+
+    const handleDownClick = () => {
+      if (scrollCounter < maxScrolls) {
+        setScrollCounter(scrollCounter + 1)
+        setStartIndex(startIndex + maxNumOfNews)
+        setEndIndex(endIndex + maxNumOfNews)
+      }
+    }
+
     return (
-        <div id="newsbox" className="card-container">
-            <h3>NewsBox</h3>
-            {news.map(oneNews => <OneNews oneNews={oneNews}/>)}
-        </div>
+          <div id="newsbox" className="card-container">
+              <h3>NewsBox</h3>
+              {scrollCounter !== 0 && <div className="scrollnav" onClick={handleUpClick} ><MDBIcon icon="angle-up" /></div>}
+              {news.slice(startIndex, endIndex).map( ( oneNews, i ) => <OneNews key={i} oneNews={oneNews}/>)}
+              {scrollCounter < maxScrolls && <div className="scrollnav" onClick={handleDownClick}><MDBIcon icon="angle-down"/></div>}
+          </div>
     ) 
 }
 
