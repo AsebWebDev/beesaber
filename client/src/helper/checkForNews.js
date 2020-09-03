@@ -32,7 +32,7 @@ export async function checkForNews(userdata) {
                                 for (let j = 0; j < numPlayedMore; j++) {                           // For each score.... 
                                     const match = (myScoreIds.includes(scoresRecent[j].scoreId))    // check if song exist in our own Songlist
                                     if (match) {                                                    // if so...
-                                        const { songName, songAuthorName, score, difficulty } = scoresRecent[j]   // grab Song Infos
+                                        const { songName, songAuthorName, score } = scoresRecent[j]   // grab Song Infos
 
                                         // Get my score: filter my Songlist for same songId (can only be 1) and grab score
                                         // const myScore = myScoreIds.filter(item => item.scoreId === scoresRecent[j].scoreId).score 
