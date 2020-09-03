@@ -219,6 +219,16 @@ export default {
     let needsUpdate = false
     // GET USERDATA FROM DATABASE
     await this.getUserData(_id).then(result => dbUserData = result)
+
+    // IF, BY ANY CHANCE, NO SCOREDATA IS PRESENT, FETCH IT AGAIN
+    if (dbUserData) {
+      if (!dbUserData.scoreData || dbUserData.scoreData.scoresRecent.length < 1 ) {
+        await this.getScores(dbUserData.myScoreSaberId).then(result => {
+          needsUpdate = true
+          dbUserData.scoreData = result
+        })
+      }
+    }
     
     // GET USERDATA FROM SCORESABER
     await this.getScoreSaberUserInfo(currentId, 'id').then(result => ssUserData = result)
