@@ -2,8 +2,6 @@ import React from 'react'
 
 export default function OneNewsText(props) {
     const { type, diff, bee, song, numPlayedMore} = props.oneNews
-    const difficulty = (song) ? song.difficulty : null
-    // console.log("OneNewsText -> props.oneNews", props.oneNews)
     const classNm = 'card-text'
     const beeNm = <b className="bee-yellow"><i className="fab fa-forumbee" aria-hidden="true"></i>  {bee}</b>
 
