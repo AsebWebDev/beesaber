@@ -1,12 +1,24 @@
 #newsbox {
-    width: 100%;
-    min-height: 100%;
+    min-width: 330px;
     margin: 10px;
+    padding: 0 0 10px 0;
     background-color: #4b3e3e;
+
     h3{ 
         color: whitesmoke;
         font-family: 'NeonTubes2';
         margin: 5px 0 0 5px;
     }
 
+    .scrollnav {
+        margin: 0 40px;
+        color: white;
+        display: flex;
+        justify-content: center;
+        border: 0.5px solid grey;
+        border-radius: 25px;
+        i {
+            font-size: 1.5rem;
+        }
+    }
 }
