@@ -1,6 +1,5 @@
 import React from 'react'
-import { MDBBtn, MDBIcon } from 'mdbreact';
-import minilogo from '../media/251.jpg'
+import { MDBBtn } from 'mdbreact';
 import '../styles/Spinner.scss'
 
 export default function Spinner(props) {

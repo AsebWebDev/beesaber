@@ -19,6 +19,8 @@
 
     .card-title {
         display: flex;
+        align-items: center;
+        margin: 0 0 5px 0;
 
         span {
             margin-right: 15px
@@ -27,10 +29,7 @@
 
     .card-text {
         margin: 0;
-    }
-
-    .pic-preview {
-        
+        width: 80%;
     }
 
     time {
