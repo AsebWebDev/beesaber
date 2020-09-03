@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { MDBIcon, MDBBtn } from 'mdbreact';
@@ -13,7 +13,6 @@ import profilePicPlaceholderUrl from '../../media/beesaberlogo.png'
 
 function Main(props) {
     const { dispatch, userdata, fetchingData } = props;
-    const profilePicPlaceholderUrl = ''
 
     let handleLogout = () => {
         api.logout();

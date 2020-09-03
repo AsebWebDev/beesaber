@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { newNotification, setFetchStatus } from './actioncreators'
 import api from './api';

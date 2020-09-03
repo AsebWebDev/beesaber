@@ -29,8 +29,7 @@ class ScoreBox extends Component {
     };
 
     render() {
-        const { data } = this.props;
-        const { allScores, currentScores, currentPage, totalPages } = this.state;
+        const { allScores, currentScores } = this.state;
         const totalScores = allScores.length;
 
         if (totalScores === 0) return null;
