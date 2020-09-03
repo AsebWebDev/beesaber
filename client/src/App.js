@@ -40,8 +40,6 @@ function App(props) {
     if (myScoreSaberId) fetchData(myScoreSaberId) // check for data once when new id is provided 
   }, [myScoreSaberId])
 
-
-
   // CHECK REGULARLY FOR UPDATES
   useEffect(() => {
     const id = setInterval(() => fetchData(), intervalUpdatecheck);
