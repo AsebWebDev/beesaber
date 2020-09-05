@@ -220,7 +220,8 @@ export default {
     // CREATE NEWS FROM CHANGES
       // CHECK FOR CHANGES ON OWN DATA ( DB vs. SCORESABER )
       if (dbUserData && ssUserData) {
-        if(dbUserData.totalPlayCount !== ssUserData.totalPlayCount) {
+        // Change in own user data is checked by a) bigger totalPlayCount or b) bigger overall total Score on ScoreSaber 
+        if( (dbUserData.totalPlayCount !== ssUserData.totalPlayCount) || (dbUserData.totalScore < ssUserData.totalScore )) {
           needsUpdate = true
           const diff = ssUserData.totalPlayCount - dbUserData.totalPlayCount
           updatedNews.push(new News({
