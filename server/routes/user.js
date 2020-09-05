@@ -19,7 +19,6 @@ router.post('/:id/', isLoggedIn, (req, res, next) => {
 });
 
 router.get('/:id/', isLoggedIn, (req, res, next) => {
-  console.log("Get user/:id hit")
   User.findById(req.params.id)
   .then(userDoc => {  
     if (!userDoc) {
@@ -32,9 +31,6 @@ router.get('/:id/', isLoggedIn, (req, res, next) => {
 });
 
 router.post('/:id/bee/update', isLoggedIn, (req, res, next) => {
-  console.log("'/:id/bee/update' -> SET")
-  console.log("params", req.params.id)
-
   if (req.params.id !== undefined) {
     User.findByIdAndUpdate({
       "_id": req.params.id
