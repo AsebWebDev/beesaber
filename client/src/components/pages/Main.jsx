@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { MDBIcon, MDBBtn } from 'mdbreact';
@@ -20,6 +20,9 @@ function Main(props) {
         dispatch({ type: "UPDATE_USER_DATA", userdata })
         dispatch({ type: "LOGOUT" })
     }
+
+    useEffect(() => {
+    }, [props.userdata.profilePic]) // To avoid broken profile pic - rerender if it changes 
 
     return (
         <div id="main">
