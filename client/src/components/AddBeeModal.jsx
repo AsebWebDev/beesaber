@@ -46,7 +46,6 @@ function AddBeeModal(props) {
                 const userdata = { ...foundUser, scoreData }
                 api.saveBee(props.userdata._id, userdata)
                     .then(userdata => {
-                        console.log("handleSave -> userdata", userdata)
                         dispatch(newNotification("User " + foundUser.playerName + " successfully added."))
                         dispatch({ type: "UPDATE_USER_DATA", userdata })
                         cleanUp()
