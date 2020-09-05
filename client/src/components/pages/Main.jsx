@@ -48,9 +48,6 @@ function Main(props) {
                             <MDBIcon icon="sign-out-alt" className="ml-1" />
                         </MDBBtn>}
                 </div>
-
-                
-                
             </div>
             <Switch>
                 <Route path="/" exact component={Dashboard} />

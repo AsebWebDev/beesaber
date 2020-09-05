@@ -12,7 +12,7 @@ export default function OneNews(props) {
     const formatter = buildFormatter(germanStrings)
     const { type, song, date } = props.oneNews
     const difficulty = (song) ? song.difficulty : null
-    
+
     return (
         <div id="one-news">
             <div className="card"> 
