@@ -19,15 +19,17 @@ router.post('/:id/', isLoggedIn, (req, res, next) => {
 });
 
 router.get('/:id/', isLoggedIn, (req, res, next) => {
-  User.findById(req.params.id)
-  .then(userDoc => {  
-    if (!userDoc) {
-      next(new Error("Could not find user."))
-      return
-    } 
-    res.json(userDoc)
-  })
-  .catch(err => next(err))
+  if( mongoose.Types.ObjectId.isValid(req.params.id) ) {
+    User.findById(req.params.id)
+    .then(userDoc => {  
+      if (!userDoc) {
+        next(new Error("Could not find user."))
+        return
+      } 
+      res.json(userDoc)
+    })
+    .catch(err => next(err))
+  }
 });
 
 router.post('/:id/bee/update', isLoggedIn, (req, res, next) => {
@@ -46,7 +48,6 @@ router.post('/:id/bee/update', isLoggedIn, (req, res, next) => {
 });
 
 router.post('/:id/bee', isLoggedIn, (req, res, next) => {
-  console.log("'/:id/bee' -> PUSH")
   User.findByIdAndUpdate(req.params.id, {$push: {"bees": req.body}},{safe: true, upsert: true, new: true})
   .then(userDoc => {  
     if (!userDoc) {
