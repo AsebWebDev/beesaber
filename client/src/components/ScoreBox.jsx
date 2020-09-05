@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Pagination from "./Pagination";
+import DiffTags from './DiffTag'
 import '../styles/ScoreBox.scss';
 
 class ScoreBox extends Component {
@@ -52,7 +53,7 @@ class ScoreBox extends Component {
                             return(
                                 <tr key={index}>
                                     <td>{data.rank}</td>
-                                    <td>{data.songAuthorName} - {data.songName}</td>
+                                    <td><DiffTags diff={data.difficulty} />  {data.songAuthorName} - {data.songName}</td>
                                     <td>{data.score}</td>
                                 </tr>
                             )})
