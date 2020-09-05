@@ -41,7 +41,7 @@ import {
           ...newState,
           fetchingData: {
             status: action.fetchingData.status,
-            text: action.fetchingData.text
+            statusText: action.fetchingData.statusText
           }
         }
       }
