@@ -13,7 +13,7 @@ function Dashboard(props) {
 
     return (
         <div>
-            <h1 className="page-title">Dashboard</h1>
+            <h1 className="page-title"><span className="neon-red">Dashboard</span></h1>
             <div>
                 {/* SHOW DASHBOARD */}
                 {myScoreSaberId && scoreData && scoreData.scoresRecent &&

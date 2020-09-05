@@ -1,8 +1,9 @@
 #main {
     width: 80%;
-    height: 100vh;
+    // height: 100%;
     padding: 0 3px 3px 3px;
     margin-left: 20%; // to match fixed menu width
+    background-color: #00111f;
 
     #header {
         display: flex;
@@ -42,6 +43,22 @@
         width: 50px;
         margin-right: 2%;
         border-radius: 50%;
+    }
+
+    .page-title {
+        font-family: 'NeonTubes2';
+        text-align: center;
+        margin-top: 1rem;
+
+        .neon-red {
+            color: #fff0f0;;
+            text-shadow: #ff0025 -2px -1px 5px, #ff0025 2px 1px 5px, #ff0025 0px 0px 10px, #ff0025 0px 0px 15px, #ff0025 0px 0px 20px, #ff0025 0px 0px 30px;
+        }
+
+        .neon-blue {
+            color: #edf5ff;
+            text-shadow: blue -2px -1px 5px, blue 2px 1px 5px, blue 0px 0px 10px, blue 0px 0px 15px, blue 0px 0px 20px, blue 0px 0px 30px;
+        }
     }
 
     /* REMOVE ARROWS FROM INPUT FIELD */
