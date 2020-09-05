@@ -15,6 +15,8 @@ function Menu() {
                 <div><span className="neon-yellow">I</span></div>
                 <div><span className="neon-yellow">I</span></div>
                 <div><span className="neon-yellow">I</span></div>
+                <div className="neon-red saber"></div>
+                <div className="neon-blue saber"></div>            
             </div>
             <div id="menu-main">
                 <h1 className="beesaber-title"><span className="neon-red">Bee</span><br></br><span className="neon-blue">Saber</span></h1>
