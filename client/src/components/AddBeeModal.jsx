@@ -6,18 +6,22 @@ import {    MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBMod
 import { newNotification } from '../actioncreators'
 import UserInfo from './UserInfo.jsx';
 import Spinner from './Spinner';
+import Message from './Message';
 import api from '../api';
 import '../styles/AddBeeModal.scss'
 
 function AddBeeModal(props) {
-    const { dispatch } = props
-
+    const { dispatch, userdata } = props
     let [activeItem, setActiveItem] = useState('1')
     let [query, setQuery] = useState('')
     let [foundUser, setFoundUser] = useState(null)
     let [foundUsers, setFoundUsers] = useState(null)
     let [userAlreadyAdded, setUserAlreadyAdded] = useState(null)
     let [processing, setProcessing] = useState({status: false, statusText: null})
+    let [err, setErr] = useState(null)
+    let [thatIsYou, setThatIsYou] = useState(false)
+    console.log("AddBeeModal -> thatIsYou", thatIsYou)
+    // const thatIsYou = (foundUser && userdata) ? foundUser.playerId === userdata.myScoreSaberId : false
 
     useEffect(() => {
         // check if user alread exists in bees list
@@ -40,6 +44,7 @@ function AddBeeModal(props) {
                 (Array.isArray(result))         // If result is an array, multiple Users have been found...
                     ? setFoundUsers(result)     // ... then add this to foundUsers in state
                     : setFoundUser(result)      // If its not an array, only one user is found and can be added to foundUser
+                setThatIsYou(result.playerId === userdata.myScoreSaberId)   
             }).catch(err => dispatch(newNotification({text: err.message})))
             setProcessing({status: false, statusText: null })
     }
@@ -106,12 +111,7 @@ function AddBeeModal(props) {
                                     <MDBInput onChange={e => handleChange(e)} value={query} label="Search ID" icon="hashtag" group type="number" validate error="wrong"
                                     success="right" />
                                 </div>
-                                {/* // TODO: Create Component for this part, DRY code:  */}
-                                {foundUser && 
-                                    <div className="result">
-                                        <UserInfo userInfoData={foundUser}/>
-                                        {userAlreadyAdded && <b>User already added</b>}
-                                    </div>}
+                                {foundUser && <UserInfo userInfoData={foundUser}/>}
                             </MDBTabPane>
 
                             {/* // Search by Username // */}
@@ -120,15 +120,12 @@ function AddBeeModal(props) {
                                     <MDBInput onChange={e => handleChange(e)} value={query} label="Search Username" icon="user" group type="text" validate error="wrong"
                                     success="right" />
                                 </div>
-                                {/* // TODO: Create Component for this part, DRY code:  */}
-                                {foundUser &&
-                                    <div className="result">
-                                        <UserInfo userInfoData={foundUser}/>
-                                        {userAlreadyAdded && <b>User already added</b>}
-                                    </div>}
+                                {foundUser && <UserInfo userInfoData={foundUser}/>}
                                 {foundUsers &&
                                     foundUsers.map(user => <UserInfo userInfoData={user} handleChose={handleChose}/>)}
                             </MDBTabPane>
+                            {userAlreadyAdded && !thatIsYou && <Message text='User already added' type='danger' /> }
+                            {thatIsYou && <Message text='You found yourself! What a noble goal in life, but not possible on Beesaber ;)' type='danger' /> }
                         </MDBTabContent>
                     </MDBModalBody>
 
@@ -136,7 +133,7 @@ function AddBeeModal(props) {
                     {!processing.status &&  <MDBModalFooter>
                                                 {query !== '' && <MDBBtn color="primary" onClick={handleSearch}>Search</MDBBtn>}
                                                 <MDBBtn color="secondary" onClick={props.toggleModal}>Close</MDBBtn>
-                                                {foundUser && !userAlreadyAdded && <MDBBtn color="success" onClick={handleSave}>Add {foundUser.playerName}</MDBBtn>}
+                                                {foundUser && !userAlreadyAdded && !thatIsYou && <MDBBtn color="success" onClick={handleSave}>Add {foundUser.playerName}</MDBBtn>}
                                             </MDBModalFooter>}
                     {processing.status &&   <MDBModalFooter>
                                                 {processing.status && <Spinner text={processing.statusText}/>}

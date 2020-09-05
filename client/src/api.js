@@ -114,10 +114,7 @@ export default {
     
     await axios(url, { validateStatus: false })
       .then(scoreReply => {
-      console.log("getScoreSaberUserInfo -> scoreReply", scoreReply)
-        if (scoreReply.status === 404 || scoreReply.status === 429 || scoreReply.status === 422)  {
-          return null
-        }
+        if (scoreReply.status === 404 || scoreReply.status === 429 || scoreReply.status === 422) return null
         else return result = (mode === 'id') 
                   ? { ...scoreReply.data.playerInfo, ...scoreReply.data.scoreStats } 
                   : scoreReply.data.players
