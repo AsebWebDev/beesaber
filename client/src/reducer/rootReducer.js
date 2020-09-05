@@ -1,7 +1,8 @@
 import { 
     ADD_NOTIFICATION, 
     UPDATE_USER_DATA,
-    SET_FETCH_STATUS
+    SET_FETCH_STATUS,
+    LOGOUT
   } from '../actioncreators';
   
   const initialState = {
@@ -43,6 +44,10 @@ import {
             text: action.fetchingData.text
           }
         }
+      }
+
+      case LOGOUT: {
+        return initialState
       }
       
       default: return state;
