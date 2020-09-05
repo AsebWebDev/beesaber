@@ -13,18 +13,22 @@ function App(props) {
   const myScoreSaberId = (userdata) ? userdata.myScoreSaberId : null; // get ScoreSaberID from Store or use null
   let intervalUpdatecheck = (userdata & userdata.settings) // set Interval Frequency
                                   ? userdata.settings.Performance.intervalUpdatecheck // get Interval Frequency for cheking data
-                                  : 120000 // or use 2 minutes as default 120000
+                                  : 10000 // or use 2 minutes as default 120000
+  const fetchDataRegularly = () => setInterval(() => fetchData(), intervalUpdatecheck);
+  
 
   const fetchData = async () => {
-    dispatch(setFetchStatus(true, 'Checking data...'))
-    await api.updateData(myScoreSaberId, _id).then(async result => {
-      const { updatedNews, newUserData, needsUpdate } = result
-      console.log("UPDATE DATA RESULT: ", result)
-      if (!!updatedNews.length) updatedNews.map( news => dispatch(newNotification(news) ) )
-      if (needsUpdate) await api.saveUserData(_id, newUserData)
-        .then(() => dispatch({ type: "UPDATE_USER_DATA", userdata: newUserData }))
-    })
-    dispatch(setFetchStatus(false))
+    if (api.isLoggedIn()) {
+      dispatch(setFetchStatus(true, 'Checking data...'))
+      await api.updateData(myScoreSaberId, _id).then(async result => {
+        const { updatedNews, newUserData, needsUpdate } = result
+        console.log("UPDATE DATA RESULT: ", result)
+        if (!!updatedNews.length) updatedNews.map( news => dispatch(newNotification(news) ) )
+        if (needsUpdate) await api.saveUserData(_id, newUserData)
+          .then(() => dispatch({ type: "UPDATE_USER_DATA", userdata: newUserData }))
+      })
+      dispatch(setFetchStatus(false))
+    }
   }
 
   // GET BASIC USERDATA FROM BACKEND DATABASE
@@ -42,9 +46,9 @@ function App(props) {
 
   // CHECK REGULARLY FOR UPDATES
   useEffect(() => {
-    const id = setInterval(() => fetchData(), intervalUpdatecheck);
-    return () => clearInterval(id)
-  }, [userdata])
+    fetchDataRegularly()
+    return () => clearInterval(fetchDataRegularly)
+  }, [userdata, myScoreSaberId])
 
   return (
     <div id="App">
