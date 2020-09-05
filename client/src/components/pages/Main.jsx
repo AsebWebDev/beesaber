@@ -6,9 +6,9 @@ import Dashboard from './Dashboard';
 import MyProfile from './MyProfile';
 import MyHive from './MyHive';
 import GoolgeLogin from '../GoolgeLogin';
+import Spinner from '../Spinner';
 import '../../styles/pages/Main.scss'
 import api from '../../api';
-import Spinner from '../Spinner';
 import profilePicPlaceholderUrl from '../../media/beesaberlogo.png'
 
 function Main(props) {
