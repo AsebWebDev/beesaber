@@ -13,12 +13,11 @@ function App(props) {
   const myScoreSaberId = (userdata) ? userdata.myScoreSaberId : null; // get ScoreSaberID from Store or use null
   let intervalUpdatecheck = (userdata & userdata.settings) // set Interval Frequency
                                   ? userdata.settings.Performance.intervalUpdatecheck // get Interval Frequency for cheking data
-                                  : 10000 // or use 2 minutes as default 120000
+                                  : 120000 // or use 2 minutes as default 120000
   const fetchDataRegularly = () => setInterval(() => fetchData(), intervalUpdatecheck);
   
 
   const fetchData = async () => {
-    if (api.isLoggedIn()) {
       dispatch(setFetchStatus(true, 'Checking data...'))
       await api.updateData(myScoreSaberId, _id).then(async result => {
         const { updatedNews, newUserData, needsUpdate } = result
@@ -28,7 +27,6 @@ function App(props) {
           .then(() => dispatch({ type: "UPDATE_USER_DATA", userdata: newUserData }))
       })
       dispatch(setFetchStatus(false))
-    }
   }
 
   // GET BASIC USERDATA FROM BACKEND DATABASE
