@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { MDBIcon } from 'mdbreact';
 import OneNews from './OneNews'
@@ -15,7 +15,7 @@ function NewsBox(props) {
     const maxScrolls = (rest > 0) ? ( ( ( newsLength - rest ) / maxNumOfNews ) ) : ( newsLength / maxNumOfNews )
     const [scrollCounter, setScrollCounter] = useState(0)
     const [startIndex, setStartIndex] = useState(0)
-    const [endIndex, setEndIndex] = useState( newsLength > maxNumOfNews ? maxNumOfNews : newsLength )
+    const [endIndex, setEndIndex] = useState( Math.min(newsLength, maxNumOfNews) )
     
     const handleUpClick = () => {
       if (scrollCounter > 0) {
@@ -33,11 +33,15 @@ function NewsBox(props) {
       }
     }
 
+    useEffect(() => {
+      setEndIndex(Math.min(newsLength, maxNumOfNews)) 
+    }, [props.userdata])
+
     return (
           <div id="newsbox" className="card-container">
               <h3>NewsBox</h3>
               {scrollCounter !== 0 && <div className="scrollnav" onClick={handleUpClick} ><MDBIcon icon="angle-up" /></div>}
-              {news.slice(startIndex, endIndex).map( ( oneNews, i ) => <OneNews key={i} oneNews={oneNews}/>)}
+              {props.userdata && props.userdata.news.reverse().slice(startIndex, endIndex).map( ( oneNews, i ) => <OneNews key={i} oneNews={oneNews}/>)}
               {scrollCounter < maxScrolls && <div className="scrollnav" onClick={handleDownClick}><MDBIcon icon="angle-down"/></div>}
           </div>
     ) 
@@ -49,4 +53,4 @@ function mapStateToProps(reduxState){
     }
   }
   
-export default connect(mapStateToProps)(NewsBox)
+export default connect(mapStateToProps)(NewsBox)    
