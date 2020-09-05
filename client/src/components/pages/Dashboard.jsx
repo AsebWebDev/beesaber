@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import ScoreBox from "../ScoreBox";
 import HiveBox from "../HiveBox";
@@ -11,13 +11,9 @@ function Dashboard(props) {
     const { scoreData } = userdata;
     const myScoreSaberId = (userdata) ? (userdata.myScoreSaberId) : null;
 
-    useEffect(() => {
-        console.log("Dashboard useeffect")
-    }, [userdata])
-
     return (
         <div>
-            <h1>Dashboard</h1>
+            <h1 className="page-title"><span className="neon-red">Dashboard</span></h1>
             <div>
                 {/* SHOW DASHBOARD */}
                 {myScoreSaberId && scoreData && scoreData.scoresRecent &&
@@ -25,11 +21,11 @@ function Dashboard(props) {
                         <div id="dashboard-top"> 
                             <ScoreBox data={scoreData.scoresRecent} />
                             <div id="dashboard-right">
-                                <HiveBox />
                                 <NewsBox />
                             </div> 
                         </div>
                         <div id="dashboard-bottom"> 
+                            <HiveBox />
                         </div>
                     </div>
                 }

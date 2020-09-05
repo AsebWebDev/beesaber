@@ -1,28 +1,69 @@
 #dashboard {
-  margin: 2% 1% 0 1%;
+  width: 100%;
+  padding: 10px;
 
   #dashboard-top {
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
   }
 
   #dashboard-right {
     display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
+    // flex-direction: column;
+    // justify-content: space-evenly;
+    width: 42%;
+  }
+
+  #dashboard-bottom {
+    padding-top: 10px;
+    width: 100%;
   }
 
   .card-container {
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    // box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
     border-radius: 5px;
-    padding: 2px 8px;
+    padding: 10px 8px;
+    margin: 12px;
+
+    // box-shadow: 
+    // 0px 0px 1px 3px #fffcdd, 
+    // 0px 0px 4px 5px #fff699, 
+    // 0px 0px 12px 8px #ffeb00,
+
+    // inset 0px 0px 16px 2px #ffeb00, 
+    // inset 0px 0px 6px 2px #fff699, 
+    // inset 0px 0px 2px 1px #fffcdd;
+
+    box-shadow: 
+    0px 0px 1px 3px #fffcdd, 
+    0px 0px 8px 2px #ffeb00, 
+    0px 0px 12px 6px #ffeb00, 
+    
+    inset 0px 0px 6px 2px #ffeb00, 
+    inset 0px 0px 14px 0px #ffeb00, 
+    inset 0px 0px 2px 0px #fffcdd;
+
+    h3 {
+      color: #fffcdd;;
+      text-shadow: 
+      #ffeb00 -2px -1px 5px, 
+      #ffeb00 2px 1px 5px, 
+      #ffeb00 0px 0px 10px, 
+      #ffeb00 0px 0px 15px, 
+      #ffeb00 0px 0px 20px, 
+      #ffeb00 0px 0px 30px;
+      text-align: center;
+    }
   }
   
-  .card-container:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-  }
+  // .card-container:hover {
+  //   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  // }
+  
 }
 
 

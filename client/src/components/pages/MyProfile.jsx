@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import api from '../../api';
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBIcon, MDBInput } from 'mdbreact';
 import ScoreOverview from "../ScoreOverview";
+import '../../styles/pages/MyProfile.scss'
 
 function MyProfile(props) {
     const { dispatch } = props;
@@ -17,25 +18,28 @@ function MyProfile(props) {
     const handleChange = (e) => setMyScoreSaberId(e.target.value)
 
     const handleSave = () => {
-        const userdata = { ...props.userdata, myScoreSaberId }
-        api.saveUserData(props.userdata._id, userdata)
-        dispatch({ type: "UPDATE_USER_DATA", userdata })
+        api.getScoreSaberUserInfo(myScoreSaberId, 'id')
+            .then(scoreSaberUserInfo => {
+                const userdata = { ...props.userdata, ...scoreSaberUserInfo, myScoreSaberId }
+                api.saveUserData(props.userdata._id, userdata)
+                dispatch({ type: "UPDATE_USER_DATA", userdata })
+            })       
     }
 
     if ( api.isLoggedIn() ) {
         return (
-            <div>
-                <h1>My Profile</h1>
+            <div id="my-profile">
+                <h1 className="page-title"><span className="neon-red">My</span> <span className="neon-blue">Profile</span></h1>
                 <MDBContainer>
                     <MDBRow>
                         <MDBCol md="6">
-                        <form>
+                        <form id="myscoresaberidinput">
                             <div className="grey-text">
                                 <MDBInput onChange={e => handleChange(e)} value={myScoreSaberId} label="Your ScoreSaber ID" icon="user" group type="text" validate error="wrong"
                                 success="right" />
                             </div>
                             <div className="text-center">
-                            <MDBBtn onClick={handleSave} outline color="secondary">
+                            <MDBBtn onClick={handleSave} size="sm" outline color="secondary">
                                 Save
                                 <MDBIcon far icon="paper-plane" className="ml-1" />
                             </MDBBtn>

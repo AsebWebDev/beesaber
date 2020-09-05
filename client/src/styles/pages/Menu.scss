@@ -1,25 +1,104 @@
 #menu {
     width: 20%;
+    height: 100vh;
+    position: fixed;
     display: flex;
     flex-direction: column;
     align-items: center;
-
+    font-family: 'NeonTubes2';
+    padding: 25px 20px;
+    
     #brandlogo {
-        img {
-            width: 100%
+        position: relative;
+        height: 150px;
+        width: 150px;
+        font-size: 80px;
+        
+        .neon-yellow {
+            color: #fffcdd;;
+            text-shadow: #ffeb00 -2px -1px 5px, #ffeb00 2px 1px 5px, #ffeb00 0px 0px 10px, #ffeb00 0px 0px 15px, #ffeb00 0px 0px 20px, #ffeb00 0px 0px 30px;
+        }
+        
+        div {
+            position: absolute;
+            transform-origin: center;
+        }
+        div:first-child {
+            transform: rotate(90deg) translate(-36px, -68px);
+            z-index: 5;
+        }
+        div:nth-child(2) {
+            transform: rotate(150deg) translate(-103px, -49px);
+            z-index: 4;
+        }
+        div:nth-child(3) {
+            transform: rotate(30deg) translate(120px, -19px);
+        }
+        div:nth-child(4) {
+            transform: rotate(90deg) translate(70px, -68px);
+        }
+        div:nth-child(5) {
+            transform: rotate(150deg) translate(2px, -49px);
+        }
+        div:nth-child(6) {
+            transform: rotate(30deg) translate(15px, -20px);
+            z-index: 6;
+        }
+    
+        .saber {
+            position: absolute;
+            height: 100%;
+            width: 3px;
+            top: 0%;
+            border-radius: 3px;
+        }
+        .saber.neon-red {
+            left: 49%;
+            transform: rotate(30deg);
+            background-color: #fff0f0;
+            box-shadow: 
+            0px 0px 8px 2px #ff8d9e, 
+            0px 0px 12px 6px #ff0025;
+        }
+        .saber.neon-blue {
+            right: 49%;
+            transform: rotate(-30deg);
+            background-color: #edf5ff;
+            box-shadow: 
+            0px 0px 8px 2px #7979ff, 
+            0px 0px 12px 6px blue;
+        }
+        
+        // img {
+        //     width: 95%;
+        // }
+    }
+    
+    #menu-main {
+        margin-top: 16px;
+        margin-bottom: 16px;
+        
+        .beesaber-title {
+            text-align: center;
+            margin-bottom: 20px;
+
+            .neon-red {
+                color: #fff0f0;;
+                text-shadow: #ff0025 -2px -1px 5px, #ff0025 2px 1px 5px, #ff0025 0px 0px 10px, #ff0025 0px 0px 15px, #ff0025 0px 0px 20px, #ff0025 0px 0px 30px;
+            }
+
+            .neon-blue {
+                color: #edf5ff;
+                text-shadow: blue -2px -1px 5px, blue 2px 1px 5px, blue 0px 0px 10px, blue 0px 0px 15px, blue 0px 0px 20px, blue 0px 0px 30px;
+            }
+        }
+
+        a {
+            display: block;
+            font-size: 1.4rem;
+            text-align: center;
+            margin-bottom: 10px;
         }
     }
 
-    #menu-main {
-        height: 100vh;
-    }
-
-    li {
-        text-decoration: none;
-        list-style: none; 
-    }
-    a {
-        color: black;
-
-    }
 }

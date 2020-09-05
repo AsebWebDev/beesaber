@@ -1,4 +1,9 @@
 import axios from 'axios'
+import mongoose from 'mongoose'
+import { checkForNews } from './helper/checkForNews'
+import News from './prototypes/newsProto'
+
+const validId = (id) => mongoose.Types.ObjectId.isValid(id)
 
 const service = axios.create({
   baseURL: process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:5000/api',
@@ -69,32 +74,32 @@ export default {
   // ===========
 
   getUserSettings(userId) {
-    return service
-      .get('/user/' + userId + '/settings')
-      .then(res => res.data)
-      .catch(errHandler)
+      return service
+        .get('/user/' + userId + '/settings')
+        .then(res => res.data)
+        .catch(errHandler)
   },
 
   getUserData(userId) {
-    return service
-      .get('/user/' + userId)
-      .then(res => res.data)
-      .catch(errHandler)
+    if (validId(userId))
+      return service
+        .get('/user/' + userId)
+        .then(res => res.data)
+        .catch(errHandler)
+    else return Promise.resolve()
   },
 
   saveUserData(userId, userdata) {
-    console.log("Save Userdata hit")
-    return service
-      .post('/user/' + userId, userdata)
-      .then(res => res.data)
-      .catch(errHandler)
+      return service
+        .post('/user/' + userId, userdata)
+        .then(res => res.data)
+        .catch(errHandler)
   },
 
   saveUserSettings(userId, settings, settingType) {
     return service
       .post('/user/' + userId + '/settings', settings)
       .then(res => res.data)
-      .catch(errHandler)
   },
 
   // ===============
@@ -108,13 +113,12 @@ export default {
                   : 'https://new.scoresaber.com/api/players/by-name/' + query
     
     await axios(url, { validateStatus: false })
-    .then(scoreReply => {
-    // console.log("getScoreSaberUserInfo -> scoreReply", scoreReply)
-      if (scoreReply.status === 404 || scoreReply.status === 429 || scoreReply.status === 422)  {
-        return null
-      }
-      else result=scoreReply.data
-    })
+      .then(scoreReply => {
+        if (scoreReply.status === 404 || scoreReply.status === 429 || scoreReply.status === 422) return null
+        else return result = (mode === 'id') 
+                  ? { ...scoreReply.data.playerInfo, ...scoreReply.data.scoreStats } 
+                  : scoreReply.data.players
+      }).catch(errHandler)
     return result
   },
 
@@ -129,35 +133,55 @@ export default {
       .catch(errHandler)
   },
 
+  updateBeeScore(userId, bees) {
+    return service
+      .post('/user/' + userId + '/bee/update', bees)
+      .then(res => res.data)
+      .catch(errHandler)
+  },
+
   // ==========
   // Scores
   // ==========
 
-  async getScores(currentID, sorting='recent') {
-    let scores = []
+  async getScores(currentId) {
+    let scoreData
+    let scoresRecent = []
     const fetchData = async () => {
       let count = 1;
       let noResult = false
       while (!noResult) {
-        await axios('https://new.scoresaber.com/api/player/'+ currentID +'/scores/'+sorting+'/'+ count++, { validateStatus: false })
+        await axios('https://new.scoresaber.com/api/player/'+ currentId +'/scores/recent/'+ count++, { validateStatus: false })
           .then(scoreReply => {
             if (scoreReply.status === 404 || scoreReply.status === 429 || scoreReply.status === 422)  {
               noResult = true;
-              return scores
+              return scoresRecent
             }
-            else scores.push(...scoreReply.data.scores)
+            else scoresRecent.push(...scoreReply.data.scores)
           })
       }; 
     }
 
     await fetchData()
-    return scores
+
+    // PREPARE DATE FOR RETURNING 
+    const scoresTop = [...scoresRecent] 
+    scoresTop.sort((a,b) => b.score - a.score )
+    const scoredSongsIds = []
+    scoresRecent.forEach(element => scoredSongsIds.push(element.scoreId));
+    
+    scoreData = {
+      scoresRecent,
+      scoresTop, 
+      scoredSongsIds
+    }
+    return scoreData
   },
 
-  async getlatestScore(currentID) {
+  async getlatestScore(currentId) {
     let score = null
     const fetchData = async () => {
-        await axios('https://new.scoresaber.com/api/player/'+ currentID +'/scores/recent/1', { validateStatus: false })
+        await axios('https://new.scoresaber.com/api/player/'+ currentId +'/scores/recent/1', { validateStatus: false })
           .then(scoreReply => {
             if (scoreReply.status === 404 || scoreReply.status === 429 || scoreReply.status === 422)  {
               return score
@@ -170,21 +194,60 @@ export default {
     return score
   },
 
-  async dataUpdateNeeded(currentData, currentID) {
-    let latestFetchedScore = null
+  async updateData(currentId, _id) {
+    let dbUserData, ssUserData, newUserData, checkForNewsResult
+    let updatedNews = []
+    let needsUpdate = false
+    // GET USERDATA FROM DATABASE
+    await this.getUserData(_id).then(result => {
+    console.log("updateData -> result", result)
+      dbUserData = result
+    })
 
-    const fetchData = async () => {
-        await axios('https://new.scoresaber.com/api/player/'+ currentID +'/scores/recent/1', { validateStatus: false })
-          .then(scoreReply => {
-            if (scoreReply.status === 404 || scoreReply.status === 429 || scoreReply.status === 422)  {
-              return null
-            }
-            else latestFetchedScore = scoreReply.data.scores
-          })
+    // IF, BY ANY CHANCE, NO SCOREDATA IS PRESENT, FETCH IT AGAIN
+    if (dbUserData) {
+      if (!dbUserData.scoreData || dbUserData.scoreData.scoresRecent.length < 1 ) {
+        await this.getScores(dbUserData.myScoreSaberId).then(result => {
+          needsUpdate = true
+          dbUserData.scoreData = result
+        })
+      }
     }
+    
+    // GET USERDATA FROM SCORESABER
+    await this.getScoreSaberUserInfo(currentId, 'id').then(result => ssUserData = result)
 
-    await fetchData()
-    if (latestFetchedScore && currentData) return (latestFetchedScore[0].timeSet !== currentData[0].timeSet)
+    // PREPARE NEW USERDATA
+    newUserData = { ...dbUserData, ...ssUserData }
+
+    // CHECK FOR CHANGES ON FRIENDS
+    await checkForNews(dbUserData).then(result => checkForNewsResult = result)
+
+    // CREATE NEWS FROM CHANGES
+      // CHECK FOR CHANGES ON OWN DATA ( DB vs. SCORESABER )
+      if (dbUserData && ssUserData) {
+        // Change in own user data is checked by a) bigger totalPlayCount or b) bigger overall total Score on ScoreSaber 
+        if( (dbUserData.totalPlayCount !== ssUserData.totalPlayCount) || (dbUserData.totalScore < ssUserData.totalScore )) {
+          needsUpdate = true
+          const diff = ssUserData.totalPlayCount - dbUserData.totalPlayCount
+          updatedNews.push(new News({
+            text: `You gained ${diff} new Scores!`, 
+            diff, 
+            type: "ownNewScores", 
+            date: new Date()}))
+          await this.getScores(currentId).then( result => newUserData = { ...newUserData, scoreData: result })
+        }
+      }
+      // FRIENDS
+        if (!!checkForNewsResult.news.length) {                         // ==> Changes Exists
+          needsUpdate = true
+          updatedNews = [ ...updatedNews, ...checkForNewsResult.news]   // Push new News to news Array
+          newUserData.bees = checkForNewsResult.bees                    // Use updated Bees that comes from checkForNews
+        }
+
+    // RETURN NEW USERDATA AND NEW TO SHOW IN NOTIFICATIONS
+        newUserData = { ...newUserData, news: [...newUserData.news, ...updatedNews] }
+        return { newUserData, updatedNews, needsUpdate }
   } 
 }
 

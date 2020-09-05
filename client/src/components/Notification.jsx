@@ -12,26 +12,22 @@ const formatter = buildFormatter(germanStrings)
 function Notification (props) {
     return (
         <MDBContainer>
-                {props.notifications.map((notification,i) => {
-
-                    if (notification.toBeDeleted) return (<div key={i}/>)
-                    else return (
-                        <div className="notification" key={i}>
-                            <MDBNotification
-                            autohide={7000} 
-                            bodyClassName="notification-body"
-                            show
-                            fade
-                            icon={returnNotificationSymbol(notification.typeOfNotification)}
-                            iconClassName={returnNotificationColor(notification.typeOfNotification)}
-                            title={notification.typeOfNotification}
-                            message={notification.notification}
-                            text={<TimeAgo date={notification.created} formatter={formatter} />}                        
-                            />
-                        </div>
+                {props.notifications.map((notification,i) => 
+                    <div className="notification" key={i}>
+                        <MDBNotification
+                        autohide={7000} 
+                        bodyClassName="notification-body"
+                        show
+                        fade
+                        icon={returnNotificationSymbol(notification.typeOfNotification)}
+                        iconClassName={returnNotificationColor(notification.typeOfNotification)}
+                        title={notification.typeOfNotification}
+                        message={notification.notification.text}
+                        text={<TimeAgo date={notification.created} formatter={formatter} />}                        
+                        />
+                    </div>
                     )
                 }   
-            )}
         </MDBContainer>
     );
 }

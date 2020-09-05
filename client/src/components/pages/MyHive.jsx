@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { MDBBtn, MDBIcon } from 'mdbreact';
 import AddBeeModal from '../AddBeeModal';
+import UserInfo from '../UserInfo';
 import api from '../../api';
 
 function MyHive(props) {
@@ -14,14 +15,12 @@ function MyHive(props) {
     if ( api.isLoggedIn() ) {
         return (
             <div>
-                <h1>My Hive</h1>
+                <h1 className="page-title"><span className="neon-red">My</span> <span className="neon-blue">Hive</span></h1>
                 <MDBBtn onClick={toggleModal} outline color="success">
                     Add a bee
                     <MDBIcon icon="plus" className="ml-1" />
                 </MDBBtn>
-                {userdata.bees && userdata.bees.map(bee => <div>
-                    {bee.playerName}
-                </div>)}
+                {userdata.bees && userdata.bees.map((bee, i) => <UserInfo key={i} userInfoData={bee}/>)}
                 {!beesExists && <p>No bees yet</p>}
 
                 {/* // MODAL ADD beeS //  */}

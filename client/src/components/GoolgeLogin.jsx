@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { newNotification } from '../actioncreators'
 import GoogleLogin from 'react-google-login';
 // import keys from '../configs/keys';
 import api from '../api';
@@ -8,15 +7,16 @@ import '../styles/GoolgeLogin.scss'
 
 function LoginBox(props) {
 
-  const responseOauth = (response) => {
+  const responseOauth = async (response) => {
+    console.log("responseOauth -> response", response)
     const googleId = response.googleId;
     const username = response.profileObj.name;
     const profilePic = response.profileObj.imageUrl;
-    api.googleLogin(googleId, username, profilePic)
+    await api.googleLogin(googleId, username, profilePic)
     .then(userdata => {
       if (userdata ) {
         props.dispatch({ type: "UPDATE_USER_DATA", userdata })
-        if (props.history) props.history.push("/") // Redirect to the home page
+        // if (props.history) props.history.push("/") // Redirect to the home page FIXME: Not usefull for now? Maybe remove
       }
     }).catch(err => console.log(err))
   }

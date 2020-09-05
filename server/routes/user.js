@@ -1,10 +1,26 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
 const { isLoggedIn } = require('../middlewares')
 const User = require("../models/User")
 
 router.post('/:id/', isLoggedIn, (req, res, next) => {
-    User.findByIdAndUpdate(req.params.id, req.body)
+    if( mongoose.Types.ObjectId.isValid(req.params.id) ) {
+      User.findByIdAndUpdate(req.params.id, req.body)
+      .then(userDoc => {  
+        if (!userDoc) {
+          next(new Error("Could not find user."))
+          return
+        } 
+        res.json(userDoc)
+      }).catch(err => next(err))
+    } else next(new Error("Invalid Mongoos User ID"))
+    
+});
+
+router.get('/:id/', isLoggedIn, (req, res, next) => {
+  if( mongoose.Types.ObjectId.isValid(req.params.id) ) {
+    User.findById(req.params.id)
     .then(userDoc => {  
       if (!userDoc) {
         next(new Error("Could not find user."))
@@ -13,19 +29,22 @@ router.post('/:id/', isLoggedIn, (req, res, next) => {
       res.json(userDoc)
     })
     .catch(err => next(err))
+  }
 });
 
-router.get('/:id/', isLoggedIn, (req, res, next) => {
-  console.log("Get user/:id hit")
-  User.findById(req.params.id)
-  .then(userDoc => {  
-    if (!userDoc) {
-      next(new Error("Could not find user."))
-      return
-    } 
-    res.json(userDoc)
-  })
-  .catch(err => next(err))
+router.post('/:id/bee/update', isLoggedIn, (req, res, next) => {
+  if (req.params.id !== undefined) {
+    User.findByIdAndUpdate({
+      "_id": req.params.id
+    }, {$set: {bees: req.body}},{safe: true, new: true})
+    .then(userDoc => {  
+      if (!userDoc) {
+        next(new Error("Could not find user."))
+        return
+      } 
+      res.json(userDoc)
+    }).catch(err => next(err))
+  } else console.log("No ID in Params")
 });
 
 router.post('/:id/bee', isLoggedIn, (req, res, next) => {
@@ -36,8 +55,7 @@ router.post('/:id/bee', isLoggedIn, (req, res, next) => {
       return
     } 
     res.json(userDoc)
-  })
-  .catch(err => next(err))
+  }).catch(err => next(err))
 });
 
 // router.get('/:id/settings', isLoggedIn, (req, res, next) => {

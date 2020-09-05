@@ -1,18 +1,30 @@
 #main {
     width: 80%;
-    height: 100vh;
+    // height: 100%;
     padding: 0 3px 3px 3px;
+    margin-left: 20%; // to match fixed menu width
 
     #header {
         display: flex;
+        color: white;
         justify-content: space-between;
         align-items: center;
-        border-bottom: 1px solid black;
+        border-bottom: 1px solid rgb(61, 59, 59);
 
         p {margin: 0;}
 
         LoginBox {
             border: 3px solid green; 
+        }
+
+        #header-right {
+            display: flex; 
+            justify-content: flex-end;
+        }
+
+        .headerpart {
+            width: 33%;
+            padding: 1%;
         }
     }
 
@@ -22,7 +34,6 @@
         left: 0;
         margin: 1%;
         z-index: 1;
-        width: 400px;
         display: flex; 
         justify-content: flex-start;
         align-items: center;
@@ -32,6 +43,22 @@
         width: 50px;
         margin-right: 2%;
         border-radius: 50%;
+    }
+
+    .page-title {
+        font-family: 'NeonTubes2';
+        text-align: center;
+        margin-top: 1rem;
+
+        .neon-red {
+            color: #fff0f0;;
+            text-shadow: #ff0025 -2px -1px 5px, #ff0025 2px 1px 5px, #ff0025 0px 0px 10px, #ff0025 0px 0px 15px, #ff0025 0px 0px 20px, #ff0025 0px 0px 30px;
+        }
+
+        .neon-blue {
+            color: #edf5ff;
+            text-shadow: blue -2px -1px 5px, blue 2px 1px 5px, blue 0px 0px 10px, blue 0px 0px 15px, blue 0px 0px 20px, blue 0px 0px 30px;
+        }
     }
 
     /* REMOVE ARROWS FROM INPUT FIELD */
