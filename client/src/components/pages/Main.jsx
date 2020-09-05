@@ -18,6 +18,7 @@ function Main(props) {
         api.logout();
         let userdata = { username: null, profilePic: null }
         dispatch({ type: "UPDATE_USER_DATA", userdata })
+        dispatch({ type: "LOGOUT" })
     }
 
     return (
@@ -37,7 +38,7 @@ function Main(props) {
                 </div>
                 <div className="headerpart" id="header-center">
                     {/* Fechting Data Status Update */}
-                    {(fetchingData.status) && <Spinner text="Updating data..." />}
+                    {api.isLoggedIn() && (fetchingData.status) && <Spinner text="Updating data..." />}
                 </div>
                 <div className="headerpart" id="header-right">
                     {/* TODO: Move Google Login right */}
