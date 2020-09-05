@@ -53,7 +53,7 @@ export async function checkForNews(userdata) {
                                         beeSocre: score,
                                         myScore, 
                                         song: scoresRecent[j], 
-                                        date: new Date()
+                                        date: scoresRecent[j].timeSet
                                     }))
                                 }                           
                             }
