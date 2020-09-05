@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { checkForNews } from './helper/checkForNews'
+import News from './prototypes/newsProto'
 
 const service = axios.create({
   baseURL: process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:5000/api',
@@ -84,8 +85,6 @@ export default {
   },
 
   saveUserData(userId, userdata) {
-      console.log("saveUserData -> userdata", userdata)
-      console.log("saveUserData -> userId", userId)
       console.log("Saving User Data...")
       return service
         .post('/user/' + userId, userdata)
@@ -192,27 +191,6 @@ export default {
     return score
   },
 
-  async dataUpdateNeeded(currentTotalPlayCount, currentId) {
-    let latestFetchedScore = null
-
-    const fetchData = async () => {
-        await axios('https://new.scoresaber.com/api/player/'+ currentId +'/full', { validateStatus: false })
-          .then(scoreReply => {
-            if (scoreReply.status === 404 || scoreReply.status === 429 || scoreReply.status === 422)  {
-              return null
-            }
-            else latestFetchedScore = scoreReply.data.scoreStats.totalPlayCount
-          })
-    }
-
-    await fetchData()
-    console.log("dataUpdateNeeded -> currentTotalPlayCount", currentTotalPlayCount)
-    console.log("dataUpdateNeeded -> latestFetchedScore", latestFetchedScore)
-    if (latestFetchedScore && currentTotalPlayCount) return (latestFetchedScore !== currentTotalPlayCount)
-  
-   
-  },
-
   async updateData(currentId, _id) {
     let dbUserData, ssUserData, newUserData, checkForNewsResult
     let updatedNews = []
@@ -245,11 +223,11 @@ export default {
         if(dbUserData.totalPlayCount !== ssUserData.totalPlayCount) {
           needsUpdate = true
           const diff = ssUserData.totalPlayCount - dbUserData.totalPlayCount
-          updatedNews.push({
+          updatedNews.push(new News({
             text: `You gained ${diff} new Scores!`, 
             diff, 
             type: "ownNewScores", 
-            date: new Date()})
+            date: new Date()}))
           await this.getScores(currentId).then( result => newUserData = { ...newUserData, scoreData: result })
         }
       }
