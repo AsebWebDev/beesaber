@@ -25,11 +25,11 @@
         }
         div:first-child {
             transform: rotate(90deg) translate(-36px, -68px);
-            z-index: 5;
+            // z-index: 5;
         }
         div:nth-child(2) {
             transform: rotate(150deg) translate(-103px, -49px);
-            z-index: 4;
+            // z-index: 4;
         }
         div:nth-child(3) {
             transform: rotate(30deg) translate(120px, -19px);
@@ -42,36 +42,35 @@
         }
         div:nth-child(6) {
             transform: rotate(30deg) translate(15px, -20px);
-            z-index: 6;
+            // z-index: 6;
         }
+
+        // only for logo with sabers:
     
-        .saber {
-            position: absolute;
-            height: 100%;
-            width: 3px;
-            top: 0%;
-            border-radius: 3px;
-        }
-        .saber.neon-red {
-            left: 49%;
-            transform: rotate(30deg);
-            background-color: #fff0f0;
-            box-shadow: 
-            0px 0px 8px 2px #ff8d9e, 
-            0px 0px 12px 6px #ff0025;
-        }
-        .saber.neon-blue {
-            right: 49%;
-            transform: rotate(-30deg);
-            background-color: #edf5ff;
-            box-shadow: 
-            0px 0px 8px 2px #7979ff, 
-            0px 0px 12px 6px blue;
-        }
-        
-        // img {
-        //     width: 95%;
+        // .saber {
+        //     position: absolute;
+        //     height: 100%;
+        //     width: 3px;
+        //     top: 0%;
+        //     border-radius: 3px;
         // }
+        // .saber.neon-red {
+        //     left: 49%;
+        //     transform: rotate(30deg);
+        //     background-color: #fff0f0;
+        //     box-shadow: 
+        //     0px 0px 8px 2px #ff8d9e, 
+        //     0px 0px 12px 6px #ff0025;
+        // }
+        // .saber.neon-blue {
+        //     right: 49%;
+        //     transform: rotate(-30deg);
+        //     background-color: #edf5ff;
+        //     box-shadow: 
+        //     0px 0px 8px 2px #7979ff, 
+        //     0px 0px 12px 6px blue;
+        // }
+        
     }
     
     #menu-main {
