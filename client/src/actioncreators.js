@@ -12,12 +12,12 @@ export function newNotification(message, typeOfNotification) {
   }
 }
 
-export function setFetchStatus(status, text) {
+export function setFetchStatus(status, statusText) {
   return {
     type: SET_FETCH_STATUS,
     fetchingData: {
       status,
-      text
+      statusText
     }
   }
 }

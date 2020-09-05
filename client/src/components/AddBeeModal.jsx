@@ -5,6 +5,7 @@ import {    MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBMod
         } from 'mdbreact';
 import { newNotification } from '../actioncreators'
 import UserInfo from './UserInfo.jsx';
+import Spinner from './Spinner';
 import api from '../api';
 import '../styles/AddBeeModal.scss'
 
@@ -14,44 +15,61 @@ function AddBeeModal(props) {
     let [activeItem, setActiveItem] = useState('1')
     let [query, setQuery] = useState('')
     let [foundUser, setFoundUser] = useState(null)
+    let [foundUsers, setFoundUsers] = useState(null)
     let [userAlreadyAdded, setUserAlreadyAdded] = useState(null)
+    let [processing, setProcessing] = useState({status: false, statusText: null})
 
     useEffect(() => {
         // check if user alread exists in bees list
         if (foundUser) setUserAlreadyAdded(props.userdata.bees.some(item => item.playerId === foundUser.playerId))
     }, [foundUser])
 
-    const handleChange = (e) => setQuery(e.target.value)
-    
-    const handleSearch = () => {
-        const mode = activeItem === '1' ? 'id' : 'username'
-        api.getScoreSaberUserInfo(query, mode)
-            .then(result => {
-                let foundUser = null
-                if (mode === 'id') foundUser = result ? result : null
-                if (mode === 'username') foundUser = result ? { ...result.players[0] } : null
-                // if (mode === 'username') foundUser = result ? { ...result.players } : null //TODO: Integrate multiple users found
-                setFoundUser(foundUser)
-            })
-    }
-
     const cleanUp = () => {
         setQuery('')
         setFoundUser(null)
+        setFoundUsers(null)
+    }
+
+    const handleChange = (e) => setQuery(e.target.value)
+    
+    const handleSearch = async () => {
+        const mode = activeItem === '1' ? 'id' : 'username'
+        setProcessing({status: true, statusText: 'Searching...' })
+        await api.getScoreSaberUserInfo(query, mode)
+            .then(result => {
+                (Array.isArray(result))         // If result is an array, multiple Users have been found...
+                    ? setFoundUsers(result)     // ... then add this to foundUsers in state
+                    : setFoundUser(result)      // If its not an array, only one user is found and can be added to foundUser
+            }).catch(err => dispatch(newNotification({text: err.message})))
+            setProcessing({status: false, statusText: null })
+    }
+
+    const handleChose = (user) => {
+        setFoundUser(user)
+        setFoundUsers(null)
     }
 
     const handleSave = async() => {
         if (!userAlreadyAdded) {
+            let userdata = {}
+            setProcessing({status: true, statusText: 'Adding ' + foundUser.playerName + ' to your hive' })
+
+            // If the found user is coming from an array (more than one user found, one needs to be picked of the Array on UI) there is
+            // only few data coming from the api, so we need complete user data 
+            if (!foundUser.hasOwnProperty('totalPlayCount'))
+            await api.getScoreSaberUserInfo(foundUser.playerId, 'id')
+                .then( ScoreSaberUserInfo => userdata = { ...userdata, ...ScoreSaberUserInfo } )
+
+            // Get scores from the found user to the userdata and finally save it to the database
             await api.getScores(foundUser.playerId).then((scoreData) => {
-                const userdata = { ...foundUser, scoreData }
+                userdata = { ...userdata, ...foundUser, scoreData }
                 api.saveBee(props.userdata._id, userdata)
-                    .then(userdata => {
-                        dispatch(newNotification("User " + foundUser.playerName + " successfully added."))
-                        dispatch({ type: "UPDATE_USER_DATA", userdata })
-                        cleanUp()
-                    })
-            })
+                    .then(userdata => dispatch({ type: "UPDATE_USER_DATA", userdata }))
+            }).catch(err => dispatch(newNotification({text: err.message})))
+            dispatch(newNotification({text: "User " + foundUser.playerName + " successfully added."}))
             
+            setProcessing({status: false, statusText: null })
+            cleanUp()
         } else {
             console.log("User existiert bereits")
             // TODO: Error Message
@@ -66,8 +84,7 @@ function AddBeeModal(props) {
     return (
         <div id="adbeesmodal">
             <MDBContainer>
-                {/* <MDBBtn onClick={toggle}>Modal</MDBBtn> */}
-                <MDBModal isOpen={true} toggle={props.toggleModal}>
+                <MDBModal isOpen={true} toggle={props.toggleModal} size="lg">
                     <MDBModalHeader toggle={props.toggleModal}>Add a new Bee</MDBModalHeader>
                     <MDBModalBody>
                         <MDBNav className="nav-tabs mt-5">
@@ -90,10 +107,9 @@ function AddBeeModal(props) {
                                     success="right" />
                                 </div>
                                 {/* // TODO: Create Component for this part, DRY code:  */}
-                                {foundUser &&
+                                {foundUser && 
                                     <div className="result">
                                         <UserInfo userInfoData={foundUser}/>
-                                        {/*{foundUser.playerName}*/}
                                         {userAlreadyAdded && <b>User already added</b>}
                                     </div>}
                             </MDBTabPane>
@@ -105,20 +121,26 @@ function AddBeeModal(props) {
                                     success="right" />
                                 </div>
                                 {/* // TODO: Create Component for this part, DRY code:  */}
-                                {foundUser && 
+                                {foundUser &&
                                     <div className="result">
                                         <UserInfo userInfoData={foundUser}/>
-                                        {/*{foundUser.playerName}*/}
                                         {userAlreadyAdded && <b>User already added</b>}
                                     </div>}
+                                {foundUsers &&
+                                    foundUsers.map(user => <UserInfo userInfoData={user} handleChose={handleChose}/>)}
                             </MDBTabPane>
                         </MDBTabContent>
                     </MDBModalBody>
-                    <MDBModalFooter>
-                    {query !== '' && <MDBBtn color="primary" onClick={handleSearch}>Search</MDBBtn>}
-                    <MDBBtn color="secondary" onClick={props.toggleModal}>Close</MDBBtn>
-                    {foundUser && !userAlreadyAdded && <MDBBtn color="success" onClick={handleSave}>Add {foundUser.playerName}</MDBBtn>}
-                    </MDBModalFooter>
+
+                    {/* /// Show Buttons OR Status bar /// */}
+                    {!processing.status &&  <MDBModalFooter>
+                                                {query !== '' && <MDBBtn color="primary" onClick={handleSearch}>Search</MDBBtn>}
+                                                <MDBBtn color="secondary" onClick={props.toggleModal}>Close</MDBBtn>
+                                                {foundUser && !userAlreadyAdded && <MDBBtn color="success" onClick={handleSave}>Add {foundUser.playerName}</MDBBtn>}
+                                            </MDBModalFooter>}
+                    {processing.status &&   <MDBModalFooter>
+                                                {processing.status && <Spinner text={processing.statusText}/>}
+                                            </MDBModalFooter>}
                 </MDBModal>
             </MDBContainer>
         </div>

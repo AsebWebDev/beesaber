@@ -6,9 +6,9 @@ import Dashboard from './Dashboard';
 import MyProfile from './MyProfile';
 import MyHive from './MyHive';
 import GoolgeLogin from '../GoolgeLogin';
+import Spinner from '../Spinner';
 import '../../styles/pages/Main.scss'
 import api from '../../api';
-import Spinner from '../Spinner';
 import profilePicPlaceholderUrl from '../../media/beesaberlogo.png'
 
 function Main(props) {
@@ -38,7 +38,7 @@ function Main(props) {
                 </div>
                 <div className="headerpart" id="header-center">
                     {/* Fechting Data Status Update */}
-                    {api.isLoggedIn() && (fetchingData.status) && <Spinner text="Updating data..." />}
+                    {api.isLoggedIn() && (fetchingData.status) && <Spinner text={fetchingData.statusText} />}
                 </div>
                 <div className="headerpart" id="header-right">
                     {/* TODO: Move Google Login right */}

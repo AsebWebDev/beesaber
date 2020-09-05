@@ -23,9 +23,15 @@ function App(props) {
         const { updatedNews, newUserData, needsUpdate } = result
         console.log("UPDATE DATA RESULT: ", result)
         if (!!updatedNews.length) updatedNews.map( news => dispatch(newNotification(news) ) )
-        if (needsUpdate) await api.saveUserData(_id, newUserData)
+        if (needsUpdate) {
+          dispatch(setFetchStatus(true, 'Updating data...'))
+          await api.saveUserData(_id, newUserData)
           .then(() => dispatch({ type: "UPDATE_USER_DATA", userdata: newUserData }))
-      })
+        }
+      }).catch((err) => {
+          dispatch(newNotification({text: err.message}))
+          dispatch(setFetchStatus(false))
+        })
       dispatch(setFetchStatus(false))
   }
 
@@ -44,9 +50,9 @@ function App(props) {
 
   // CHECK REGULARLY FOR UPDATES
   useEffect(() => {
-    fetchDataRegularly()
+    if (_id) fetchDataRegularly()
     return () => clearInterval(fetchDataRegularly)
-  }, [userdata, myScoreSaberId])
+  }, [userdata, myScoreSaberId, _id])
 
   return (
     <div id="App">

@@ -8,6 +8,7 @@ const userSchema = new Schema({
   googleId: String,
   profilePic: String,
   totalPlayCount: Number,
+  totalScore: Number,
   county: String, 
   rank: Number, 
   countryRank: Number,

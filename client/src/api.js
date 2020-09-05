@@ -1,6 +1,9 @@
 import axios from 'axios'
+import mongoose from 'mongoose'
 import { checkForNews } from './helper/checkForNews'
 import News from './prototypes/newsProto'
+
+const validId = (id) => mongoose.Types.ObjectId.isValid(id)
 
 const service = axios.create({
   baseURL: process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:5000/api',
@@ -71,21 +74,22 @@ export default {
   // ===========
 
   getUserSettings(userId) {
-    return service
-      .get('/user/' + userId + '/settings')
-      .then(res => res.data)
-      .catch(errHandler)
+      return service
+        .get('/user/' + userId + '/settings')
+        .then(res => res.data)
+        .catch(errHandler)
   },
 
   getUserData(userId) {
-    return service
-      .get('/user/' + userId)
-      .then(res => res.data)
-      .catch(errHandler)
+    if (validId(userId))
+      return service
+        .get('/user/' + userId)
+        .then(res => res.data)
+        .catch(errHandler)
+    else return Promise.resolve()
   },
 
   saveUserData(userId, userdata) {
-      console.log("Saving User Data...")
       return service
         .post('/user/' + userId, userdata)
         .then(res => res.data)
@@ -96,7 +100,6 @@ export default {
     return service
       .post('/user/' + userId + '/settings', settings)
       .then(res => res.data)
-      .catch(errHandler)
   },
 
   // ===============
@@ -110,12 +113,15 @@ export default {
                   : 'https://new.scoresaber.com/api/players/by-name/' + query
     
     await axios(url, { validateStatus: false })
-    .then(scoreReply => {
-      if (scoreReply.status === 404 || scoreReply.status === 429 || scoreReply.status === 422)  {
-        return null
-      }
-      else result = { ...scoreReply.data.playerInfo, ...scoreReply.data.scoreStats }
-    })
+      .then(scoreReply => {
+      console.log("getScoreSaberUserInfo -> scoreReply", scoreReply)
+        if (scoreReply.status === 404 || scoreReply.status === 429 || scoreReply.status === 422)  {
+          return null
+        }
+        else return result = (mode === 'id') 
+                  ? { ...scoreReply.data.playerInfo, ...scoreReply.data.scoreStats } 
+                  : scoreReply.data.players
+      }).catch(errHandler)
     return result
   },
 
@@ -196,7 +202,10 @@ export default {
     let updatedNews = []
     let needsUpdate = false
     // GET USERDATA FROM DATABASE
-    await this.getUserData(_id).then(result => dbUserData = result)
+    await this.getUserData(_id).then(result => {
+    console.log("updateData -> result", result)
+      dbUserData = result
+    })
 
     // IF, BY ANY CHANCE, NO SCOREDATA IS PRESENT, FETCH IT AGAIN
     if (dbUserData) {
@@ -220,7 +229,8 @@ export default {
     // CREATE NEWS FROM CHANGES
       // CHECK FOR CHANGES ON OWN DATA ( DB vs. SCORESABER )
       if (dbUserData && ssUserData) {
-        if(dbUserData.totalPlayCount !== ssUserData.totalPlayCount) {
+        // Change in own user data is checked by a) bigger totalPlayCount or b) bigger overall total Score on ScoreSaber 
+        if( (dbUserData.totalPlayCount !== ssUserData.totalPlayCount) || (dbUserData.totalScore < ssUserData.totalScore )) {
           needsUpdate = true
           const diff = ssUserData.totalPlayCount - dbUserData.totalPlayCount
           updatedNews.push(new News({

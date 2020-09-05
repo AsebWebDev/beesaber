@@ -10,6 +10,7 @@
     "dotenv": "^8.2.0",
     "locale-emoji": "^0.3.0",
     "mdbreact": "^4.27.0",
+    "mongoose": "^5.10.3",
     "node-sass": "^4.14.1",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
