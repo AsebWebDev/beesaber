@@ -1,5 +1,6 @@
 // Function returns an Array of News
 import api from '../api';
+import News from '../prototypes/newsProto'
 
 export async function checkForNews(userdata) {
     let bees = userdata.bees
@@ -14,6 +15,7 @@ export async function checkForNews(userdata) {
         await api.getScoreSaberUserInfo(playerId, 'id')              // FETCH USERDATA for current Bee
             .then( userInfo => compareScores(userInfo, oldTotalPlayCount, playerId, playerName))
     }
+
     return { news, bees }
 
     // FUNCTION TO COMPARE SCORES
@@ -23,15 +25,14 @@ export async function checkForNews(userdata) {
         if (newTotalPlayCount !== oldTotalPlayCount) {                              // if different === new highscores exist
             const numPlayedMore = newTotalPlayCount - oldTotalPlayCount             // calc the difference
             if (userInfo) console.log(userInfo.playerName, " played ", numPlayedMore, " more!")
-            // if (userInfo) news.push(`Your Bee ${userInfo.playerName} played ${numPlayedMore} new songs!`)
-            if (userInfo) news.push({
+            if (userInfo) news.push(new News({
                 text: `Your Bee ${userInfo.playerName} played ${numPlayedMore} new songs!`, 
                 title: `Your Bee ${userInfo.playerName} played ${numPlayedMore} new songs!`,
                 bee: userInfo.playerName,
                 numPlayedMore,
                 type: "morePlayed",
                 date: new Date() 
-            })
+            }))
             await api.getScores(playerId)                                           // FETCH SCORES for current Bee
                 .then(scoreData => {
                     if (scoreData && scoreData.scoresRecent) {
@@ -45,8 +46,7 @@ export async function checkForNews(userdata) {
                                 // const myScore = myScoreIds.filter(item => item.scoreId === scoresRecent[j].scoreId).score 
                                 const myScore = 279100 //FIXME: For testing...
                                 if (score > myScore) {
-                                    // news.push(`Your Bee ${playerName} beat you at ${songName} (${songAuthorName}): ${score} ( You: ${myScore}  ) `)
-                                    news.push({
+                                    news.push(new News({
                                         text: `Your Bee ${playerName} beat you at ${songName} (${songAuthorName}): ${score} ( You: ${myScore}  ) `, 
                                         type: "beatScore",
                                         bee: playerName,
@@ -54,7 +54,7 @@ export async function checkForNews(userdata) {
                                         myScore, 
                                         song: scoresRecent[j], 
                                         date: new Date()
-                                    })
+                                    }))
                                 }                           
                             }
                         }

@@ -16,7 +16,7 @@ function LoginBox(props) {
     .then(userdata => {
       if (userdata ) {
         props.dispatch({ type: "UPDATE_USER_DATA", userdata })
-        if (props.history) props.history.push("/") // Redirect to the home page
+        // if (props.history) props.history.push("/") // Redirect to the home page FIXME: Not usefull for now? Maybe remove
       }
     }).catch(err => console.log(err))
   }
