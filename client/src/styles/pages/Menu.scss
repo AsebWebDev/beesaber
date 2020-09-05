@@ -26,11 +26,11 @@
         }
         div:first-child {
             transform: rotate(90deg) translate(-36px, -68px);
-            z-index: 2;
+            z-index: 5;
         }
         div:nth-child(2) {
             transform: rotate(150deg) translate(-103px, -49px);
-            z-index: 2;
+            z-index: 4;
         }
         div:nth-child(3) {
             transform: rotate(30deg) translate(120px, -19px);
@@ -43,7 +43,7 @@
         }
         div:nth-child(6) {
             transform: rotate(30deg) translate(15px, -20px);
-            z-index: 2;
+            z-index: 6;
         }
     
         .saber {
