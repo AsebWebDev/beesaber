@@ -1,15 +1,18 @@
 #main {
     width: 80%;
     // height: 100%;
-    padding: 0 3px 3px 3px;
+    // padding: 0 3px 3px 3px;
     margin-left: 20%; // to match fixed menu width
 
     #header {
+        position: fixed;
+        width: 80%;
+        height: 5rem;
         display: flex;
         color: white;
         justify-content: space-between;
         align-items: center;
-        border-bottom: 1px solid rgb(61, 59, 59);
+        // border-bottom: 1px solid rgb(61, 59, 59);
 
         p {margin: 0;}
 
@@ -20,6 +23,7 @@
         #header-right {
             display: flex; 
             justify-content: flex-end;
+            align-items: center;
         }
 
         .headerpart {
@@ -30,25 +34,61 @@
 
     #profile-login-icon {
         // position: fixed; // Can be fixed to upper left into logo if prefered
-        top: 0;
-        left: 0;
-        margin: 1%;
+        // top: 0;
+        // left: 0;
+        margin: 3%;
         z-index: 1;
-        display: flex; 
+        display: flex;
+        flex-direction: column;
         justify-content: flex-start;
         align-items: center;
       }
-      
+    
+    #username-login-logout {
+        display: flex;
+        //logout btn needs to be first html element for sibling hover effect, 
+        // but should appear below username:
+        flex-direction: column-reverse; 
+
+        #logout-btn {
+            padding: 0;
+            background: none;
+            height: fit-content;
+            border: none;
+            color: #ff0025;
+            font-family: 'NeonTubes2';
+            font-size: 0.9rem;
+        }
+        
+        .username {
+            font-size: 1.4rem;
+        }
+
+        #logout-btn:hover {
+            color:  #fff0f0;
+            text-shadow: #ff0025 -2px -1px 5px, #ff0025 2px 1px 5px, #ff0025 0px 0px 10px, #ff0025 0px 0px 15px, #ff0025 0px 0px 20px, #ff0025 0px 0px 30px;
+          }
+    
+        // sibling hover method:
+        #logout-btn:hover ~ .username {
+        color:  blue;
+        text-shadow: unset;
+        }
+    }
+    
     #profile-pic-sm {
         width: 50px;
-        margin-right: 2%;
-        border-radius: 50%;
+        // margin-right: 2%;
+        // border-radius: 50%;
+        clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);
     }
 
     .page-title {
         font-family: 'NeonTubes2';
         text-align: center;
         margin-top: 1rem;
+        margin-bottom: 0;
+        height: 4rem;
 
         .neon-red {
             color: #fff0f0;;

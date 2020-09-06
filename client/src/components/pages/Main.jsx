@@ -28,31 +28,49 @@ function Main(props) {
         <div id="main">
             <div id="header">
                 <div className="headerpart" id="header-left">
-                </div>
-                <div className="headerpart" id="header-center">
                     {/* Fechting Data Status Update */}
                     {api.isLoggedIn() && (fetchingData.status) && <Spinner text={fetchingData.statusText} />}
                 </div>
+                <div className="headerpart" id="header-center">
+                </div>
                 <div className="headerpart" id="header-right">
-                    {/* TODO: Move Google Login right */}
                     
+
+                    <div id="username-login-logout">
+
+                        {!api.isLoggedIn() && <GoolgeLogin id="googlelogin"/>}
+
+
+                        {api.isLoggedIn() && 
+                            // <MDBBtn onClick={handleLogout} size="sm" color="danger">
+                            //     Logout
+                            //     <MDBIcon icon="sign-out-alt" className="ml-1" />
+                            // </MDBBtn>
+                                <button id="logout-btn" className="neon-red" onClick={handleLogout}>
+                                    Logout
+                                    <MDBIcon icon="sign-out-alt" className="ml-1" />
+                                </button>
+                                }
+
+
+                        {api.isLoggedIn() && userdata && 
+                                        <div className="username neon-blue on">
+                                            {userdata.username}
+                                        </div>
+                                    }
+                    </div>
+
+
                     {/* Google Profile Data */}
                     {api.isLoggedIn() && userdata && 
                                         <div id="profile-login-icon">
                                             {userdata.profilePic && 
                                                 <img 
-                                                    src={userdata.profilePic ? userdata.profilePic : profilePicPlaceholderUrl} 
-                                                    id="profile-pic-sm" alt="profile pic"/>}
-                                            {userdata.username}
+                                                src={userdata.profilePic ? userdata.profilePic : profilePicPlaceholderUrl} 
+                                                id="profile-pic-sm" alt="profile pic"/>}
+                                            {/* {userdata.username} */}
                                         </div>
                                     }
-
-                    {!api.isLoggedIn() && <GoolgeLogin id="googlelogin"/>} 
-                    {api.isLoggedIn() && 
-                        <MDBBtn onClick={handleLogout} size="sm" color="danger">
-                            Logout
-                            <MDBIcon icon="sign-out-alt" className="ml-1" />
-                        </MDBBtn>}
                 </div>
             </div>
             <Switch>
