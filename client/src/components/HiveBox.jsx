@@ -7,7 +7,9 @@ function HiveBox(props) {
     return (
         <div id="hivebox" className="card-container">
             <h3>HiveBox</h3>
-            {props.userdata.bees.slice(0,5).map(( bee, i ) => <BeeTag key={i} bee={bee}/>)}
+            <div id="bees">
+              {props.userdata.bees.slice(0,5).map(( bee, i ) => <BeeTag key={i} bee={bee}/>)}
+            </div>
         </div>
     )
 }
