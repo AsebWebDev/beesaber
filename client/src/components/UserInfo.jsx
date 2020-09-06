@@ -28,7 +28,7 @@ export default class UserInfo extends Component {
                     <tbody>
                             <tr>
                                 <td><img src={url} alt="Avatar"/></td>
-                                <td>{localeEmoji(`${userInfoData.country}`)}&nbsp;<BeeTag userName={userInfoData.playerName}/></td>
+                                <td>{localeEmoji(`${userInfoData.country}`)}&nbsp;<BeeTag bee={userInfoData}/></td>
                                 <td>#{userInfoData.rank}</td>
                                 {userInfoData.countryRank && <td>#{userInfoData.countryRank}</td>}
                                 {userInfoData.totalPlayCount && <td>{userInfoData.totalPlayCount}</td>}

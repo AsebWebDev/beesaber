@@ -1,6 +1,5 @@
 #scorebox {
   width: 55%;
-  // background-color: #4b3e3e;
   
   h3{ 
     color: whitesmoke;
@@ -11,7 +10,55 @@
 
   table {
     color: whitesmoke;
+  }
 
+  th {
+    text-align: left;
+    padding: 0.5rem;
+  }
+
+  .table {
+      td {
+        width: 100%;
+        border-top: none;
+        border-bottom: 1px solid darkgrey;
+      }
+      tr:last-child {
+        td {
+          border: none
+        }
+      }
+  }
+
+  .table.table td {
+    padding: 0.5rem
+  }
+
+  .card-link {
+    font-size: 0.7rem
+  }
+
+  th.rank {
+    width: 11%;
+  }
+
+  th.song {
+    width: 53%
+  }
+
+  th.score {
+    width: 17%;
+  }
+
+  th.time {
+    width: 19%;
+  }
+
+  td.song {
+    .badge {
+      margin-left: 2px;
+      text-overflow: ellipsis;
+    }
   }
 
 }
@@ -49,12 +96,10 @@
     max-width: 300px;
     overflow: hidden;
     white-space: nowrap;
-    text-overflow: ellipsis;
+    // text-overflow: ellipsis;
   }
   
-  th.rank, th.score {
-    width: 20%;
-  }
+
   
   table img {
     max-width: 40px;

@@ -54,6 +54,11 @@ a:hover .neon-blue {
   color: grey
 }
 
+.badge {
+  /* Overwrite MDB (1 -> 1.1) */
+  line-height: 1.1; 
+}
+
 .logo {
   height: 115px;
   filter: 
