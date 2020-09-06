@@ -48,12 +48,14 @@
         display: flex;
         //logout btn needs to be first html element for sibling hover effect, 
         // but should appear below username:
-        flex-direction: column-reverse; 
+        flex-direction: column-reverse;
+        align-items: flex-end;
 
         #logout-btn {
             padding: 0;
             background: none;
             height: fit-content;
+            width: fit-content;
             border: none;
             color: #ff0025;
             font-family: 'NeonTubes2';
