@@ -25,8 +25,8 @@ export default function OneNews(props) {
                     {type !== 'beatScore' && 
                     <h5 className="card-title">{type && <Symbol type={type}/>}<OneNewsText oneNews={props.oneNews} /></h5>}
                     
-                    {difficulty && <a href="/#" className="card-link"><DiffTags diff={difficulty} /></a>}
-                    <a href="/#" className="card-link"><TimeAgo date={date} formatter={formatter} /></a>
+                    {difficulty && <span className="card-link"><DiffTags diff={difficulty} /></span>}
+                    <span className="card-link blue-text"><b><TimeAgo date={date} formatter={formatter} /></b></span>
                 </div>
                 {song && <img className="pic-preview img-thumbnail" src={`https://new.scoresaber.com/api/static/covers/${song.songHash}.png`} alt="Cover"/>}
             </div>
