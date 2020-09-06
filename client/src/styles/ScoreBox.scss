@@ -14,8 +14,20 @@
 
   th {
     text-align: left;
-    padding: 0.5rem
+    padding: 0.5rem;
+  }
 
+  .table {
+      td {
+        width: 100%;
+        border-top: none;
+        border-bottom: 1px solid darkgrey;
+      }
+      tr:last-child {
+        td {
+          border: none
+        }
+      }
   }
 
   .table.table td {
@@ -27,15 +39,19 @@
   }
 
   th.rank {
-    width: 10%;
-  }
-
-  th.score, th.time {
-    width: 15%;
+    width: 11%;
   }
 
   th.song {
-    width: 60%
+    width: 53%
+  }
+
+  th.score {
+    width: 17%;
+  }
+
+  th.time {
+    width: 19%;
   }
 
   td.song {
