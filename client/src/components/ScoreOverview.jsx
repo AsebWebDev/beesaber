@@ -1,40 +1,34 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { MDBContainer, MDBTabPane, MDBTabContent, MDBNav, MDBNavItem, MDBNavLink } from "mdbreact";
 import { connect } from 'react-redux';
 import { formatDate} from "../helper/formatDate";
 
-class ScoreOverview extends Component {
-    state = {
-        activeItem: "1"
+function ScoreOverview(props) {
+    let [activeItem, setActiveItem] = useState('1')
+
+    const { dataRecent, dataTop } = props;
+    const difficulties = ['', 'Easy', '', 'Normal', '','Hard', '', 'Expert', '', 'Expert+'];
+
+    const toggle = tab => {
+        if (activeItem !== tab) setActiveItem(tab)
     };
 
-    toggle = tab => e => {
-        if (this.state.activeItem !== tab) {
-            this.setState({
-                activeItem: tab
-            });
-        }
-    };
-
-    render() {
-        const { dataRecent, dataTop } = this.props;
-        const difficulties = ['', 'Easy', '', 'Normal', '','Hard', '', 'Expert', '', 'Expert+'];
-        return (
-            <MDBContainer>
+    return (
+        <MDBContainer>
                 <h2>Score Overview:</h2>
                 <MDBNav className="nav-tabs mt-5">
                     <MDBNavItem>
-                        <MDBNavLink link to="#" active={this.state.activeItem === "1"} onClick={this.toggle("1")} role="tab" >
+                        <MDBNavLink link to="#" active={activeItem === 1} onClick={() => toggle('1')} role="tab" >
                             Recent
                         </MDBNavLink>
                     </MDBNavItem>
                     <MDBNavItem>
-                        <MDBNavLink link to="#" active={this.state.activeItem === "2"} onClick={this.toggle("2")} role="tab" >
+                        <MDBNavLink link to="#" active={activeItem === 2} onClick={() => toggle('2')} role="tab" >
                             Top
                         </MDBNavLink>
                     </MDBNavItem>
                 </MDBNav>
-                <MDBTabContent activeItem={this.state.activeItem} >
+                <MDBTabContent activeItem={activeItem} >
                     <MDBTabPane tabId="1" role="tabpanel">
                         <p className="mt-2">
                             <div className="col-md-10">
@@ -107,12 +101,13 @@ class ScoreOverview extends Component {
                     </MDBTabPane>
                 </MDBTabContent>
             </MDBContainer>
-        );
-    }
+    )
 }
+
 function mapStateToProps(reduxState){
     return {
         userdata : reduxState.userdata
     };
 }
+
 export default connect(mapStateToProps)(ScoreOverview);
