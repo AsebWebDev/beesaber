@@ -1,6 +1,6 @@
 import React from 'react'
 import TimeAgo from 'react-timeago'
-import germanStrings from 'react-timeago/lib/language-strings/de'
+import englishStrings from 'react-timeago/lib/language-strings/en'
 import buildFormatter from 'react-timeago/lib/formatters/buildFormatter'
 import DiffTags from './DiffTag'
 import Symbol from './Symbol'
@@ -9,7 +9,7 @@ import OneNewsText from './OneNewsText'
 import '../styles/OneNews.scss'
 
 export default function OneNews(props) {
-    const formatter = buildFormatter(germanStrings)
+    const formatter = buildFormatter(englishStrings)
     const { type, song, date } = props.oneNews
     const difficulty = (song) ? song.difficulty : null
 
