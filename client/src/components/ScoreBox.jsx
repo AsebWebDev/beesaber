@@ -17,7 +17,7 @@ function ScoreBox(props) {
 
     useEffect(() => {
         setAllScores(props.data);
-    }, [])
+    }, [props.data])
 
     const onPageChanged = data => {
         const { currentPage, pageLimit } = data;
