@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { MDBBadge } from 'mdbreact';
+import TimeAgo from 'react-timeago'
+import englishStrings from 'react-timeago/lib/language-strings/en'
+import buildFormatter from 'react-timeago/lib/formatters/buildFormatter'
 import Pagination from "./Pagination";
 import DiffTags from './DiffTag'
 import '../styles/ScoreBox.scss';
@@ -30,6 +34,7 @@ class ScoreBox extends Component {
     };
 
     render() {
+        const formatter = buildFormatter(englishStrings)
         const { allScores, currentScores } = this.state;
         const totalScores = allScores.length;
 
@@ -42,22 +47,24 @@ class ScoreBox extends Component {
                     <h3>Latest Scores</h3>
                     <table className="table table-box table-hover">
                         <thead>
-                        <tr>
-                            <th className="rank" scope="col">Rank</th>
-                            <th scope="col">Song</th>
-                            <th className="score" scope="col">Score</th>
-                        </tr>
+                            <tr>
+                                <th className="rank" scope="col">Rank</th>
+                                <th className="song" scope="col">Song</th>
+                                <th className="score" scope="col">Score</th>
+                                <th className="time" scope="col">Time</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        {currentScores.map((data, index) => {
-                            return(
-                                <tr key={index}>
-                                    <td>{data.rank}</td>
-                                    <td><DiffTags diff={data.difficulty} />  {data.songAuthorName} - {data.songName}</td>
-                                    <td>{data.score}</td>
-                                </tr>
-                            )})
-                        }
+                            {currentScores.map((data, index) => {
+                                return(
+                                    <tr key={index}>
+                                        <td><MDBBadge color="pink">{data.rank}</MDBBadge></td>
+                                        <td className="song"><DiffTags diff={data.difficulty} /><MDBBadge color="dark">{data.songAuthorName} - {data.songName}</MDBBadge></td>
+                                        <td><MDBBadge color="orange">{data.score}</MDBBadge></td>
+                                        <td><span className="card-link blue-text"><b><TimeAgo date={data.timeSet} formatter={formatter} /></b></span></td>
+                                    </tr>
+                                )})
+                            }
                         </tbody>
                     </table>
                     <div className="pagination">

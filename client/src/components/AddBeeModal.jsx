@@ -18,10 +18,7 @@ function AddBeeModal(props) {
     let [foundUsers, setFoundUsers] = useState(null)
     let [userAlreadyAdded, setUserAlreadyAdded] = useState(null)
     let [processing, setProcessing] = useState({status: false, statusText: null})
-    let [err, setErr] = useState(null)
     let [thatIsYou, setThatIsYou] = useState(false)
-    console.log("AddBeeModal -> thatIsYou", thatIsYou)
-    // const thatIsYou = (foundUser && userdata) ? foundUser.playerId === userdata.myScoreSaberId : false
 
     useEffect(() => {
         // check if user alread exists in bees list

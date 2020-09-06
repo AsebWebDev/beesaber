@@ -1,12 +1,25 @@
 #beetag {
-    padding: 10px;
-    margin: 2px;
-    font-size: 0.8rem;
-    max-height: 30px;
-    max-width: fit-content;
-    min-width: 100px;
+    .tag {
+        padding: 10px;
+        margin: 2px;
+        font-size: 0.8rem;
+        max-height: 30px;
+        max-width: fit-content;
+        min-width: 100px;
+    }
 
     i {
         margin-right: 5px;
+    }
+
+    .userInfoPopup {
+        border: 1px solid grey;
+        display: flex;
+        align-items: center;
+        justify-items: center;
+      }
+  
+    .tooltip {
+        background-color: grey;
     }
 }
