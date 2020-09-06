@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { MDBBadge } from 'mdbreact';
-import TimeAgo from 'react-timeago'
+import moment from 'moment'
 import englishStrings from 'react-timeago/lib/language-strings/en'
 import buildFormatter from 'react-timeago/lib/formatters/buildFormatter'
 import Pagination from "./Pagination";
@@ -46,7 +46,7 @@ function ScoreBox(props) {
                                     <td><MDBBadge color="pink">{data.rank}</MDBBadge></td>
                                     <td className="song"><DiffTags diff={data.difficulty} /><MDBBadge color="dark">{data.songAuthorName} - {data.songName}</MDBBadge></td>
                                     <td><MDBBadge color="orange">{data.score}</MDBBadge></td>
-                                    <td><span className="card-link blue-text"><b><TimeAgo date={data.timeSet} formatter={formatter} /></b></span></td>
+                                    <td><span className="card-link blue-text"><b>{moment(data.timeSet).format('lll')}</b></span></td>
                                 </tr>
                             )})
                         }
