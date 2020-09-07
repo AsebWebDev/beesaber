@@ -27,7 +27,7 @@ function ScoreBox(props) {
 
     if (totalScores === 0) return null;
     else return (
-        <div id="scorebox" className="card-container">
+        <div id="scorebox" className="card-container score-box">
             <div className="col-md-12">
                 <h3>Latest Scores</h3>
                 <table className="table table-box table-hover">
