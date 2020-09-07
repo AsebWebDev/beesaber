@@ -1,0 +1,67 @@
+.score-box {
+  h3{ 
+    color: whitesmoke;
+    font-family: 'NeonTubes2';
+    margin: 5px 0 20px 5px;
+    color: whitesmoke;
+  }
+
+  table {
+    color: whitesmoke;
+  }
+
+  td {
+    vertical-align: middle;
+  }
+
+  th {
+    text-align: left;
+    padding: 0.5rem;
+  }
+
+  .table {
+      td {
+        border-top: none;
+        border-bottom: 1px solid darkgrey;
+        img {
+          margin-left: 1rem;
+        }
+      }
+      tr:last-child {
+        td {
+          border: none
+        }
+      }
+  }
+
+  .table.table td {
+    padding: 0.5rem
+  }
+
+  .card-link {
+    font-size: 0.7rem
+  }
+
+  th.rank {
+    width: 11%;
+  }
+
+  th.song {
+    width: 53%
+  }
+
+  th.score {
+    width: 17%;
+  }
+
+  th.time {
+    width: 19%;
+  }
+
+  td.song {
+    .badge {
+      margin-left: 2px;
+      text-overflow: ellipsis;
+    }
+  }
+}
