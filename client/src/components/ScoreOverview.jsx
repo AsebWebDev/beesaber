@@ -13,7 +13,7 @@ function ScoreOverview(props) {
     };
 
     return (
-        <MDBContainer id="score-overview" className="score-box">
+        <MDBContainer id="score-overview" className="score-box scores-size-l">
                 <h3>My Scores</h3>
                 <MDBNav className="nav-tabs mt-5">
                     <MDBNavItem>

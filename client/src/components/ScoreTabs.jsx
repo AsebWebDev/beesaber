@@ -7,9 +7,9 @@ import DiffTags from './DiffTag'
 export default function ScoreTabs(props) {
     const { tabId, data, size } = props
     return (
-        <MDBTabPane tabId={tabId} role="tabpanel">
+        <MDBTabPane tabId={tabId} role="tabpanel" className="score-box scores-size-l">
             <p className="mt-2">
-                <div className="col-md-10">
+                <div className="col-md-12">
                     <p>Recent Scores</p>
                     <p>(count: {data.length})</p>
                     <table className="table table-hover">
@@ -17,7 +17,6 @@ export default function ScoreTabs(props) {
                             <tr>
                             <th className="rank" scope="col">Rank</th>
                             <th className="song" scope="col">Song</th>
-                            <th scope="col">Level</th>
                             <th className="score" scope="col">Score</th>
                             <th className="time" scope="col">Time</th>
                             </tr>
@@ -28,13 +27,15 @@ export default function ScoreTabs(props) {
                                     <tr key={index}>
                                         <td><MDBBadge color="pink">{data.rank}</MDBBadge></td>
                                         <td>
-                                            <DiffTags diff={data.difficulty} />
-                                            <img src={`https://new.scoresaber.com/api/static/covers/${data.songHash}.png`} alt="Cover"/>
-                                            <MDBBadge color="dark">{data.songAuthorName} - {data.songName}<span className="greyed-out"> by {data.levelAuthorName}</span></MDBBadge>
+                                            <div className="song-data">
+                                                <DiffTags diff={data.difficulty} />
+                                                <img src={`https://new.scoresaber.com/api/static/covers/${data.songHash}.png`} alt="Cover"/>
+                                                <MDBBadge color="dark">{data.songAuthorName} - {data.songName}<span className="greyed-out"> by {data.levelAuthorName}</span></MDBBadge>
+                                            </div>
                                         </td>
-                                        <td><DiffTags diff={data.difficulty} /></td>
                                         <td><MDBBadge color="orange">{data.score}</MDBBadge></td>
-                                        <td><span className="card-link blue-text"><b>{moment(data.timeSet).format('lll')}</b></span></td>
+                                        <td><b className="card-link blue-text">{moment(data.timeSet).format('lll')}</b></td>
+                                        {/* <td><p>ein ganz langer Text</p></td> */}
                                     </tr>
                                 )})
                             }
