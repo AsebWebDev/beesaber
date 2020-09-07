@@ -42,6 +42,25 @@
     font-size: 0.7rem
   }
 
+  td.song {
+    .badge {
+      margin-left: 2px;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .song-data {
+    display: flex;
+    align-items: center;
+  }
+
+  .card-link {
+    overflow: hidden;
+    white-space: nowrap;
+  }
+}
+
+.scores-size-m {
   th.rank {
     width: 11%;
   }
@@ -57,11 +76,22 @@
   th.time {
     width: 19%;
   }
+}
 
-  td.song {
-    .badge {
-      margin-left: 2px;
-      text-overflow: ellipsis;
-    }
+.scores-size-l {
+  // th.rank {
+  //   width: 11%;
+  // }
+
+  // th.song {
+  //   width: 23%
+  // }
+
+  // th.score {
+  //   width: 17%;
+  // }
+
+  th.time {
+    width: 27%;
   }
 }
