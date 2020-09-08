@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import ScoreBox from "../ScoreBox";
-// import ScoreOverview from "../ScoreBox";
 import HiveBox from "../HiveBox";
 import NewsBox from "../NewsBox";
 import Spinner from "../Spinner";
