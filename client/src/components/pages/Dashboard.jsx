@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import ScoreBox from "../ScoreBox";
+// import ScoreOverview from "../ScoreBox";
 import HiveBox from "../HiveBox";
 import NewsBox from "../NewsBox";
 import Spinner from "../Spinner";
@@ -19,7 +20,7 @@ function Dashboard(props) {
                 {myScoreSaberId && scoreData && scoreData.scoresRecent &&
                     <div id="dashboard">
                         <div id="dashboard-top"> 
-                            <ScoreBox data={scoreData.scoresRecent} />
+                            <ScoreBox data={scoreData} size="m"/>
                             <div id="dashboard-right">
                                 <NewsBox />
                             </div> 
