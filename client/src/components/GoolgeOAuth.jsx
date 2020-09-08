@@ -1,15 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { GoolgeOAuth, GoogleLogout } from 'react-google-login';
+import { GoogleLogin, GoogleLogout } from 'react-google-login';
 // import keys from '../configs/keys';
 import api from '../api';
 import '../styles/GoolgeLogin.scss'
 
-function LoginBox(props) {
+function GoolgeOAuth(props) {
   const { dispatch } = props
-  console.log("LoginBox -> props.type", props.type)
   const responseOauth = async (response) => {
-    console.log("responseOauth -> response", response)
     const googleId = response.googleId;
     const username = response.profileObj.name;
     const profilePic = response.profileObj.imageUrl;
@@ -32,7 +30,7 @@ function LoginBox(props) {
     <div id="loginbox">
           {/* GOOGLE OAUTH */}
           {props.type === 'login' && 
-            <GoolgeOAuth
+            <GoogleLogin
               clientId={process.env.REACT_APP_GOOGLE_CLIENTID}
               buttonText="Google Login"
               onSuccess={responseOauth}
@@ -56,4 +54,4 @@ function mapStateToProps(reduxState){
   }
 }
 
-export default connect(mapStateToProps)(LoginBox)
+export default connect(mapStateToProps)(GoolgeOAuth)
