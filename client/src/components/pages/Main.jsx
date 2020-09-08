@@ -12,12 +12,6 @@ import profilePicPlaceholderUrl from '../../media/beesaberlogo.png'
 
 function Main(props) {
     const { dispatch, userdata, fetchingData } = props;
-    let handleLogout = () => {
-        api.logout();
-        let userdata = { username: null, profilePic: null }
-        dispatch({ type: "UPDATE_USER_DATA", userdata })
-        dispatch({ type: "LOGOUT" })
-    }
 
     useEffect(() => {
     }, [props.userdata.profilePic]) // To avoid broken profile pic - rerender if it changes 
