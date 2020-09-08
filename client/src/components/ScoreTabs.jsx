@@ -11,8 +11,6 @@ export default function ScoreTabs(props) {
         <MDBTabPane tabId={tabId} role="tabpanel" className={"score-box tabs-size-" + size}>
             <p className="mt-2">
                 <div className="col-md-12">
-                    <p>Recent Scores</p>
-                    <p>(count: {data.length})</p>
                     <table className="table table-box table-hover">
                         <thead>
                             <tr>
