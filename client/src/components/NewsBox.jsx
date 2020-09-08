@@ -5,7 +5,7 @@ import OneNews from './OneNews'
 import '../styles/NewsBox.scss'
 
 function NewsBox(props) {
-    const news = props.userdata.news
+    let news = [ ...props.userdata.news ]
     const newsLength = news.length
     const maxNumOfNews = 5
     // This part calculates the maximum number of scrolls possible with given array. Start Index is 0 to currently hardcoded 5, or length of
@@ -41,7 +41,7 @@ function NewsBox(props) {
           <div id="newsbox" className="card-container">
               <h3>NewsBox</h3>
               {scrollCounter !== 0 && <div className="scrollnav" onClick={handleUpClick} ><MDBIcon icon="angle-up" /></div>}
-              {props.userdata && props.userdata.news.reverse().slice(startIndex, endIndex).map( ( oneNews, i ) => <OneNews key={i} oneNews={oneNews}/>)}
+              {news && news.slice(startIndex, endIndex).map( ( oneNews, i ) => <OneNews key={i} oneNews={oneNews}/>)}
               {scrollCounter < maxScrolls && <div className="scrollnav" onClick={handleDownClick}><MDBIcon icon="angle-down"/></div>}
           </div>
     ) 

@@ -31,7 +31,7 @@ export async function checkForNews(userdata) {
                 bee: userInfo.playerName,
                 numPlayedMore,
                 type: "morePlayed",
-                date: new Date() 
+                date: new Date().toISOString() 
             }))
             await api.getScores(playerId)                                           // FETCH SCORES for current Bee
                 .then(scoreData => {

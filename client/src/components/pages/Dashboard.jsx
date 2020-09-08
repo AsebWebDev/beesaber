@@ -19,7 +19,7 @@ function Dashboard(props) {
                 {myScoreSaberId && scoreData && scoreData.scoresRecent &&
                     <div id="dashboard">
                         <div id="dashboard-top"> 
-                            <ScoreBox data={scoreData.scoresRecent} />
+                            <ScoreBox data={scoreData} size="m"/>
                             <div id="dashboard-right">
                                 <NewsBox />
                             </div> 

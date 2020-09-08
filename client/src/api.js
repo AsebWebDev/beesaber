@@ -234,7 +234,7 @@ export default {
             text: `You gained ${diff} new Scores!`, 
             diff, 
             type: "ownNewScores", 
-            date: new Date()}))
+            date: new Date().toISOString()}))
           await this.getScores(currentId).then( result => newUserData = { ...newUserData, scoreData: result })
         }
       }
@@ -244,9 +244,9 @@ export default {
           updatedNews = [ ...updatedNews, ...checkForNewsResult.news]   // Push new News to news Array
           newUserData.bees = checkForNewsResult.bees                    // Use updated Bees that comes from checkForNews
         }
-
+      
     // RETURN NEW USERDATA AND NEW TO SHOW IN NOTIFICATIONS
-        newUserData = { ...newUserData, news: [...newUserData.news, ...updatedNews] }
+        newUserData = { ...newUserData, news: [...updatedNews, ...newUserData.news, ] }
         return { newUserData, updatedNews, needsUpdate }
   } 
 }

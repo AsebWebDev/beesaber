@@ -16,7 +16,6 @@ function App(props) {
                                   : 120000 // or use 2 minutes as default 120000
   const fetchDataRegularly = () => setInterval(() => fetchData(), intervalUpdatecheck);
   
-
   const fetchData = async () => {
       dispatch(setFetchStatus(true, 'Checking data...'))
       await api.updateData(myScoreSaberId, _id).then(async result => {
@@ -24,6 +23,7 @@ function App(props) {
         console.log("UPDATE DATA RESULT: ", result)
         if (!!updatedNews.length) updatedNews.map( news => dispatch(newNotification(news) ) )
         if (needsUpdate) {
+          newUserData.news.sort((a,b) => (a.date > b.date) ? -1 : ((a.date < b.date) ? 1 : 0)) // SORT NEWS BY DATE
           dispatch(setFetchStatus(true, 'Updating data...'))
           await api.saveUserData(_id, newUserData)
           .then(() => dispatch({ type: "UPDATE_USER_DATA", userdata: newUserData }))
