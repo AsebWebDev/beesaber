@@ -107,19 +107,21 @@ export default {
   // ===============
 
   async getScoreSaberUserInfo(query, mode) {
-    let result = null
-    const url = (mode === 'id') 
-                  ? 'https://new.scoresaber.com/api/player/'+ query +'/full'
-                  : 'https://new.scoresaber.com/api/players/by-name/' + query
-    
-    await axios(url, { validateStatus: false })
-      .then(scoreReply => {
-        if (scoreReply.status === 404 || scoreReply.status === 429 || scoreReply.status === 422) return null
-        else return result = (mode === 'id') 
-                  ? { ...scoreReply.data.playerInfo, ...scoreReply.data.scoreStats } 
-                  : scoreReply.data.players
-      }).catch(errHandler)
-    return result
+    if(query) {
+      let result = null
+      const url = (mode === 'id') 
+                    ? 'https://new.scoresaber.com/api/player/'+ query +'/full'
+                    : 'https://new.scoresaber.com/api/players/by-name/' + query
+      
+      await axios(url, { validateStatus: false })
+        .then(scoreReply => {
+          if (scoreReply.status === 404 || scoreReply.status === 429 || scoreReply.status === 422) return null
+          else return result = (mode === 'id') 
+                    ? { ...scoreReply.data.playerInfo, ...scoreReply.data.scoreStats } 
+                    : scoreReply.data.players
+        }).catch(errHandler)
+      return result
+    }
   },
 
   // ===============
@@ -179,17 +181,16 @@ export default {
   },
 
   async getlatestScore(currentId) {
-    let score = null
-    const fetchData = async () => {
-        await axios('https://new.scoresaber.com/api/player/'+ currentId +'/scores/recent/1', { validateStatus: false })
-          .then(scoreReply => {
-            if (scoreReply.status === 404 || scoreReply.status === 429 || scoreReply.status === 422)  {
-              return score
-            }
-            else score = scoreReply.data.scores[0]
-          })
-    }
-
+      let score = null
+      const fetchData = async () => {
+          await axios('https://new.scoresaber.com/api/player/'+ currentId +'/scores/recent/1', { validateStatus: false })
+            .then(scoreReply => {
+              if (scoreReply.status === 404 || scoreReply.status === 429 || scoreReply.status === 422)  {
+                return score
+              }
+              else score = scoreReply.data.scores[0]
+            })
+      }
     await fetchData()
     return score
   },
