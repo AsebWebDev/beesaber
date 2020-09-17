@@ -26,12 +26,7 @@ function MyProfile(props) {
                 await api.saveUserData(props.userdata._id, userdata)
                 dispatch({ type: "UPDATE_USER_DATA", userdata })            
             })
-            .catch((err) => {
-                console.log("fetchData -> err", err)
-                // if (err = "Could not find user.") api.logout();
-                // dispatch(newNotification({text: err.message ? err.message : err}))
-                // dispatch(setFetchStatus(false))
-            })  
+            .catch((err) => console.log(err))  
         dispatch(setFetchStatus(false))
         }
 
@@ -49,7 +44,7 @@ function MyProfile(props) {
                             </div>
                             <div className="text-center">
                             <MDBBtn onClick={handleSave} size="sm" outline color="secondary">
-                                Save
+                                Save    
                                 <MDBIcon far icon="paper-plane" className="ml-1" />
                             </MDBBtn>
                             </div>
