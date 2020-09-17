@@ -61,9 +61,11 @@ function App(props) {
   // CHECK REGULARLY FOR UPDATES
   useEffect(() => {
     let interval
-    if (_id && myScoreSaberId) {
+    if (_id && myScoreSaberId && intervalIds) {
       interval = setInterval(() => fetchData(), intervalUpdatecheck)
-      setIntervalIds(intervalIds.push(interval))
+      let newIds = [...intervalIds]
+      newIds.push()
+      setIntervalIds(newIds)
     }
     return () => {
       console.log("Clearing ID: ", interval)
