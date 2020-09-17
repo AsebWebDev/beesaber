@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import { setFetchStatus } from '../../actioncreators'
 import api from '../../api';
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBIcon, MDBInput } from 'mdbreact';
 import ScoreBox from "../ScoreBox";
@@ -17,14 +18,22 @@ function MyProfile(props) {
 
     const handleChange = (e) => setMyScoreSaberId(e.target.value)
 
-    const handleSave = () => {
-        api.getScoreSaberUserInfo(myScoreSaberId, 'id')
-            .then(scoreSaberUserInfo => {
+    const handleSave = async () => {
+        dispatch(setFetchStatus(true, 'Saving ID...'))
+        await api.getScoreSaberUserInfo(myScoreSaberId, 'id')
+            .then(async scoreSaberUserInfo => {
                 const userdata = { ...props.userdata, ...scoreSaberUserInfo, myScoreSaberId }
-                api.saveUserData(props.userdata._id, userdata)
-                dispatch({ type: "UPDATE_USER_DATA", userdata })
-            })       
-    }
+                await api.saveUserData(props.userdata._id, userdata)
+                dispatch({ type: "UPDATE_USER_DATA", userdata })            
+            })
+            .catch((err) => {
+                console.log("fetchData -> err", err)
+                // if (err = "Could not find user.") api.logout();
+                // dispatch(newNotification({text: err.message ? err.message : err}))
+                // dispatch(setFetchStatus(false))
+            })  
+        dispatch(setFetchStatus(false))
+        }
 
     if ( api.isLoggedIn() ) {
         return (

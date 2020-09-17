@@ -19,6 +19,11 @@ function GoolgeOAuth(props) {
     }).catch(err => console.log(err))
   }
 
+  const onFailure = (reponse) => {
+    console.log("onFailure -> reponse", reponse)
+    throw new Error('Google Login failed')
+  }
+
   const logout = async (response) => {
     api.logout();
     let userdata = { username: null, profilePic: null }
@@ -34,8 +39,8 @@ function GoolgeOAuth(props) {
               clientId={process.env.REACT_APP_GOOGLE_CLIENTID}
               buttonText="Google Login"
               onSuccess={responseOauth}
-              onFailure={responseOauth}
-              isSignedIn={true}
+              onFailure={onFailure}
+              // isSignedIn={true} // Removed for now, becaus it might cause problems
               cookiePolicy={'single_host_origin'}
             />}
           {props.type === 'logout' && 

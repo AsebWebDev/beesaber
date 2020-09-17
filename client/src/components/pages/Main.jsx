@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Dashboard from './Dashboard';
@@ -11,34 +11,37 @@ import api from '../../api';
 import profilePicPlaceholderUrl from '../../media/beesaberlogo.png'
 
 function Main(props) {
-    const { dispatch, userdata, fetchingData } = props;
+    const { userdata, fetchingData } = props;
+
+    let [ isLoggedIn, setIsLoggedIn ] = useState(false)
 
     useEffect(() => {
-    }, [props.userdata.profilePic]) // To avoid broken profile pic - rerender if it changes 
+        api.isLoggedIn() ? setIsLoggedIn(true) : setIsLoggedIn(false)
+    }, [props.userdata.profilePic])
 
     return (
         <div id="main">
             <div id="header">
                 <div className="headerpart" id="header-left">
                     {/* Google Profile Data */}
-                    {api.isLoggedIn() && userdata && 
+                    {isLoggedIn && userdata && 
                                         <div id="profile-login-icon">
-                                            {userdata.profilePic && 
+                                            {userdata.profilePic &&     
                                                 <img 
-                                                    referrerpolicy="no-referrer" //avoids broken img due to 403 response from google
+                                                    referrerPolicy="no-referrer" //avoids broken img due to 403 response from google
                                                     src={userdata.profilePic ? userdata.profilePic : profilePicPlaceholderUrl} 
                                                     id="profile-pic-sm" alt="profile pic"/>}
                                             {userdata.username}
-                                        </div>
+                                        </div>                                                                  
                                     }
                 </div>
                 <div className="headerpart" id="header-center">
                     {/* Fechting Data Status Update */}
-                    {api.isLoggedIn() && (fetchingData.status) && <Spinner text={fetchingData.statusText} />}
+                    {isLoggedIn && (fetchingData.status) && <Spinner text={fetchingData.statusText} />}
                 </div>
                 <div className="headerpart" id="header-right">
-                    {!api.isLoggedIn() && <GoolgeOAuth id="googlelogin" type="login"/>} 
-                    {api.isLoggedIn() &&  <GoolgeOAuth id="googlelogin" type="logout" />} 
+                    {!isLoggedIn && <GoolgeOAuth id="googlelogin" type="login"/>} 
+                    {isLoggedIn &&  <GoolgeOAuth id="googlelogin" type="logout" />} 
                 </div>
             </div>
             <Switch>
