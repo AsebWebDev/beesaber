@@ -42,7 +42,7 @@ function AddBeeModal(props) {
                     ? setFoundUsers(result)     // ... then add this to foundUsers in state
                     : setFoundUser(result)      // If its not an array, only one user is found and can be added to foundUser
                 setThatIsYou(result.playerId === userdata.myScoreSaberId)   
-            }).catch(err => dispatch(newNotification({text: err.message})))
+            }).catch(err => dispatch(newNotification({text: err.message ? err.message : err})))
             setProcessing({status: false, statusText: null })
     }
 
@@ -67,7 +67,7 @@ function AddBeeModal(props) {
                 userdata = { ...userdata, ...foundUser, scoreData }
                 api.saveBee(props.userdata._id, userdata)
                     .then(userdata => dispatch({ type: "UPDATE_USER_DATA", userdata }))
-            }).catch(err => dispatch(newNotification({text: err.message})))
+            }).catch(err => dispatch(newNotification({text: err.message ? err.message : err})))
             dispatch(newNotification({text: "User " + foundUser.playerName + " successfully added."}))
             
             setProcessing({status: false, statusText: null })
