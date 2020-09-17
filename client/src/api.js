@@ -107,7 +107,7 @@ export default {
   // ===============
 
   async getScoreSaberUserInfo(query, mode) {
-    if(query) {
+    if(query !== null) {
       let result = null
       const url = (mode === 'id') 
                     ? 'https://new.scoresaber.com/api/player/'+ query +'/full'
@@ -228,7 +228,9 @@ export default {
       // CHECK FOR CHANGES ON OWN DATA ( DB vs. SCORESABER )
       if (dbUserData && ssUserData) {
         // Change in own user data is checked by a) bigger totalPlayCount or b) bigger overall total Score on ScoreSaber 
-        if( (dbUserData.totalPlayCount !== ssUserData.totalPlayCount) || (dbUserData.totalScore < ssUserData.totalScore )) {
+        if  ( (dbUserData.totalPlayCount !== ssUserData.totalPlayCount) 
+              || ( dbUserData.totalScore && (dbUserData.totalScore < ssUserData.totalScore ) ) 
+            ) {
           needsUpdate = true
           const diff = ssUserData.totalPlayCount - dbUserData.totalPlayCount
           updatedNews.push(new News({
