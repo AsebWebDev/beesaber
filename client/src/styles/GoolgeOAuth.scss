@@ -21,17 +21,12 @@
 }
 
 @include mobile {
-    #google-oauth {
-            
+    #google-oauth {    
         margin: 2px;
-
+        
         form {
             display: flex;
             flex-direction: column;
-        }
-
-        span {
-            display: none;
         }
 
         .form-group {

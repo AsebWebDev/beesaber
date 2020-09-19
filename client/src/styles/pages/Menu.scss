@@ -97,7 +97,6 @@
             display: block;
             font-size: 1.4rem;
             text-align: center;
-            margin-bottom: 10px;
         }
     }
 
@@ -113,6 +112,7 @@
             display: flex;
             width: 100%;
             justify-content: space-evenly;
+            align-items: center;
             margin-bottom: 3%;
         }
 
@@ -133,6 +133,11 @@
             justify-content: space-evenly;
             align-items: center;
             
+            a {
+                font-size: 0.7rem;
+                padding: 0 2%;
+            }
+
             br {
                 display: none;
             }
@@ -167,6 +172,11 @@
 
         #menu-main {
             margin: 16px;
+
+            a {
+                // margin-bottom: 10px;
+                text-align: center;
+            }
 
             .beesaber-title {
                 text-align: center;
