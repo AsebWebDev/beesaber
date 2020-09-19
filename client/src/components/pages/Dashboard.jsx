@@ -4,6 +4,7 @@ import ScoreBox from "../ScoreBox";
 import HiveBox from "../HiveBox";
 import NewsBox from "../NewsBox";
 import Spinner from "../Spinner";
+import NeonButton from "../NeonButton";
 import '../../styles/pages/Dashboard.scss'
 
 function Dashboard(props) {
