@@ -1,3 +1,6 @@
+// Utilities
+@import "./utilities/variables";
+
 #hivebox {
     min-height: 45%;
     margin: 10px 0 0 0;
@@ -12,5 +15,11 @@
       color: whitesmoke;
       font-family: 'NeonTubes2';
       margin: 5px 0 20px 5px;
+    }
+
+    @include mobile {
+      #bees {
+        flex-wrap: wrap;
+      }
     }
 }

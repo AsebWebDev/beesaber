@@ -1,9 +1,17 @@
 // Utilities
 @import "../utilities/variables";
 
+html {
+    width: 100vw;
+}
+
 body {
     height: 100vh;
     width: 100vw;
+}
+
+root {
+    height: 100%;
 }
 
 #App {
