@@ -1,3 +1,6 @@
+// Utilities
+@import "../utilities/variables";
+
 #dashboard {
   width: 100%;
   padding: 10px;
@@ -32,30 +35,30 @@
     // box-shadow: 
     // 0px 0px 1px 3px #fffcdd, 
     // 0px 0px 4px 5px #fff699, 
-    // 0px 0px 12px 8px #ffeb00,
+    // 0px 0px 12px 8px  $main-yellow,
 
-    // inset 0px 0px 16px 2px #ffeb00, 
+    // inset 0px 0px 16px 2px  $main-yellow, 
     // inset 0px 0px 6px 2px #fff699, 
     // inset 0px 0px 2px 1px #fffcdd;
 
     box-shadow: 
     0px 0px 1px 3px #fffcdd, 
-    0px 0px 8px 2px #ffeb00, 
-    0px 0px 12px 6px #ffeb00, 
+    0px 0px 8px 2px $main-yellow, 
+    0px 0px 12px 6px $main-yellow, 
     
-    inset 0px 0px 6px 2px #ffeb00, 
-    inset 0px 0px 14px 0px #ffeb00, 
+    inset 0px 0px 6px 2px  $main-yellow, 
+    inset 0px 0px 14px 0px  $main-yellow, 
     inset 0px 0px 2px 0px #fffcdd;
 
     h3 {
       color: #fffcdd;;
       text-shadow: 
-      #ffeb00 -2px -1px 5px, 
-      #ffeb00 2px 1px 5px, 
-      #ffeb00 0px 0px 10px, 
-      #ffeb00 0px 0px 15px, 
-      #ffeb00 0px 0px 20px, 
-      #ffeb00 0px 0px 30px;
+       $main-yellow -2px -1px 5px, 
+       $main-yellow 2px 1px 5px, 
+       $main-yellow 0px 0px 10px, 
+       $main-yellow 0px 0px 15px, 
+       $main-yellow 0px 0px 20px, 
+       $main-yellow 0px 0px 30px;
       text-align: center;
     }
   }
