@@ -1,0 +1,16 @@
+// Utilities
+@import "./utilities/variables";
+    
+#profile-pic-sm {
+    width: 50px;
+    margin-right: 2%;
+    border-radius: 50%;
+}
+
+@include mobile {
+    #profile-login-icon {
+        span {
+            display: none;
+        }
+    }
+}
