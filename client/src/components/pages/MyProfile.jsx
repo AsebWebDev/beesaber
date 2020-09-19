@@ -52,6 +52,8 @@ function MyProfile(props) {
                         </MDBCol>
                     </MDBRow>
                 </MDBContainer>
+                {scoreData && <ScoreBox data={scoreData} size="sm"/>}
+                {scoreData && <ScoreBox data={scoreData} size="m"/>}
                 {scoreData && <ScoreBox data={scoreData} size="lg"/>}
             </div>
         )
