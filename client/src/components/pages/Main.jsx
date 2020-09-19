@@ -31,7 +31,7 @@ function Main(props) {
                                                     referrerPolicy="no-referrer" //avoids broken img due to 403 response from google
                                                     src={userdata.profilePic ? userdata.profilePic : profilePicPlaceholderUrl} 
                                                     id="profile-pic-sm" alt="profile pic"/>}
-                                            {userdata.username}
+                                            <span>{userdata.username}</span>
                                         </div>                                                                  
                                     }
                 </div>
