@@ -38,7 +38,7 @@ function ScoreOverview(props) {
     if (totalScores === 0) return null;
     else return (
         <MDBContainer id="scorebox" className={"card-container score-box scores-size-" + size}>
-                <h3>My Scores</h3>
+                <h3>SCORES</h3>
                 <MDBNav className="nav-tabs mt-5">
                     <MDBNavItem>
                         <MDBNavLink link to="#" active={activeItem === '1'} onClick={() => toggle('1')} role="tab" >
