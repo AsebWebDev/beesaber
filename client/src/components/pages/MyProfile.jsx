@@ -52,7 +52,7 @@ function MyProfile(props) {
                         </MDBCol>
                     </MDBRow>
                 </MDBContainer>
-                {scoreData && <ScoreBox data={scoreData} size="lg"/>}
+                {scoreData && <ScoreBox data={scoreData}/>}
             </div>
         )
     } else {
