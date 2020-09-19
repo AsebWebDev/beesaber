@@ -1,4 +1,13 @@
+// Utilities
+@import "../utilities/variables";
+
 #my-profile{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
     #myscoresaberidinput {
         display: flex;
         align-items: center;
@@ -7,4 +16,11 @@
             margin-bottom: 30px;
         }
     }
+
+    @include lg {
+        #scorebox {
+            width: 100%;
+        }
+    }
 }
+
