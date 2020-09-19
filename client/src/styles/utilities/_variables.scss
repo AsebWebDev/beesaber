@@ -6,6 +6,12 @@
     url("../fonts/NeonTubes2.otf") format("truetype");
 }
 
+
+// C O L O R S
+$bg-color: #00111f;
+
+// M E D I A    Q U E R I E S 
+
 // Small tablets and large smartphones (landscape view)
 $screen-sm-min: 576px;
 
@@ -18,12 +24,18 @@ $screen-lg-min: 992px;
 // Large tablets and desktops
 $screen-xl-min: 1200px;
 
+
+@mixin mobile {
+    @media (max-width: #{$screen-sm-min - 1}) {
+        @content;
+    }
+}
 // Small devices
 @mixin sm {
     @media (min-width: #{$screen-sm-min}) {
         @content;
     }
- }
+}
  
  // Medium devices
  @mixin md {
