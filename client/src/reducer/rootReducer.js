@@ -2,7 +2,8 @@ import {
     ADD_NOTIFICATION, 
     UPDATE_USER_DATA,
     SET_FETCH_STATUS,
-    LOGOUT
+    LOGOUT,
+    LOGIN
   } from '../actioncreators';
   
   const initialState = {
@@ -11,7 +12,8 @@ import {
       fetchingData: { 
         status: false,
         statusText: null
-      }
+      },
+      isLoggedIn: false
   }
   
   export default function rootReducer(state=initialState, action) {
@@ -43,6 +45,13 @@ import {
             status: action.fetchingData.status,
             statusText: action.fetchingData.statusText
           }
+        }
+      }
+
+      case LOGIN: {
+        return {
+          ...newState,
+          isLoggedIn: true
         }
       }
 

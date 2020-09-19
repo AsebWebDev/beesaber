@@ -1,4 +1,7 @@
-#loginbox {
+// Utilities
+@import "./utilities/variables";
+
+#google-oauth {
 
     margin: 5px;
 
@@ -17,17 +20,18 @@
     }
 }
 
-@media only screen and (max-width: 361px) {
-    #loginbox {
-        width: 100vw;
-
-        button {
-            width: 50%;
-        }
+@include mobile {
+    #google-oauth {
+            
+        margin: 2px;
 
         form {
             display: flex;
             flex-direction: column;
+        }
+
+        span {
+            display: none;
         }
 
         .form-group {
@@ -37,11 +41,14 @@
         .h5 {
             padding: 0 30px;
         }
+
+        .btn.btn-sm {
+            padding: 5px;
+            width: max-content;
+        } 
     }
 }
 
-@media (min-width: 1200px) {
-    #loginbox {
-        max-width: 25%;
-    }
+@include sm {
+
 }

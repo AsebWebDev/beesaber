@@ -107,21 +107,20 @@ export default {
   // ===============
 
   async getScoreSaberUserInfo(query, mode) {
-    if(query !== null) {
-      let result = null
-      const url = (mode === 'id') 
-                    ? 'https://new.scoresaber.com/api/player/'+ query +'/full'
-                    : 'https://new.scoresaber.com/api/players/by-name/' + query
-      
-      await axios(url, { validateStatus: false })
-        .then(scoreReply => {
-          if (scoreReply.status === 404 || scoreReply.status === 429 || scoreReply.status === 422) return null
-          else return result = (mode === 'id') 
-                    ? { ...scoreReply.data.playerInfo, ...scoreReply.data.scoreStats } 
-                    : scoreReply.data.players
-        }).catch(errHandler)
-      return result
-    }
+    if(!query) return
+    let result = null
+    const url = (mode === 'id') 
+                  ? 'https://new.scoresaber.com/api/player/'+ query +'/full'
+                  : 'https://new.scoresaber.com/api/players/by-name/' + query
+    
+    await axios(url, { validateStatus: false })
+      .then(scoreReply => {
+        if (scoreReply.status === 404 || scoreReply.status === 429 || scoreReply.status === 422) return null
+        else return result = (mode === 'id') 
+                  ? { ...scoreReply.data.playerInfo, ...scoreReply.data.scoreStats } 
+                  : scoreReply.data.players
+      }).catch(errHandler)
+    return result
   },
 
   // ===============
@@ -147,6 +146,7 @@ export default {
   // ==========
 
   async getScores(currentId) {
+    if (!currentId) return
     let scoreData
     let scoresRecent = []
     const fetchData = async () => {
@@ -206,7 +206,7 @@ export default {
     })
 
     // IF, BY ANY CHANCE, NO SCOREDATA IS PRESENT, FETCH IT AGAIN
-    if (dbUserData) {
+    if (dbUserData && dbUserData.myScoreSaberId) {
       if (!dbUserData.scoreData || dbUserData.scoreData.scoresRecent.length < 1 ) {
         await this.getScores(dbUserData.myScoreSaberId).then(result => {
           needsUpdate = true
@@ -233,7 +233,7 @@ export default {
             ) {
           needsUpdate = true
           const diff = ssUserData.totalPlayCount - dbUserData.totalPlayCount
-          updatedNews.push(new News({
+          if (diff !== 0) updatedNews.push(new News({
             text: `You gained ${diff} new Scores!`, 
             diff, 
             type: "ownNewScores", 

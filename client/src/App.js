@@ -8,7 +8,7 @@ import Notification from './components/Notification'
 import './styles/pages/App.scss';
 
 function App(props) {
-  const { dispatch, userdata, notifications } = props;
+  const { dispatch, userdata, notifications, isLoggedIn } = props;
   const { _id } = userdata
   const myScoreSaberId = (userdata) ? userdata.myScoreSaberId : null; // get ScoreSaberID from Store or use null
   let intervalUpdatecheck = (userdata & userdata.settings) // set Interval Frequency
@@ -45,7 +45,7 @@ function App(props) {
 
   // GET BASIC USERDATA FROM BACKEND DATABASE
   useEffect(() => {
-    if (api.isLoggedIn() && api.getLocalStorageUser()) {
+    if (isLoggedIn && api.getLocalStorageUser()) {
       const { _id } = api.getLocalStorageUser()
       api.getUserData(_id)
         .then(userdata => dispatch({ type: "UPDATE_USER_DATA", userdata }) )
@@ -95,7 +95,8 @@ function mapStateToProps(reduxState){
   return {
     userdata: reduxState.userdata,
     notifications: reduxState.notifications,
-    fetchingData: reduxState.fetchingData
+    fetchingData: reduxState.fetchingData,
+    isLoggedIn: reduxState.isLoggedIn
   }
 }
 

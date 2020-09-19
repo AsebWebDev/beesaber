@@ -1,13 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
-// import keys from '../configs/keys';
+import { MDBBtn, MDBIcon } from 'mdbreact';
 import api from '../api';
-import '../styles/GoolgeLogin.scss'
+import '../styles/GoolgeOAuth.scss'
 
 function GoolgeOAuth(props) {
-  const { dispatch } = props
-  const responseOauth = async (response) => {
+  const { dispatch, isLoggedIn } = props
+
+  const onSuccess = async (response) => {
     const googleId = response.googleId;
     const username = response.profileObj.name;
     const profilePic = response.profileObj.imageUrl;
@@ -15,12 +16,14 @@ function GoolgeOAuth(props) {
     .then(userdata => {
       if (userdata ) {
         props.dispatch({ type: "UPDATE_USER_DATA", userdata })
+        props.dispatch({ type: "LOGIN" })
       }
     }).catch(err => console.log(err))
   }
 
   const onFailure = (reponse) => {
     console.log("onFailure -> reponse", reponse)
+    this.logout()
     throw new Error('Google Login failed')
   }
 
@@ -32,21 +35,30 @@ function GoolgeOAuth(props) {
   }
 
   return (
-    <div id="loginbox">
+    <div id="google-oauth">
           {/* GOOGLE OAUTH */}
-          {props.type === 'login' && 
+          {!isLoggedIn && 
             <GoogleLogin
               clientId={process.env.REACT_APP_GOOGLE_CLIENTID}
-              buttonText="Google Login"
-              onSuccess={responseOauth}
+              render={renderProps => (
+                <MDBBtn onClick={renderProps.onClick} disabled={renderProps.disabled} size="sm" outline color="secondary">
+                  <MDBIcon fab icon="google" />   <MDBIcon fas icon="sign-in-alt" />
+                </MDBBtn>
+              )}
+              onSuccess={onSuccess}
               onFailure={onFailure}
-              // isSignedIn={true} // Removed for now, becaus it might cause problems
+              isSignedIn={true} // maybe remove, might cause problems after timeout
               cookiePolicy={'single_host_origin'}
             />}
-          {props.type === 'logout' && 
+
+          {isLoggedIn && 
             <GoogleLogout
               clientId={process.env.REACT_APP_GOOGLE_CLIENTID}
-              buttonText="Logout"
+              render={renderProps => (
+                <MDBBtn onClick={renderProps.onClick} disabled={renderProps.disabled} size="sm" outline color="secondary">
+                  <MDBIcon fab icon="google" />   <MDBIcon fas icon="sign-out-alt" />
+                </MDBBtn>
+              )}
               onLogoutSuccess={logout}
             />}
     </div>
@@ -56,6 +68,7 @@ function GoolgeOAuth(props) {
 function mapStateToProps(reduxState){
   return {
     userdata: reduxState.userdata,
+    isLoggedIn: reduxState.isLoggedIn
   }
 }
 
