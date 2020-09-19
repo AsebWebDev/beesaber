@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import { MDBBtn, MDBIcon } from 'mdbreact';
+import NeonButton from "./NeonButton";
 import api from '../api';
 import '../styles/GoolgeOAuth.scss'
 
@@ -41,9 +42,9 @@ function GoolgeOAuth(props) {
             <GoogleLogin
               clientId={process.env.REACT_APP_GOOGLE_CLIENTID}
               render={renderProps => (
-                <MDBBtn onClick={renderProps.onClick} disabled={renderProps.disabled} size="sm" outline color="secondary">
-                  <MDBIcon fab icon="google" />   <MDBIcon fas icon="sign-in-alt" />
-                </MDBBtn>
+                <span onClick={renderProps.onClick} disabled={renderProps.disabled} >
+                  <NeonButton text="Login" logo="google"/>
+                </span> 
               )}
               onSuccess={onSuccess}
               onFailure={onFailure}
@@ -55,9 +56,9 @@ function GoolgeOAuth(props) {
             <GoogleLogout
               clientId={process.env.REACT_APP_GOOGLE_CLIENTID}
               render={renderProps => (
-                <MDBBtn onClick={renderProps.onClick} disabled={renderProps.disabled} size="sm" outline color="secondary">
-                  <MDBIcon fab icon="google" />   <MDBIcon fas icon="sign-out-alt" />
-                </MDBBtn>
+                <span onClick={renderProps.onClick} disabled={renderProps.disabled} >
+                  <NeonButton text="Logout" logo="google"/>
+                </span>             
               )}
               onLogoutSuccess={logout}
             />}
