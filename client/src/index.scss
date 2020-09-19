@@ -1,9 +1,5 @@
-@font-face{
-  font-family:"NeonTubes2";
-  src:url("./styles/fonts/NeonTubes2.otf") format("woff"),
-  url("./styles/fonts/NeonTubes2.otf") format("opentype"),
-  url("./styles/fonts/NeonTubes2.otf") format("truetype");
-}
+// Utilities
+@import "/styles/utilities/variables";
 
 body {
   background-color: #00111f;
