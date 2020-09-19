@@ -31,11 +31,11 @@ function Menu(props) {
                     <h1 className="beesaber-title"><span className="neon-red">Bee</span><br></br><span className="neon-blue">Saber</span></h1>
                     <GoolgeOAuth />
                 </div> 
-                <div id="menu-points">
+                {isLoggedIn && <div id="menu-points">
                     <Link to="/"><span className="neon-red">Dashboard</span></Link>
-                    {isLoggedIn && <Link to="/myprofile"><span className="neon-red">My</span> <span className="neon-blue">Profile</span></Link>}
-                    {isLoggedIn && <Link to="/myhive"><span className="neon-red">My</span> <span className="neon-blue">Hive</span></Link>}
-                </div>  
+                    <Link to="/myprofile"><span className="neon-red">My</span> <span className="neon-blue">Profile</span></Link>
+                    <Link to="/myhive"><span className="neon-red">My</span> <span className="neon-blue">Hive</span></Link>
+                </div>}  
                 
             </div>
             
