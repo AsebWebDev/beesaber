@@ -7,7 +7,7 @@ function GoogleProfileData(props) {
     const { userdata, fetchingData } = props;
 
     if (userdata) return (
-        <div id="profile-login-icon">
+        <div id="google-profile-data">
             {userdata.profilePic &&     
                 <img 
                     referrerPolicy="no-referrer" //avoids broken img due to 403 response from google
