@@ -1,15 +1,17 @@
+// Utilities
+@import "../utilities/variables";
+
 body {
     height: 100vh;
-}
-
-#root {
-    height: 100vh;
+    width: 100vw;
 }
 
 #App {
     display: flex;
-    flex-direction: row;
-    width: 100%;
-    min-height: 100%;
+    flex-direction: column;
+    // border: 2px solid yellow;
+    height: 100vh;
+    @include sm {
+        flex-direction: row;
+    }
 }
-

@@ -22,6 +22,8 @@
 
 @include mobile {
     #google-oauth {
+            
+        margin: 2px;
 
         form {
             display: flex;
@@ -39,11 +41,14 @@
         .h5 {
             padding: 0 30px;
         }
+
+        .btn.btn-sm {
+            padding: 5px;
+            width: max-content;
+        } 
     }
 }
 
 @include sm {
-    #google-oauth {
-        max-width: 25%;
-    }
+
 }

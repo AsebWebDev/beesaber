@@ -8,9 +8,15 @@
 }
 
 @include mobile {
-    #profile-login-icon {
+    #google-profile-data {
         span {
             display: none;
         }
+    }
+}
+
+@include sm {
+    #google-profile-data {
+            display: none;
     }
 }

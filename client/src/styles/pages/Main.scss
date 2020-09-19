@@ -1,8 +1,10 @@
+// Utilities
+@import "../utilities/variables";
+
 #main {
-    width: 80%;
-    // height: 100%;
     padding: 0 3px 3px 3px;
-    margin-left: 20%; // to match fixed menu width
+    // border: 2px solid blue;
+    width: 100vw;
 
     #header {
         display: flex;
@@ -26,23 +28,6 @@
             width: 33%;
             padding: 1%;
         }
-    }
-
-    #profile-login-icon {
-        // position: fixed; // Can be fixed to upper left into logo if prefered
-        top: 0;
-        left: 0;
-        margin: 1%;
-        z-index: 1;
-        display: flex; 
-        justify-content: flex-start;
-        align-items: center;
-      }
-      
-    #profile-pic-sm {
-        width: 50px;
-        margin-right: 2%;
-        border-radius: 50%;
     }
 
     .page-title {
@@ -72,5 +57,14 @@
     /* Firefox */
     input[type=number] {
     -moz-appearance: textfield;
+    }
+
+    // M E D I A   Q U E R I E S 
+
+    @include mobile {
+
+        #header {
+            display: none
+        }
     }
 }
