@@ -21,8 +21,8 @@
         font-size: 80px;
         
         .neon-yellow {
-            color: #fffcdd;;
-            text-shadow: #ffeb00 -2px -1px 5px, #ffeb00 2px 1px 5px, #ffeb00 0px 0px 10px, #ffeb00 0px 0px 15px, #ffeb00 0px 0px 20px, #ffeb00 0px 0px 30px;
+            color: $main-yellow-light;;
+            text-shadow:  $main-yellow -2px -1px 5px,  $main-yellow 2px 1px 5px,  $main-yellow 0px 0px 10px,  $main-yellow 0px 0px 15px,  $main-yellow 0px 0px 20px,  $main-yellow 0px 0px 30px;
         }
         
         div {
@@ -61,18 +61,18 @@
         .saber.neon-red {
             left: 49%;
             transform: rotate(30deg);
-            background-color: #fff0f0;
+            background-color: $main-red-light;
             box-shadow: 
             0px 0px 8px 2px #ff8d9e, 
-            0px 0px 12px 6px #ff0025;
+            0px 0px 12px 6px $main-red;
         }
         .saber.neon-blue {
             right: 49%;
             transform: rotate(-30deg);
-            background-color: #edf5ff;
+            background-color: $main-blue-light;
             box-shadow: 
             0px 0px 8px 2px #7979ff, 
-            0px 0px 12px 6px blue;
+            0px 0px 12px 6px $main-blue;
         }
     }
     
@@ -83,13 +83,13 @@
             margin-bottom: 20px;
 
             .neon-red {
-                color: #fff0f0;;
-                text-shadow: #ff0025 -2px -1px 5px, #ff0025 2px 1px 5px, #ff0025 0px 0px 10px, #ff0025 0px 0px 15px, #ff0025 0px 0px 20px, #ff0025 0px 0px 30px;
+                color: $main-red-light;;
+                text-shadow: $main-red -2px -1px 5px, $main-red 2px 1px 5px, $main-red 0px 0px 10px, $main-red 0px 0px 15px, $main-red 0px 0px 20px, $main-red 0px 0px 30px;
             }
 
             .neon-blue {
-                color: #edf5ff;
-                text-shadow: blue -2px -1px 5px, blue 2px 1px 5px, blue 0px 0px 10px, blue 0px 0px 15px, blue 0px 0px 20px, blue 0px 0px 30px;
+                color: $main-blue-light;
+                text-shadow: $main-blue  -2px -1px 5px, $main-blue  2px 1px 5px, $main-blue  0px 0px 10px, $main-blue  0px 0px 15px, $main-blue  0px 0px 20px, $main-blue  0px 0px 30px;
             }
         }
 
@@ -173,13 +173,13 @@
                 margin-bottom: 20px;
     
                 .neon-red {
-                    color: #fff0f0;;
-                    text-shadow: #ff0025 -2px -1px 5px, #ff0025 2px 1px 5px, #ff0025 0px 0px 10px, #ff0025 0px 0px 15px, #ff0025 0px 0px 20px, #ff0025 0px 0px 30px;
+                    color: $main-red-light;;
+                    text-shadow: $main-red -2px -1px 5px, $main-red 2px 1px 5px, $main-red 0px 0px 10px, $main-red 0px 0px 15px, $main-red 0px 0px 20px, $main-red 0px 0px 30px;
                 }
     
                 .neon-blue {
-                    color: #edf5ff;
-                    text-shadow: blue -2px -1px 5px, blue 2px 1px 5px, blue 0px 0px 10px, blue 0px 0px 15px, blue 0px 0px 20px, blue 0px 0px 30px;
+                    color: $main-blue-light;
+                    text-shadow: $main-blue  -2px -1px 5px, $main-blue  2px 1px 5px, $main-blue  0px 0px 10px, $main-blue  0px 0px 15px, $main-blue  0px 0px 20px, $main-blue  0px 0px 30px;
                 }
             }
         }

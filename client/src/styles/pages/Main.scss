@@ -36,13 +36,13 @@
         margin-top: 1rem;
 
         .neon-red {
-            color: #fff0f0;;
-            text-shadow: #ff0025 -2px -1px 5px, #ff0025 2px 1px 5px, #ff0025 0px 0px 10px, #ff0025 0px 0px 15px, #ff0025 0px 0px 20px, #ff0025 0px 0px 30px;
+            color: $main-red-light;;
+            text-shadow: $main-red -2px -1px 5px, $main-red 2px 1px 5px, $main-red 0px 0px 10px, $main-red 0px 0px 15px, $main-red 0px 0px 20px, $main-red 0px 0px 30px;
         }
 
         .neon-blue {
-            color: #edf5ff;
-            text-shadow: blue -2px -1px 5px, blue 2px 1px 5px, blue 0px 0px 10px, blue 0px 0px 15px, blue 0px 0px 20px, blue 0px 0px 30px;
+            color: $main-blue-light;
+            text-shadow: $main-blue  -2px -1px 5px, $main-blue  2px 1px 5px, $main-blue  0px 0px 10px, $main-blue  0px 0px 15px, $main-blue  0px 0px 20px, $main-blue  0px 0px 30px;
         }
     }
 
