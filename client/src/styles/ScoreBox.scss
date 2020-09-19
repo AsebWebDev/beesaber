@@ -71,7 +71,7 @@
     }
 
     th {
-      text-align: left;
+      
       padding: 0.5rem;
     }
 
@@ -119,75 +119,12 @@
 
 @include mobile {
   #scorebox {
-    width: 100%
+    width: 90%
   }
 }
 
 @include lg {
   #scorebox {
     width: 45%;
-
-    .card-container {
-
-      transition: 0.3s;
-      border-radius: 5px;
-      padding: 10px 8px;
-      margin: 12px;
-  
-      box-shadow: 
-      0px 0px 1px 3px $main-yellow-light, 
-      0px 0px 8px 2px  $main-yellow, 
-      0px 0px 12px 6px  $main-yellow, 
-      
-      inset 0px 0px 6px 2px  $main-yellow, 
-      inset 0px 0px 14px 0px  $main-yellow, 
-      inset 0px 0px 2px 0px $main-yellow-light;
-  
-      h3 {
-        color: $main-yellow-light;;
-        text-shadow: 
-        $main-yellow -2px -1px 5px, 
-        $main-yellow 2px 1px 5px, 
-        $main-yellow 0px 0px 10px, 
-        $main-yellow 0px 0px 15px, 
-        $main-yellow 0px 0px 20px, 
-        $main-yellow 0px 0px 30px;
-        text-align: center;
-      }
-    }
   }
 }
-
-// // === SMALL-SIZE ===
-  // .scores-size-sm {
-  //   width: 30%;
-  // }
-
-  // // === MEDIUM-SIZE ===
-
-  // .scores-size-m {
-  //   width: 55%; 
-  //   // background-color: lightsalmon;
-
-  //   th.rank {
-  //     width: 11%;
-  //   }
-
-  //   th.song {
-  //     width: 53%
-  //   }
-
-  //   th.score {
-  //     width: 17%;
-  //   }
-
-  //   th.time {
-  //     width: 19%;
-  //   }
-  // }
-
-  // === LARGE-SIZE ===
-  // No width limitation
-
-  // .scores-size-lg {
-  // }
