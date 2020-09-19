@@ -24,9 +24,11 @@ function Menu() {
             
             <div id="menu-main">
                 <h1 className="beesaber-title"><span className="neon-red">Bee</span><br></br><span className="neon-blue">Saber</span></h1>
-                <Link to="/"><span className="neon-red">Dashboard</span></Link>
-                {api.isLoggedIn() && <Link to="/myprofile"><span className="neon-red">My</span> <span className="neon-blue">Profile</span></Link>}
-                {api.isLoggedIn() && <Link to="/myhive"><span className="neon-red">My</span> <span className="neon-blue">Hive</span></Link>}
+                <div id="menu-points">
+                    <Link to="/"><span className="neon-red">Dashboard</span></Link>
+                    {api.isLoggedIn() && <Link to="/myprofile"><span className="neon-red">My</span> <span className="neon-blue">Profile</span></Link>}
+                    {api.isLoggedIn() && <Link to="/myhive"><span className="neon-red">My</span> <span className="neon-blue">Hive</span></Link>}
+                </div>   
             </div>
             {/* alternative logo made with svg: */}
             {/* <svg className="logo"><use xlinkHref="#logo-honeycomb" /></svg> */}
