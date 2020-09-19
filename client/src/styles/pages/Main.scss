@@ -36,12 +36,12 @@
         margin-top: 1rem;
 
         .neon-red {
-            color: #fff0f0;;
+            color: $main-red-light;;
             text-shadow: $main-red -2px -1px 5px, $main-red 2px 1px 5px, $main-red 0px 0px 10px, $main-red 0px 0px 15px, $main-red 0px 0px 20px, $main-red 0px 0px 30px;
         }
 
         .neon-blue {
-            color: #edf5ff;
+            color: $main-blue-light;
             text-shadow: $main-blue  -2px -1px 5px, $main-blue  2px 1px 5px, $main-blue  0px 0px 10px, $main-blue  0px 0px 15px, $main-blue  0px 0px 20px, $main-blue  0px 0px 30px;
         }
     }
