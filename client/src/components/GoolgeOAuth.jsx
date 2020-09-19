@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
+import { MDBBtn, MDBIcon } from 'mdbreact';
 import api from '../api';
 import '../styles/GoolgeOAuth.scss'
 
@@ -39,7 +40,11 @@ function GoolgeOAuth(props) {
           {!isLoggedIn && 
             <GoogleLogin
               clientId={process.env.REACT_APP_GOOGLE_CLIENTID}
-              buttonText="Google Login"
+              render={renderProps => (
+                <MDBBtn onClick={renderProps.onClick} disabled={renderProps.disabled} size="sm" outline color="secondary">
+                  <MDBIcon fab icon="google" />   <MDBIcon fas icon="sign-in-alt" />
+                </MDBBtn>
+              )}
               onSuccess={onSuccess}
               onFailure={onFailure}
               isSignedIn={true} // maybe remove, might cause problems after timeout
@@ -49,7 +54,11 @@ function GoolgeOAuth(props) {
           {isLoggedIn && 
             <GoogleLogout
               clientId={process.env.REACT_APP_GOOGLE_CLIENTID}
-              buttonText="Logout"
+              render={renderProps => (
+                <MDBBtn onClick={renderProps.onClick} disabled={renderProps.disabled} size="sm" outline color="secondary">
+                  <MDBIcon fab icon="google" />   <MDBIcon fas icon="sign-out-alt" />
+                </MDBBtn>
+              )}
               onLogoutSuccess={logout}
             />}
     </div>
