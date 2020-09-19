@@ -1,8 +1,7 @@
+// Utilities
+@import "./utilities/variables";
+
 #newsbox {
-    width: 100%;
-    min-height: 100%;
-    // margin: 10px;
-    // background-color: #4b3e3e;
     h3 { 
         color: whitesmoke;
         font-family: 'NeonTubes2';
@@ -19,5 +18,17 @@
         i {
             font-size: 1.5rem;
         }
+    }
+}
+
+@include mobile {
+    #newsbox {
+        width: 100%
+    }
+  }
+  
+@include sm {
+    #newsbox {
+        min-width: 40%
     }
 }

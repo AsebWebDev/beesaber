@@ -159,11 +159,17 @@
                 }
             }
         }
+    }
 
+    @include mobile {
         
     }
 
     @include sm {
+        #google-profile-data {
+            display: none;
+        }
+
         #menu-head {
             #google-oauth {
                 display: none

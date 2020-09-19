@@ -18,6 +18,19 @@
     }
 
     @include mobile {
+
+      #hivebox {
+        width: 100%
+      }
+      #bees {
+        flex-wrap: wrap;
+      }
+    }
+
+    @include sm {
+      #hivebox {
+        width: 100%
+      }
       #bees {
         flex-wrap: wrap;
       }
