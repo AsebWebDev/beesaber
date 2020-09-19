@@ -22,12 +22,6 @@
 
 @include mobile {
     #google-oauth {
-        // width: 100vw;
-        width: 10px;
-
-        button {
-            width: 50%; 
-        }
 
         form {
             display: flex;
