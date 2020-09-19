@@ -3,7 +3,6 @@
 
 #hivebox {
     min-height: 45%;
-    margin: 10px 0 0 0;
     display: flex;
     flex-direction: column;
 
@@ -18,8 +17,21 @@
     }
 
     @include mobile {
+
+      #hivebox {
+        width: 100%
+      }
       #bees {
         flex-wrap: wrap;
       }
+    }
+
+    @include sm {
+      #hivebox {
+        width: 100%
+      }
+      #bees {
+        flex-wrap: wrap;
+      } 
     }
 }

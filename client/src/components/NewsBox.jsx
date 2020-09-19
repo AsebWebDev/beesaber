@@ -38,12 +38,12 @@ function NewsBox(props) {
     }, [props.userdata])
 
     return (
-          <div id="newsbox" className="card-container">
-              <h3>NewsBox</h3>
-              {scrollCounter !== 0 && <div className="scrollnav" onClick={handleUpClick} ><MDBIcon icon="angle-up" /></div>}
-              {news && news.slice(startIndex, endIndex).map( ( oneNews, i ) => <OneNews key={i} oneNews={oneNews}/>)}
-              {scrollCounter < maxScrolls && <div className="scrollnav" onClick={handleDownClick}><MDBIcon icon="angle-down"/></div>}
-          </div>
+      <div id="newsbox" className="card-container">
+          <h3>NewsBox</h3>
+          {scrollCounter !== 0 && <div className="scrollnav" onClick={handleUpClick} ><MDBIcon icon="angle-up" /></div>}
+          {news && news.slice(startIndex, endIndex).map( ( oneNews, i ) => <OneNews key={i} oneNews={oneNews}/>)}
+          {scrollCounter < maxScrolls && <div className="scrollnav" onClick={handleDownClick}><MDBIcon icon="angle-down"/></div>}
+      </div>
     ) 
 }
 

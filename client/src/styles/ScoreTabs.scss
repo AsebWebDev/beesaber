@@ -1,0 +1,156 @@
+// Utilities
+@import "./utilities/variables";
+
+@include mobile {
+    #scoretabs {
+        th {
+            text-align: center;
+        }
+
+        th.rank {
+            width: 15%;
+            padding: 0;
+        }
+    
+        th.song {
+            width: 60%
+        }
+    
+        th.score {
+            width: 25%;
+        }
+    
+        th.time, td.time{
+            display: none
+        }
+
+        .song-data {
+            img {
+                display:none
+            }
+
+            .greyed-out{
+                display: none;
+            }
+        }
+    }
+}
+
+@include sm {
+    #scoretabs {
+        th.rank {
+            width: 15%;
+            padding: 0;
+        }
+    
+        th.song {
+            width: 60%
+        }
+    
+        th.score {
+            width: 25%;
+        }
+    
+        th.time, td.time{
+            display: none
+        }
+
+        .song-data {
+            img {
+                display: none
+            }
+
+            .greyed-out{
+                display: none;
+            }
+        }  
+    }
+}  
+
+@include md {
+    #scoretabs {
+
+    th.rank {
+        width: 8%;
+        padding: 0;
+    }
+
+    th.song {
+        width: 57%
+    }
+
+    th.score {
+        width: 10%;
+    }
+
+    th.time, td.time{
+        width: 22%;
+        display: revert;  
+    }
+
+    .song-data {
+        img {
+            display: revert;
+        }
+    }
+}
+
+@include lg {
+    #scoretabs {
+        th.rank {
+            width: 15%;
+            padding: 0;
+        }
+    
+        th.song {
+            width: 60%
+        }
+    
+        th.score {
+            width: 25%;
+        }
+
+        th.time, td.time{
+            display: none
+        }
+
+        .song-data {
+            img {
+                display: none
+            }
+
+            .greyed-out{
+                display: none;
+            }
+        }  
+    }
+}
+
+@include xl {
+    #scoretabs {
+        th.rank {
+            width: 8%;
+            padding: 0;
+        }
+    
+        th.song {
+            width: 57%
+        }
+    
+        th.score {
+            width: 10%;
+        }
+    
+        th.time, td.time{
+            width: 22%;
+            display: revert;  
+        }
+
+        .song-data {
+            img {
+                display: revert;
+            }
+        }
+    }
+    }
+}

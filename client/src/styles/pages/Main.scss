@@ -3,8 +3,7 @@
 
 #main {
     padding: 0 3px 3px 3px;
-    // border: 2px solid blue;
-    width: 100vw;
+    width: 100%;
 
     #header {
         display: flex;
@@ -59,12 +58,15 @@
     -moz-appearance: textfield;
     }
 
-    // M E D I A   Q U E R I E S 
+    
+}
 
-    @include mobile {
+// M E D I A   Q U E R I E S 
 
+@include mobile {
+    #main {
         #header {
-            display: none
+            display: none;
         }
     }
 }

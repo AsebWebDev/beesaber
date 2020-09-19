@@ -17,6 +17,13 @@ code {
     monospace;
 }
 
+#logo-honeycomb path {
+  fill: none;
+  stroke: $main-yellow-light;
+  stroke-width: 3.5;
+  stroke-linejoin: round;
+}
+
 .neon-red {
   color: $main-red;
 }
@@ -64,11 +71,32 @@ a:hover .neon-blue {
   drop-shadow(0px 0px 7px  $main-yellow);
 }
 
-#logo-honeycomb path {
-  fill: none;
-  stroke: $main-yellow-light;
-  stroke-width: 3.5;
-  stroke-linejoin: round;
+.card-container {
+  transition: 0.3s;
+  border-radius: 5px;
+  padding: 10px 8px;
+  margin: 12px;
+
+  box-shadow: 
+  0px 0px 1px 3px $main-yellow-light, 
+  0px 0px 8px 2px $main-yellow, 
+  0px 0px 12px 6px $main-yellow, 
+  
+  inset 0px 0px 6px 2px  $main-yellow, 
+  inset 0px 0px 14px 0px  $main-yellow, 
+  inset 0px 0px 2px 0px $main-yellow-light;
+
+  h3 {
+    color: $main-yellow-light;;
+    text-shadow: 
+     $main-yellow -2px -1px 5px, 
+     $main-yellow 2px 1px 5px, 
+     $main-yellow 0px 0px 10px, 
+     $main-yellow 0px 0px 15px, 
+     $main-yellow 0px 0px 20px, 
+     $main-yellow 0px 0px 30px;
+    text-align: center;
+  }
 }
 
 @include mobile {
@@ -81,10 +109,4 @@ a:hover .neon-blue {
     height: 100%;
   }
     
-} 
-
-@include sm {
-  body {
-    
-  }
 } 
