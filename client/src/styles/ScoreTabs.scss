@@ -1,0 +1,26 @@
+.tabs-size-sm {
+    background-color: green;
+    .rank {
+        width: 11%;
+    }
+
+    .song {
+        width: 69%
+    }
+
+    .score {
+        width: 18%
+    }
+
+    .time {
+        opacity: 0;
+    }
+}
+
+.tabs-size-m {
+    background-color: red;
+}
+
+.tabs-size-lg {
+    background-color: yellow;
+}

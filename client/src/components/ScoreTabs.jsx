@@ -1,8 +1,8 @@
 import React from 'react'
 import { MDBTabPane, MDBBadge } from "mdbreact";
 import moment from 'moment'
-
 import DiffTags from './DiffTag'
+import '../styles/ScoreTabs.scss'
 
 export default function ScoreTabs(props) {
     const { tabId, data, size } = props
@@ -17,7 +17,7 @@ export default function ScoreTabs(props) {
                             <th className="rank" scope="col">Rank</th>
                             <th className="song" scope="col">Song</th>
                             <th className="score" scope="col">Score</th>
-                            <th className="time" scope="col">Time</th>
+                            { (size !== "sm") && <th className="time" scope="col">Time</th> }       
                             </tr>
                         </thead>
                         <tbody>
@@ -29,11 +29,16 @@ export default function ScoreTabs(props) {
                                             <div className="song-data">
                                                 <DiffTags diff={data.difficulty} />
                                                 <img src={`https://new.scoresaber.com/api/static/covers/${data.songHash}.png`} alt="Cover"/>
-                                                <MDBBadge color="dark">{data.songAuthorName} - {data.songName}<span className="greyed-out"> by {data.levelAuthorName}</span></MDBBadge>
+                                                <MDBBadge color="dark">
+                                                    {data.songAuthorName} - {data.songName}
+                                                    <span className="greyed-out"> 
+                                                        { (size !== "sm") && <span> by {data.levelAuthorName}</span>}
+                                                    </span>
+                                                </MDBBadge>
                                             </div>
                                         </td>
                                         <td><MDBBadge color="orange">{data.score}</MDBBadge></td>
-                                        <td><b className="card-link blue-text">{moment(data.timeSet).format('lll')}</b></td>
+                                        { (size !== "sm") && <td><b className="card-link blue-text">{moment(data.timeSet).format('lll')}</b></td> }
                                     </tr>
                                 )})
                             }
