@@ -19,17 +19,11 @@ function Dashboard(props) {
                 {/* SHOW DASHBOARD */}
                 {myScoreSaberId && scoreData && scoreData.scoresRecent &&
                     <div id="dashboard">
-                        <div id="dashboard-top"> 
                             <ScoreBox data={scoreData} size="m"/>
-                            <div id="dashboard-right">
-                                <NewsBox />
-                            </div> 
-                        </div>
-                        <div id="dashboard-bottom"> 
+                            <NewsBox />
                             <HiveBox />
-                        </div>
-                    </div>
-                }
+                    </div>}
+                
                 {/* LOADING */}
                 {scoreData && !scoreData.scoresRecent && < Spinner text="Loading..." />}
                 
