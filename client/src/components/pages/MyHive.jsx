@@ -4,6 +4,7 @@ import { MDBBtn, MDBIcon } from 'mdbreact';
 import AddBeeModal from '../AddBeeModal';
 import UserInfo from '../UserInfo';
 import api from '../../api';
+import '../../styles/pages/MyHive.scss'
 
 function MyHive(props) {
     let { userdata } = props
@@ -14,7 +15,7 @@ function MyHive(props) {
 
     if ( api.isLoggedIn() ) {
         return (
-            <div>
+            <div id="myhive">
                 <h1 className="page-title"><span className="neon-red">My</span> <span className="neon-blue">Hive</span></h1>
                 <MDBBtn onClick={toggleModal} outline color="success">
                     Add a bee
