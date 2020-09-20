@@ -16,8 +16,8 @@ function App(props) {
                                   : 15000 // or use 2 minutes as default 120000
   let [intervalIds, setIntervalIds] = useState([])
 
-  const errHandler= (err) => {
-    if (err = "Could not find user.") {
+  const errHandler = (err) => {
+    if (err === "Could not find user.") {
       intervalIds.forEach(id => clearInterval(id))
       api.logout();
       dispatch({ type: "LOGOUT" })
@@ -51,7 +51,7 @@ function App(props) {
         .then(userdata => dispatch({ type: "UPDATE_USER_DATA", userdata }) )
         .catch((err) => errHandler(err))
     }
-  }, [dispatch])
+  }, [dispatch, isLoggedIn])
 
   // GET SCORES ONCE
   useEffect(() => {

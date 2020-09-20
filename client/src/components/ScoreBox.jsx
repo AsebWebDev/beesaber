@@ -33,7 +33,7 @@ function ScoreOverview(props) {
 
     useEffect(() => {
         setCurrentScores(allScores.slice(offset, offset + pageLimit))
-    }, [allScores])
+    }, [allScores, offset, pageLimit])
 
     if (totalScores === 0) return null;
     else return (

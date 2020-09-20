@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
-import { MDBBtn, MDBIcon } from 'mdbreact';
 import NeonButton from "./NeonButton";
 import api from '../api';
 import '../styles/GoolgeOAuth.scss'
