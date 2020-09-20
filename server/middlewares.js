@@ -1,7 +1,8 @@
 function isLoggedIn(req, res, next) {
-  console.log("isLoggedIn ->  req.user",  req.user)
+    // console.log("isLoggedIn ->  req.user",  req.user)
     // if (req.isAuthenticated()) next()
     // else next({ status: 403, message: 'Unauthorized' })
+    //FIXME: protect routes 
     next()
   }
   
