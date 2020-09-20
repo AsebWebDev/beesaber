@@ -10,7 +10,7 @@ import Spinner from '../Spinner';
 import '../../styles/pages/Main.scss'
 
 function Main(props) {
-    const { fetchingData, isLoggedIn } = props;
+    const { fetchingData, isLoggedIn, loggingIn } = props;
 
     return (
         <div id="main">
@@ -23,7 +23,8 @@ function Main(props) {
                     {isLoggedIn && (fetchingData.status) && <Spinner text={fetchingData.statusText} />}
                 </div>
                 <div className="headerpart" id="header-right">
-                    <GoolgeOAuth />
+                    {loggingIn && <p>Logging you in...</p>}
+                    {!loggingIn && <GoolgeOAuth />}
                 </div>
             </div>
             <Switch>
@@ -40,7 +41,8 @@ function mapStateToProps(reduxState){
     return {
         userdata: reduxState.userdata,
         fetchingData: reduxState.fetchingData,
-        isLoggedIn: reduxState.isLoggedIn
+        isLoggedIn: reduxState.isLoggedIn,
+        loggingIn: reduxState.loggingIn
     }
   }
   
