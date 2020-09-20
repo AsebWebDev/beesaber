@@ -4,7 +4,7 @@ import '../styles/GoogleProfileData.scss'
 import profilePicPlaceholderUrl from '../media/beesaberlogo.png'
 
 function GoogleProfileData(props) {
-    const { userdata, fetchingData } = props;
+    const { userdata } = props;
 
     if (userdata) return (
         <div id="google-profile-data">

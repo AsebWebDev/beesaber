@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Dashboard from './Dashboard';
@@ -8,8 +8,6 @@ import GoolgeOAuth from '../GoolgeOAuth';
 import GoogleProfileData from '../GoogleProfileData';
 import Spinner from '../Spinner';
 import '../../styles/pages/Main.scss'
-import api from '../../api';
-import profilePicPlaceholderUrl from '../../media/beesaberlogo.png'
 
 function Main(props) {
     const { fetchingData, isLoggedIn } = props;

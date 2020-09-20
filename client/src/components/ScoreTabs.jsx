@@ -10,7 +10,7 @@ export default function ScoreTabs(props) {
     return (
         <div id="scoretabs">
             <MDBTabPane tabId={tabId} role="tabpanel" className={"score-box tabs-size-" + size}>
-                <p className="mt-2">
+                <div className="mt-2">
                     <div className="col-md-12">
                         <table className="table table-box table-hover">
                             <thead>
@@ -41,7 +41,7 @@ export default function ScoreTabs(props) {
                             </tbody>
                         </table>
                     </div>
-                </p>
+                </div>
             </MDBTabPane>
         </div>
         

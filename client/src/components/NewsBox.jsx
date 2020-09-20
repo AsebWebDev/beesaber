@@ -35,7 +35,7 @@ function NewsBox(props) {
 
     useEffect(() => {
       setEndIndex(Math.min(newsLength, maxNumOfNews)) 
-    }, [props.userdata])
+    }, [props.userdata, newsLength])
 
     return (
       <div id="newsbox" className="card-container">

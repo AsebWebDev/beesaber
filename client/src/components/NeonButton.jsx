@@ -5,7 +5,7 @@ import '../styles/NeonButton.scss'
 export default function NeonButton(props) {
     return (
         <div id="neon-button">
-            <a href="#">
+            <a href="/#">
                 <span></span>
                 <span></span>
                 <span></span>

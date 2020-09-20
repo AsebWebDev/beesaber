@@ -22,8 +22,8 @@ function AddBeeModal(props) {
 
     useEffect(() => {
         // check if user alread exists in bees list
-        if (foundUser) setUserAlreadyAdded(props.userdata.bees.some(item => item.playerId === foundUser.playerId))
-    }, [foundUser])
+        if (foundUser) setUserAlreadyAdded(userdata.bees.some(item => item.playerId === foundUser.playerId))
+    }, [foundUser, userdata.bees])
 
     const cleanUp = () => {
         setQuery('')
