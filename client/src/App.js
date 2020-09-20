@@ -75,7 +75,7 @@ function App(props) {
 
   return (
     <div id="App">
-      <Menu />
+      {isLoggedIn && <Menu />}
       <Main />
 
       {/* Notifications Top Right */}
