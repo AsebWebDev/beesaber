@@ -12,7 +12,7 @@ function LandingPage(props) {
             <div className="d-flex landing align-items-center">
                 <BrandLogo />
                 {!loggingIn && <h2 className="neon-yellow">Please login with your Google-Account</h2>}
-                <GoolgeOAuth />
+                {!loggingIn && <GoolgeOAuth />}
                 {loggingIn && <h2 className="neon-yellow">Logging you ... wait for it ... </h2>}
             </div>
         </div>
