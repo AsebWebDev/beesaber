@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { MDBIcon, MDBBadge  } from 'mdbreact';
+import { MDBBadge  } from 'mdbreact';
 import BeeTag from './BeeTag'
 import avatar from '../media/bee.jpg'
 import '../styles/UserInfo.scss'
@@ -22,8 +22,8 @@ export default class UserInfo extends Component {
                                     <BeeTag bee={userInfoData}/>
                                 </div>
                                 <div className="d-flex player-head right">
-                                    <td><MDBBadge color="light">#{countryRank}</MDBBadge></td>
-                                    <i class={country.toLowerCase() +" flag"}></i>
+                                    <MDBBadge color="light">#{countryRank}</MDBBadge>
+                                    <i className={country.toLowerCase() +" flag"}></i>
                                     <img src={url} alt="Avatar"/>
                                 </div>
                                 
@@ -42,7 +42,7 @@ export default class UserInfo extends Component {
                             </tr>
                             <tr className="d-flex">
                                 <td className="d-flex player">
-                                    <span><i class="fas fa-globe"/>-Rank: <MDBBadge color="light"> #{rank}</MDBBadge></span>
+                                    <span><i className="fas fa-globe"/>-Rank: <MDBBadge color="light"> #{rank}</MDBBadge></span>
                                     <span></span>
                                 </td>
                             </tr>
