@@ -14,7 +14,7 @@
     }
     
     h2 {
-        margin: 0 10px;
+        margin: 0 30px;
     }
 
     .beesaber-title {
@@ -100,6 +100,7 @@
 }
 
 @include xl {
+
     .landing {
         width: 100%;
         display: flex;
