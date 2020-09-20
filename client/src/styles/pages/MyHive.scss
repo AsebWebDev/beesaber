@@ -2,5 +2,21 @@
 @import "../utilities/variables";
 
 #myhive {
+    padding: 3%;
+}
 
+@include mobile { 
+    #myhive {
+        #neon-button {
+            margin-bottom: 30px;
+        }
+    }
+}
+
+@include sm { 
+    #myhive {
+        #userinfo.card-container {
+            margin: 2%;
+        }
+    }
 }

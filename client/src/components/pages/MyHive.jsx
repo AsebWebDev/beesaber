@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { MDBBtn, MDBIcon } from 'mdbreact';
+import { MDBAnimation } from 'mdbreact';
 import AddBeeModal from '../AddBeeModal';
 import UserInfo from '../UserInfo';
+import NeonButton from "../NeonButton";
 import api from '../../api';
 import '../../styles/pages/MyHive.scss'
 
@@ -11,22 +12,18 @@ function MyHive(props) {
     let [modal, setModal] = useState(false);
     let beesExists = (userdata.bees) ? userdata.bees.length > 0 : false
 
-    const toggleModal = () => setModal(!modal)
+    const toggleModal = (e) => setModal(!modal)
 
     if ( api.isLoggedIn() ) {
         return (
             <div id="myhive">
                 <h1 className="page-title"><span className="neon-red">My</span> <span className="neon-blue">Hive</span></h1>
-                <MDBBtn onClick={toggleModal} outline color="success">
-                    Add a bee
-                    <MDBIcon icon="plus" className="ml-1" />
-                </MDBBtn>
+                <span onClick={toggleModal}><MDBAnimation infinite type="pulse"><NeonButton text="Add a Bee" color="blue"/></MDBAnimation></span>
                 {userdata.bees && userdata.bees.map((bee, i) => <UserInfo key={i} userInfoData={bee}/>)}
                 {!beesExists && <p>No bees yet</p>}
 
                 {/* // MODAL ADD beeS //  */}
                 {modal && <AddBeeModal toggleModal={toggleModal}/>}
-
             </div>
         )
     } else {

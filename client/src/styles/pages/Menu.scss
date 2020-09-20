@@ -77,7 +77,7 @@
     }
     
     #menu-main {
-        
+
         .beesaber-title {
             text-align: center;
             margin-bottom: 20px;
@@ -133,9 +133,9 @@
             justify-content: space-evenly;
             align-items: center;
             
-            a {
+            #button {
                 font-size: 0.7rem;
-                padding: 0 2%;
+                padding: 0 8%;
             }
 
             br {
@@ -159,10 +159,6 @@
                 }
             }
         }
-    }
-
-    @include mobile {
-        
     }
 
     @include sm {
