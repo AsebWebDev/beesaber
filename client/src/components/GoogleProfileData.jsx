@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux';
+import { MDBAnimation } from 'mdbreact';
 import '../styles/GoogleProfileData.scss'
 import profilePicPlaceholderUrl from '../media/beesaberlogo.png'
 
@@ -8,11 +9,14 @@ function GoogleProfileData(props) {
 
     if (userdata) return (
         <div id="google-profile-data">
-            {userdata.profilePic &&     
-                <img 
+            {userdata.profilePic &&  
+                <MDBAnimation infinite type="">
+                    <img 
                     referrerPolicy="no-referrer" //avoids broken img due to 403 response from google
                     src={userdata.profilePic ? userdata.profilePic : profilePicPlaceholderUrl} 
-                    id="profile-pic-sm" alt="profile pic"/>}
+                    id="profile-pic-sm" alt="profile pic"/>
+                </MDBAnimation>
+            }
             <span>{userdata.username}</span>
         </div>                                                                  
     )
