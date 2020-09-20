@@ -12,3 +12,11 @@
         }
     }
 }
+
+@include sm { 
+    #myhive {
+        #userinfo.card-container {
+            margin: 2%;
+        }
+    }
+}
