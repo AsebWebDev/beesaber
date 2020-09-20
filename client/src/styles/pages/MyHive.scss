@@ -2,5 +2,13 @@
 @import "../utilities/variables";
 
 #myhive {
+    padding: 3%;
+}
 
+@include mobile { 
+    #myhive {
+        #neon-button {
+            margin-bottom: 30px;
+        }
+    }
 }

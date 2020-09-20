@@ -42,7 +42,7 @@ function GoolgeOAuth(props) {
               clientId={process.env.REACT_APP_GOOGLE_CLIENTID}
               render={renderProps => (
                 <span onClick={renderProps.onClick} disabled={renderProps.disabled} >
-                  <NeonButton text="Login" logo="google"/>
+                  <NeonButton text="Login" logo="google" />
                 </span> 
               )}
               onSuccess={onSuccess}
