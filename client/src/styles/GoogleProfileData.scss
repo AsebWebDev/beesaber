@@ -1,11 +1,18 @@
 // Utilities
 @import "./utilities/variables";
-    
-#profile-pic-sm {
-    width: 50px;
-    margin-right: 2%;
-    border-radius: 50%;
+   
+#google-profile-data {
+    #profile-pic-sm {
+        width: 50px;
+        margin-right: 2%;
+        border-radius: 50%;
+    }
+
+    span {
+        margin-left: 10px;
+    }
 }
+
 
 @include mobile {
     #google-profile-data {
@@ -16,5 +23,8 @@
 }
 
 @include sm {
-   
+    #google-profile-data {
+        display: flex;
+        align-items: center;
+    }
 }
