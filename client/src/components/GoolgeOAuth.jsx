@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
+import { setLoginStatus } from '../actioncreators'
 import NeonButton from "./NeonButton";
 import api from '../api';
 import '../styles/GoolgeOAuth.scss'
@@ -9,6 +10,7 @@ function GoolgeOAuth(props) {
   const { dispatch, isLoggedIn } = props
 
   const onSuccess = async (response) => {
+    dispatch(setLoginStatus(true))
     const googleId = response.googleId;
     const username = response.profileObj.name;
     const profilePic = response.profileObj.imageUrl;
@@ -19,10 +21,10 @@ function GoolgeOAuth(props) {
         props.dispatch({ type: "LOGIN" })
       }
     }).catch(err => console.log(err))
+    dispatch(setLoginStatus(false))
   }
 
   const onFailure = (reponse) => {
-    console.log("onFailure -> reponse", reponse)
     this.logout()
     throw new Error('Google Login failed')
   }
@@ -47,7 +49,7 @@ function GoolgeOAuth(props) {
               )}
               onSuccess={onSuccess}
               onFailure={onFailure}
-              isSignedIn={true} // maybe remove, might cause problems after timeout
+              isSignedIn={true}
               cookiePolicy={'single_host_origin'}
             />}
 
