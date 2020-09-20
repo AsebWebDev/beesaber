@@ -2,6 +2,7 @@ import {
     ADD_NOTIFICATION, 
     UPDATE_USER_DATA,
     SET_FETCH_STATUS,
+    SET_LOGIN_STATUS,
     LOGOUT,
     LOGIN
   } from '../actioncreators';
@@ -13,7 +14,8 @@ import {
         status: false,
         statusText: null
       },
-      isLoggedIn: false
+      isLoggedIn: false,
+      loggingIn: false
   }
   
   export default function rootReducer(state=initialState, action) {
@@ -45,6 +47,13 @@ import {
             status: action.fetchingData.status,
             statusText: action.fetchingData.statusText
           }
+        }
+      }
+
+      case SET_LOGIN_STATUS: {
+        return {
+          ...newState,
+          loggingIn: action.status,
         }
       }
 
