@@ -28,8 +28,12 @@ code {
   color: $main-red;
 }
 
+.neon-yellow {
+  color: $main-yellow;
+}
+
 .neon-blue {
-  color: blue;
+  color: $main-blue;
 }
 
 .neon-red,
@@ -56,6 +60,10 @@ a:hover .neon-blue {
 
 .greyed-out {
   color: grey
+}
+
+.bsfont {
+  font-family: 'NeonTubes2';
 }
 
 .badge {
