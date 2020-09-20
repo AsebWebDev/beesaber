@@ -10,7 +10,7 @@ export default function NeonButton(props) {
                 <span></span>
                 <span></span>
                 <span></span>
-                <MDBIcon fab icon={props.logo}/> {props.text}
+                <MDBIcon fab icon={props.logo || ''}/> {props.text}
             </div>
         </div>
     )
