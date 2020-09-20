@@ -1,0 +1,112 @@
+// Utilities
+@import "../utilities/variables";
+
+#landing-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    font-family: 'NeonTubes2';
+
+    h1 {
+        margin-top: 12%;
+    }
+    
+    h2 {
+        margin: 0 10px;
+    }
+
+    .beesaber-title {
+        text-align: center;
+
+        .neon-red {
+            color: $main-red-light;;
+            text-shadow: $main-red -2px -1px 5px, $main-red 2px 1px 5px, $main-red 0px 0px 10px, $main-red 0px 0px 15px, $main-red 0px 0px 20px, $main-red 0px 0px 30px;
+        }
+
+        .neon-blue {
+            color: $main-blue-light;
+            text-shadow: $main-blue  -2px -1px 5px, $main-blue  2px 1px 5px, $main-blue  0px 0px 10px, $main-blue  0px 0px 15px, $main-blue  0px 0px 20px, $main-blue  0px 0px 30px;
+        }
+
+        .neon-yellow {
+            color: $main-yellow-light;
+            text-shadow: $main-yellow  -2px -1px 5px, $main-yellow  2px 1px 5px, $main-yellow  0px 0px 10px, $main-yellow  0px 0px 15px, $main-yellow  0px 0px 20px, $main-yellow  0px 0px 30px;
+        }
+    }
+}
+
+@include mobile {
+    #landing-page {
+        .beesaber-title {
+            font-size: 4rem;
+        }
+
+        .landing {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+    }
+
+    #brandlogo {
+        margin: 15px 0;
+    }
+
+    #google-oauth {
+        margin-top: 20px;
+    }
+}
+
+@include sm {
+    #landing-page {
+        .beesaber-title {
+            margin-bottom: 20px;
+            font-size: 8rem;
+        }
+    }
+
+    #brandlogo {
+        width: 50%;
+    }
+}
+
+@include md {
+    #landing-page {
+        .beesaber-title {
+            margin-bottom: 20px;
+            font-size: 10rem;
+        }
+    }
+    #brandlogo {
+        width: 30%;
+    }
+}
+
+@include lg {
+    #landing-page {
+        .beesaber-title {
+            margin-bottom: 20px;
+            font-size: 12rem;
+        }
+    }
+
+    #brandlogo {
+        width: 20%;
+    }
+}
+
+@include xl {
+    .landing {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    #brandlogo {
+        width: 10%;
+    }
+    
+}

@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { MDBAnimation } from 'mdbreact';
+import BrandLogo from '../BrandLogo';
 import GoolgeOAuth from '../GoolgeOAuth';
 import GoogleProfileData from '../GoogleProfileData';
 import '../../styles/pages/Menu.scss';
@@ -12,17 +13,7 @@ function Menu(props) {
     return (
         <div id="menu">
             <MDBAnimation type="flip">
-                <div id="brandlogo">
-                    {/* neon honeycomb logo: */}
-                    <div><span className="neon-yellow">I</span></div>
-                    <div><span className="neon-yellow">I</span></div>
-                    <div><span className="neon-yellow">I</span></div>
-                    <div><span className="neon-yellow">I</span></div>
-                    <div><span className="neon-yellow">I</span></div>
-                    <div><span className="neon-yellow">I</span></div>
-                    <div className="neon-red saber"></div>
-                    <div className="neon-blue saber"></div>            
-                </div>
+                <BrandLogo />
             </MDBAnimation>
             
             <div id="menu-main">
