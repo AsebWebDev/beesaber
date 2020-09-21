@@ -5,7 +5,7 @@ import 'bootstrap-css-only/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
 import './index.scss';
 import App from './App';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { MemoryRouter as Router } from 'react-router-dom';
 import { createStore } from 'redux';
 import rootReducer from './reducer/rootReducer';
 import { Provider } from 'react-redux';
