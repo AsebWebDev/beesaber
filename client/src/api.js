@@ -201,7 +201,6 @@ export default {
     let needsUpdate = false
     // GET USERDATA FROM DATABASE
     await this.getUserData(_id).then(result => {
-    console.log("updateData -> result", result)
       dbUserData = result
     })
 
