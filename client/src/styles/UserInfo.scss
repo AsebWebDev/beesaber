@@ -3,6 +3,22 @@
 
 #userinfo {
 
+    .badge {
+        margin-right: 10px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        max-width: fit-content;
+
+        i {
+            margin-right: 4px;
+        }
+
+        i.flag {
+            padding: 0;
+        }
+    }
+
     #plusicon {
         font-size: 3rem;
         position: absolute;
@@ -10,16 +26,21 @@
         margin-right: 20px;
     }
 
+    #userinfo-head {
+        display: flex;
+        justify-content: space-between;
+        margin: 2%;
+        padding: 0 0 2% 0;
+        border-bottom: 1px solid gray;
+    }
+
+    #userinfo-body {
+        color: whitesmoke;
+        font-size: 0.8rem;
+    }
+
     img {
         margin: 0 1%;
-    }
-
-    table {
-        color: whitesmoke;
-    }
-
-    td {
-        border: none;
     }
 
     .player {
@@ -31,19 +52,7 @@
     .player-head {
         align-items: center;
 
-        .badge {
-            margin-right: 10px;
-            display: flex;
-            align-items: center;
-
-            i {
-                margin-right: 4px;
-            }
-
-            i.flag {
-                padding: 0;
-            }
-        }
+        
     }
 }
 
