@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { MDBBadge  } from 'mdbreact';
+import { MDBBadge, MDBIcon  } from 'mdbreact';
 import BeeTag from './BeeTag'
 import avatar from '../media/bee.jpg'
 import '../styles/UserInfo.scss'
@@ -22,8 +22,8 @@ export default class UserInfo extends Component {
                                     <BeeTag bee={userInfoData}/>
                                 </div>
                                 <div className="d-flex player-head right">
-                                    <MDBBadge color="light">#{countryRank}</MDBBadge>
-                                    <i className={country.toLowerCase() +" flag"}></i>
+                                    {rank && <MDBBadge color="light"><i className="fas fa-globe"></i>#{rank}</MDBBadge>}
+                                    {countryRank && <MDBBadge color="light">{country && <i className={country.toLowerCase() +" flag"}></i>}#{countryRank}</MDBBadge>}
                                     <img src={url} alt="Avatar"/>
                                 </div>
                                 
@@ -33,16 +33,17 @@ export default class UserInfo extends Component {
                     <tbody>
                             <tr className="d-flex">
                                 <td className="d-flex player">
-                                        <span>Total Playcount: <MDBBadge color="light">{totalPlayCount}</MDBBadge></span>
-                                        <span>PP: <MDBBadge color="light"> {pp}</MDBBadge></span>
+                                        {totalPlayCount && <span>Total Playcount: <MDBBadge color="light">{totalPlayCount}</MDBBadge></span>}
+                                        {pp && <span>PP: <MDBBadge color="light"> {pp}</MDBBadge></span>}
                                 </td>
                                 
                                 {/* If there is handleChose exsting on props, there should be a 'plus' to add this user */}
-                                {handleChose && <td><p onClick={() => handleChose(userInfoData)}></p></td>}
+                                {/* {handleChose && <td><p onClick={() => handleChose(userInfoData)}></p></td>} */}
+                                {handleChose && <p id="plusicon"><MDBIcon onClick={() => handleChose(userInfoData)} icon="plus-circle" /></p>}
                             </tr>
                             <tr className="d-flex">
                                 <td className="d-flex player">
-                                    <span><i className="fas fa-globe"/>-Rank: <MDBBadge color="light"> #{rank}</MDBBadge></span>
+                                    {rank && <span><i className="fas fa-globe"/>-Rank: <MDBBadge color="light"> #{rank}</MDBBadge></span>}
                                     <span></span>
                                 </td>
                             </tr>
