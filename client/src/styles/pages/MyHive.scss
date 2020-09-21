@@ -3,6 +3,13 @@
 
 #myhive {
     padding: 3%;
+
+    #myhive-bees {
+        margin: 5% 0 0 0 ;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
 }
 
 @include mobile { 
