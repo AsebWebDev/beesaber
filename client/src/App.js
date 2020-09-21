@@ -13,7 +13,7 @@ function App(props) {
   const myScoreSaberId = (userdata) ? userdata.myScoreSaberId : null; // get ScoreSaberID from Store or use null
   let intervalUpdatecheck = (userdata & userdata.settings) // set Interval Frequency
                                   ? userdata.settings.Performance.intervalUpdatecheck // get Interval Frequency for cheking data
-                                  : 15000 // or use 2 minutes as default 120000
+                                  : 120000 // or use 2 minutes as default 120000
   let [intervalIds, setIntervalIds] = useState([])
 
   const errHandler = (err) => {
