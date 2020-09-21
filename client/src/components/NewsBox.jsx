@@ -12,7 +12,9 @@ function NewsBox(props) {
     // array, if lower than 5. Each time the arrows in the component are clicke start and end index are shiftet forward or backwards, when 
     // another scroll is possible (maxScrolls).
     const rest = newsLength % maxNumOfNews
-    const maxScrolls = (rest > 0) ? ( ( ( newsLength - rest ) / maxNumOfNews ) ) : ( newsLength / maxNumOfNews )
+    let maxScrolls; 
+      if (newsLength === maxNumOfNews) maxScrolls = 0 // when news length does not exceed limit, no scrolling us needed
+      else maxScrolls = (rest > 0) ? ( ( ( newsLength - rest ) / maxNumOfNews ) ) : ( newsLength / maxNumOfNews ) // calc how many scrolls are possible
     const [scrollCounter, setScrollCounter] = useState(0)
     const [startIndex, setStartIndex] = useState(0)
     const [endIndex, setEndIndex] = useState( Math.min(newsLength, maxNumOfNews) )
