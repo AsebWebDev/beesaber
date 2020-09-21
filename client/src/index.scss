@@ -1,6 +1,16 @@
 // Utilities
 @import './styles/utilities/variables';
 
+html {
+  overflow: scroll;
+  overflow-x: hidden;
+
+  ::-webkit-scrollbar {
+    width: 0px;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
+  }
+}
+
 body {
   
   background-color: $bg-color;
@@ -64,11 +74,6 @@ a:hover .neon-blue {
 
 .bsfont {
   font-family: 'NeonTubes2';
-}
-
-.badge {
-  /* Overwrite MDB (1 -> 1.1) */
-  line-height: 1.1; 
 }
 
 .logo {

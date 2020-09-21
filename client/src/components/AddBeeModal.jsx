@@ -22,7 +22,7 @@ function AddBeeModal(props) {
 
     useEffect(() => {
         // check if user alread exists in bees list
-        if (foundUser) setUserAlreadyAdded(userdata.bees.some(item => item.playerId === foundUser.playerId))
+        if (foundUser && userdata.bees) setUserAlreadyAdded(userdata.bees.some(item => item.playerId === foundUser.playerId))
     }, [foundUser, userdata.bees])
 
     const cleanUp = () => {
@@ -34,16 +34,22 @@ function AddBeeModal(props) {
     const handleChange = (e) => setQuery(e.target.value)
     
     const handleSearch = async () => {
+        setFoundUser(null)
+        setFoundUsers(null)
         const mode = activeItem === '1' ? 'id' : 'username'
         setProcessing({status: true, statusText: 'Searching...' })
         await api.getScoreSaberUserInfo(query, mode)
             .then(result => {
-                (Array.isArray(result))         // If result is an array, multiple Users have been found...
-                    ? setFoundUsers(result)     // ... then add this to foundUsers in state
-                    : setFoundUser(result)      // If its not an array, only one user is found and can be added to foundUser
-                setThatIsYou(result.playerId === userdata.myScoreSaberId)   
+                console.log("handleSearch -> result", result)
+                if (Array.isArray(result)) {                            // If result is an array, multiple Users have been found...
+                    if (result.length === 1) setFoundUser(result[0])    // If array only has one item, set it as single found user
+                    else setFoundUsers(result)                          // else add all found users to foundUsers in state
+                } else {
+                    setFoundUser(result)                                // If its not an array, only one user is found and can be added to foundUser
+                    setThatIsYou(result.playerId === userdata.myScoreSaberId)   // check, if you found yourself
+                }    
             }).catch(err => dispatch(newNotification({text: err.message ? err.message : err})))
-            setProcessing({status: false, statusText: null })
+        setProcessing({status: false, statusText: null })
     }
 
     const handleChose = (user) => {
@@ -84,7 +90,7 @@ function AddBeeModal(props) {
     }
 
     return (
-        <div id="adbeesmodal">
+        <div id="addbeesmodal">
             <MDBContainer>
                 <MDBModal isOpen={true} toggle={props.toggleModal} size="lg">
                     <MDBModalHeader toggle={props.toggleModal}>Add a new Bee</MDBModalHeader>
@@ -122,7 +128,7 @@ function AddBeeModal(props) {
                                     foundUsers.map(user => <UserInfo userInfoData={user} handleChose={handleChose}/>)}
                             </MDBTabPane>
                             {userAlreadyAdded && !thatIsYou && <Message text='User already added' type='danger' /> }
-                            {thatIsYou && <Message text='You found yourself! What a noble goal in life, but not possible on Beesaber ;)' type='danger' /> }
+                            {thatIsYou && <Message text='You found yourself! What a noble goal in life, but not helping you on Beesaber ;)' type='danger' /> }
                         </MDBTabContent>
                     </MDBModalBody>
 
