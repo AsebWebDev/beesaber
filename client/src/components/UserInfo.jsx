@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { MDBBadge, MDBIcon, MDBContainer, MDBRow, MDBCol } from 'mdbreact';
+import { MDBBadge, MDBIcon, MDBTableBody, MDBTable } from 'mdbreact';
 import BeeTag from './BeeTag'
 import avatar from '../media/bee.jpg'
 import '../styles/UserInfo.scss'
@@ -26,15 +26,22 @@ export default class UserInfo extends Component {
                         </div>
                     </div>
                     <div id="userinfo-body">
-                        <MDBContainer>
-                            <MDBRow>
-                                <MDBCol size="7">{totalPlayCount && <span><MDBBadge color="light">{totalPlayCount}</MDBBadge> Total Playcount</span>}</MDBCol>
-                                <MDBCol size="5">{pp && <span><MDBBadge color="light"> {pp}</MDBBadge><p>PP</p></span>}</MDBCol>
-                            </MDBRow>
-                            <MDBRow>
-                                <MDBCol>{rank && <span><MDBBadge color="light"> #{rank}</MDBBadge><i className="fas fa-globe"/>-Rank</span>}</MDBCol>
-                            </MDBRow>
-                        </MDBContainer>
+                        <MDBTable striped>
+                            <MDBTableBody>
+                                <tr>
+                                    <td>Total Playcount</td>
+                                    <td><MDBBadge color="light">{totalPlayCount}</MDBBadge></td>
+                                    <td>PP</td>
+                                    <td><MDBBadge color="light"> {pp}</MDBBadge></td>
+                                </tr>
+                                <tr>
+                                    <td>Rank</td>
+                                    <td><MDBBadge color="light"> #{rank}</MDBBadge></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </MDBTableBody>
+                        </MDBTable>
                         {handleChose && <p id="plusicon"><MDBIcon onClick={() => handleChose(userInfoData)} icon="plus-circle" /></p>}
                     </div>                              
                 </div>
