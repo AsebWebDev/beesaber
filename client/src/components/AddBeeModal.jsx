@@ -19,28 +19,35 @@ function AddBeeModal(props) {
     let [userAlreadyAdded, setUserAlreadyAdded] = useState(null)
     let [processing, setProcessing] = useState({status: false, statusText: null})
     let [thatIsYou, setThatIsYou] = useState(false)
-
+    
     useEffect(() => {
         // check if user alread exists in bees list
         if (foundUser && userdata.bees) setUserAlreadyAdded(userdata.bees.some(item => item.playerId === foundUser.playerId))
     }, [foundUser, userdata.bees])
 
     const cleanUp = () => {
-        setQuery('')
         setFoundUser(null)
         setFoundUsers(null)
+        setUserAlreadyAdded(false)
+        setThatIsYou(false)
     }
 
     const handleChange = (e) => setQuery(e.target.value)
+
+    const handleKeyPress = (e) => {
+        if (e.key === 'Enter') handleSearch()
+    }
     
     const handleSearch = async () => {
-        setFoundUser(null)
-        setFoundUsers(null)
+        cleanUp()
         const mode = activeItem === '1' ? 'id' : 'username'
         setProcessing({status: true, statusText: 'Searching...' })
         await api.getScoreSaberUserInfo(query, mode)
             .then(result => {
-                console.log("handleSearch -> result", result)
+                if (!result) {
+                    dispatch(newNotification({text: "Sorry, user could not be found."}))
+                    return
+                }
                 if (Array.isArray(result)) {                            // If result is an array, multiple Users have been found...
                     if (result.length === 1) setFoundUser(result[0])    // If array only has one item, set it as single found user
                     else setFoundUsers(result)                          // else add all found users to foundUsers in state
@@ -77,14 +84,13 @@ function AddBeeModal(props) {
             dispatch(newNotification({text: "User " + foundUser.playerName + " successfully added."}))
             
             setProcessing({status: false, statusText: null })
+            setQuery('')
             cleanUp()
-        } else {
-            console.log("User existiert bereits")
-            // TODO: Error Message
-        }
+        } else dispatch(newNotification({text: "Sorry, user is already in you hive."}))
     }
 
     const switchTab = (tab) => {
+        setQuery('')
         cleanUp()
         if (activeItem !== tab) setActiveItem(tab)
     }
@@ -112,7 +118,7 @@ function AddBeeModal(props) {
                             <MDBTabPane tabId="1" role="tabpanel">
                                 <div className="grey-text">
                                     <MDBInput onChange={e => handleChange(e)} value={query} label="Search ID" icon="hashtag" group type="number" validate error="wrong"
-                                    success="right" />
+                                    success="right" onKeyPress={handleKeyPress}/>
                                 </div>
                                 {foundUser && <UserInfo userInfoData={foundUser}/>}
                             </MDBTabPane>
@@ -121,7 +127,7 @@ function AddBeeModal(props) {
                             <MDBTabPane tabId="2" role="tabpanel">
                                 <div className="grey-text">
                                     <MDBInput onChange={e => handleChange(e)} value={query} label="Search Username" icon="user" group type="text" validate error="wrong"
-                                    success="right" />
+                                    success="right" onKeyPress={handleKeyPress}/>
                                 </div>
                                 {foundUser && <UserInfo userInfoData={foundUser}/>}
                                 {foundUsers &&
