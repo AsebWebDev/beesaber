@@ -3,11 +3,19 @@
 
 #userinfo {
 
+    display: flex;
+    align-items: center;
+
     #plusicon {
+        color: whitesmoke;
         font-size: 3rem;
-        position: absolute;
         right: 0;
-        margin-right: 20px;
+        margin: 0 6px;
+        display: flex;
+    }
+
+    .plusicon-grey {
+        opacity: 0;
     }
 
     #userinfo-head {
@@ -114,9 +122,10 @@
         }
         
         img {
-            max-width: 70px;
-            max-height: 50px;
+            max-width: 60px;
+            max-height: 40px;
             border-radius: 25px;
+            margin: 1px
         }
 
         i.flag {
