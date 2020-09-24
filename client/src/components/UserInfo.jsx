@@ -1,17 +1,20 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 import { MDBBadge, MDBIcon, MDBTableBody, MDBTable } from 'mdbreact';
 import BeeTag from './BeeTag'
 import avatar from '../media/bee.jpg'
 import '../styles/UserInfo.scss'
 
-export default class UserInfo extends Component {
+function UserInfo(props) {
 
-    render() {
-        const { userInfoData, handleChose } = this.props;
-        const { rank, countryRank, country, totalPlayCount, pp } = userInfoData;
+        const { userInfoData, handleChose } = props;
+        const { rank, countryRank, country, totalPlayCount, pp, playerId } = userInfoData;
+        const isAlreadyAdded = props.userdata.bees.some(item => item.playerId === playerId)
+
         const url = ( userInfoData.avatar === '/images/steam.png' || userInfoData.avatar === '/images/oculus.png')
             ? avatar 
             : `https://new.scoresaber.com/api/static/avatars/${userInfoData.playerId}.jpg`
+
         if (userInfoData) return (
             <div id="userinfo" className="col-md-12 card-container">
                 <div className="table table-sm">
@@ -29,8 +32,8 @@ export default class UserInfo extends Component {
                         <MDBTable striped>
                             <MDBTableBody>
                                 <tr>
-                                    <td>Total Playcount</td>
-                                    <td><MDBBadge color="light">{totalPlayCount}</MDBBadge></td>
+                                    {totalPlayCount && <td>Total Playcount</td>}
+                                    {totalPlayCount && <td><MDBBadge color="light">{totalPlayCount}</MDBBadge></td>}
                                     <td>PP</td>
                                     <td><MDBBadge color="light"> {pp}</MDBBadge></td>
                                 </tr>
@@ -42,11 +45,23 @@ export default class UserInfo extends Component {
                                 </tr>
                             </MDBTableBody>
                         </MDBTable>
-                        {handleChose && <p id="plusicon"><MDBIcon onClick={() => handleChose(userInfoData)} icon="plus-circle" /></p>}
-                    </div>                              
+                    </div> 
+                                              
                 </div>
+                <div>
+                    {handleChose && <p id="plusicon">
+                        <MDBIcon onClick={() => handleChose(userInfoData)} icon="plus-circle" className={isAlreadyAdded ? "plusicon-grey" : ''}/>
+                    </p>}
+                </div>   
             </div>
         ) 
         else return null;
-    }
 }
+
+function mapStateToProps(reduxState){
+    return {
+      userdata: reduxState.userdata,
+    }
+  }
+  
+export default connect(mapStateToProps)(UserInfo)
