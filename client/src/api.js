@@ -232,6 +232,8 @@ export default {
             ) {
           needsUpdate = true
           const diff = ssUserData.totalPlayCount - dbUserData.totalPlayCount
+          console.log("###own new score###")
+          console.log("updateData -> diff", diff)
           if (diff !== 0) updatedNews.push(new News({
             text: `You gained ${diff} new Scores!`, 
             diff, 
