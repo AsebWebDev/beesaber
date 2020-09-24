@@ -130,8 +130,10 @@ function AddBeeModal(props) {
                                     success="right" onKeyPress={handleKeyPress}/>
                                 </div>
                                 {foundUser && <UserInfo userInfoData={foundUser}/>}
-                                {foundUsers &&
-                                    foundUsers.map(user => <UserInfo userInfoData={user} handleChose={handleChose}/>)}
+                                <div id="found-users">
+                                    {foundUsers &&
+                                        foundUsers.map(user => <UserInfo userInfoData={user} handleChose={handleChose}/>)}  
+                                </div>
                             </MDBTabPane>
                             {userAlreadyAdded && !thatIsYou && <Message text='User already added' type='danger' /> }
                             {thatIsYou && <Message text='You found yourself! What a noble goal in life, but not helping you on Beesaber ;)' type='danger' /> }
