@@ -2,13 +2,13 @@
 @import "./utilities/variables";
 
 #addbeesmodal {
-    .mt-5 {
-        margin-top: 0!important; // overwrite MDB-React margin
-    }
-
     #userinfo {
         background-color: $bg-color;
         width: 96%; // prevent overlapping on large screens with mdb modal
+    }
+
+    .mt-5 {
+        margin-top: 0!important; // overwrite MDB-React margin
     }
 }
 
