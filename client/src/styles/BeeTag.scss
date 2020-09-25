@@ -1,3 +1,6 @@
+// Utilities
+@import "./utilities/variables";
+
 #beetag {
 
     padding: 0;
@@ -14,13 +17,37 @@
     }
 
     .userInfoPopup {
-        border: 1px solid grey;
+        color: black;
+        padding: 10px 10px 0 0;
         display: flex;
-        align-items: center;
-        justify-items: center;
+        flex-direction: column;
+
+        #beetag-header {
+            display: flex;
+        }
+
+        #beetag-tags {
+            padding-bottom: 10px;
+            display: flex;
+            
+            .badge {
+                margin: 0 3px;
+            }
+        }
+
+        img {
+            width: 30px;
+            height: 30px;
+            border-radius: 20px;
+            margin: 0 10px 5px 0;
+        }
       }
   
     .tooltip {
-        background-color: grey;
+        background-color: $main-yellow;
     }
+}
+
+@include mobile { 
+
 }
