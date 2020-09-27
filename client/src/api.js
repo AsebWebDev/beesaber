@@ -28,7 +28,7 @@ export default {
   // ===========
 
   isLoggedIn() {
-    return localStorage.getItem('user') != null           // app will consider user as logged in, when User exists in local Storage
+    return localStorage.getItem('user') != null  // app will consider user as logged in, when User exists in local Storage
   },
 
   isAdmin() {
@@ -154,7 +154,6 @@ export default {
       let count = 1;
       let noResult = false
       while (!noResult) {
-        // await axios('https://new.scoresaber.com/api/player/'+ currentId +'/scores/recent/'+ count++, { validateStatus: false })
         await axios(parseGetRecentScoresUrl(currentId, count++ ) , { validateStatus: false })
           .then(scoreReply => {
             if (scoreReply.status === 404 || scoreReply.status === 429 || scoreReply.status === 422)  {
@@ -185,7 +184,6 @@ export default {
   async getlatestScore(currentId) {
       let score = null
       const fetchData = async () => {
-          // await axios('https://new.scoresaber.com/api/player/'+ currentId +'/scores/recent/1', { validateStatus: false })
           await axios(parseGetRecentScoresUrl(currentId, 1), { validateStatus: false })
             .then(scoreReply => {
               if (scoreReply.status === 404 || scoreReply.status === 429 || scoreReply.status === 422)  {
