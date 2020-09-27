@@ -17,7 +17,7 @@ function UserInfo(props) {
             : parseAvatarUrl(userInfoData.playerId)
 
         if (userInfoData) return (
-            <div id="userinfo" className="col-md-12 card-container">
+            <div id="userinfo" className="col-md-3 card-container">
                 <div className="table table-sm">
                     <div id="userinfo-head">
                         <div className="d-flex player-head left">
