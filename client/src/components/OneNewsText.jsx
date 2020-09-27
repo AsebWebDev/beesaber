@@ -1,15 +1,32 @@
 import React from 'react'
+import { MDBContainer, MDBTooltip, MDBBadge     } from "mdbreact";
+import DiffTags from './DiffTag'
 
 export default function OneNewsText(props) {
-    const { type, diff, bee, song, numPlayedMore} = props.oneNews
+    const { type, diff, bee, song, songs, numPlayedMore} = props.oneNews
+    const maxSongs = 4
     const classNm = 'card-text'
     const beeNm = <b className="bee-yellow"><i className="fab fa-forumbee" aria-hidden="true"></i>  {bee}</b>
 
     switch(type) {
         case 'ownNewScores': {
-            return (<p className={classNm}>
-                You gained <b>{diff}</b> new Score{(diff > 1)?'s':''}!
-            </p>)
+            return (
+                <MDBContainer>
+                    <MDBTooltip domElement tag="p" placement="top">
+                        <p className={classNm}>
+                            You gained <b>{diff}</b> new Score{(diff > 1)?'s':''}!
+                        </p>
+                        <table className="scores-tooltip">
+                            {songs && songs.slice(0,maxSongs).map( (song,i) => <tr key={i}>
+                                <td><MDBBadge color="pink">{song.rank}</MDBBadge></td>
+                                <td><DiffTags diff={song.difficulty} /></td>
+                                <td><MDBBadge color="light">{song.songName}</MDBBadge></td>
+                            </tr>)} 
+                            {songs && songs.length > maxSongs && <p>+{songs.length - maxSongs} more!</p>} 
+                        </table>
+                    </MDBTooltip>
+                </MDBContainer>
+            )
         }
 
         case 'morePlayed': {
@@ -30,6 +47,5 @@ export default function OneNewsText(props) {
         default: return ( 
                 <p className="card-text">{props.oneNews.text}</p>
             )
-
     }
 }

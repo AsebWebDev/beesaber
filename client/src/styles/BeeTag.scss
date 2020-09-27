@@ -35,6 +35,12 @@
             .badge {
                 margin: 3px;
             }
+
+            #last-played {
+                .badge {
+                    padding-top: 10px;
+                }
+            }
         }
 
         img {
@@ -44,10 +50,6 @@
             margin: 0 10px 5px 0;
         }
       }
-  
-    .tooltip {
-        background-color: $main-yellow;
-    }
 }
 
 @include mobile { 
