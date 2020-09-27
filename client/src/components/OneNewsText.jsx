@@ -1,5 +1,5 @@
 import React from 'react'
-import { MDBContainer, MDBTooltip, MDBBadge     } from "mdbreact";
+import { MDBContainer, MDBTooltip, MDBBadge } from "mdbreact";
 import DiffTags from './DiffTag'
 
 export default function OneNewsText(props) {
@@ -7,6 +7,16 @@ export default function OneNewsText(props) {
     const maxSongs = 4
     const classNm = 'card-text'
     const beeNm = <b className="bee-yellow"><i className="fab fa-forumbee" aria-hidden="true"></i>  {bee}</b>
+    // Due to the MDBTooltip we can not render a new compoment on hover without shortcutting the logic of MDBTooltip
+    // Instead we just resuse the variable scoreTooltip like this: 
+    const scoreTooltip = <table className="scores-tooltip">
+                            {songs && songs.slice(0,maxSongs).map( (song,i) => <tr key={i}>
+                                <td><MDBBadge color="pink">{song.rank}</MDBBadge></td>
+                                <td><DiffTags diff={song.difficulty} /></td>
+                                <td><MDBBadge color="light">{song.songName}</MDBBadge></td>
+                            </tr>)} 
+                            {songs && songs.length > maxSongs && <p>+{songs.length - maxSongs} more!</p>} 
+                        </table>
 
     switch(type) {
         case 'ownNewScores': {
@@ -16,23 +26,23 @@ export default function OneNewsText(props) {
                         <p className={classNm}>
                             You gained <b>{diff}</b> new Score{(diff > 1)?'s':''}!
                         </p>
-                        <table className="scores-tooltip">
-                            {songs && songs.slice(0,maxSongs).map( (song,i) => <tr key={i}>
-                                <td><MDBBadge color="pink">{song.rank}</MDBBadge></td>
-                                <td><DiffTags diff={song.difficulty} /></td>
-                                <td><MDBBadge color="light">{song.songName}</MDBBadge></td>
-                            </tr>)} 
-                            {songs && songs.length > maxSongs && <p>+{songs.length - maxSongs} more!</p>} 
-                        </table>
+                        {scoreTooltip}
                     </MDBTooltip>
                 </MDBContainer>
             )
         }
 
         case 'morePlayed': {
-            return (<p className={classNm}>
-                {beeNm} played <b>{numPlayedMore}</b> new song{(numPlayedMore > 1)?'s':''}!
-            </p>)
+            return (
+                <MDBContainer>
+                    <MDBTooltip domElement tag="p" placement="top">
+                        <p className={classNm}>
+                            {beeNm} played <b>{numPlayedMore}</b> new song{(numPlayedMore > 1)?'s':''}!
+                        </p>
+                        {scoreTooltip}
+                    </MDBTooltip>
+                </MDBContainer>
+            )
 
         }
 
