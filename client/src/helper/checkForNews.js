@@ -12,7 +12,7 @@ export async function checkForNews(userdata) {
     for (let i = 0; i < bees.length; i++) {
         const { playerName, playerId } = bees[i]                    // get Playername and ID of Opponent
         const oldTotalPlayCount = bees[i].totalPlayCount            // Get num of Games played from database 
-        await api.getScoreSaberUserInfo(playerId, 'id')              // FETCH USERDATA for current Bee
+        await api.getScoreSaberUserInfo(playerId, 'id')             // FETCH USERDATA for current Bee
             .then( userInfo => compareScores(userInfo, oldTotalPlayCount, playerId, playerName))
     }
 
@@ -25,18 +25,19 @@ export async function checkForNews(userdata) {
         if (newTotalPlayCount !== oldTotalPlayCount) {                              // if different === new highscores exist
             const numPlayedMore = newTotalPlayCount - oldTotalPlayCount             // calc the difference
             if (userInfo) console.log(userInfo.playerName, " played ", numPlayedMore, " more!")
-            if (userInfo) news.push(new News({
-                text: `Your Bee ${userInfo.playerName} played ${numPlayedMore} new songs!`, 
-                title: `Your Bee ${userInfo.playerName} played ${numPlayedMore} new songs!`,
-                bee: userInfo.playerName,
-                numPlayedMore,
-                type: "morePlayed",
-                date: new Date().toISOString() 
-            }))
             await api.getScores(playerId)                                           // FETCH SCORES for current Bee
                 .then(scoreData => {
                     if (scoreData && scoreData.scoresRecent) {
                         const { scoresRecent } = scoreData; 
+                        news.push(new News({                                        // Create a News with changes data of current bee
+                            text: `Your Bee ${userInfo.playerName} played ${numPlayedMore} new songs!`, 
+                            title: `Your Bee ${userInfo.playerName} played ${numPlayedMore} new songs!`,
+                            bee: userInfo.playerName,
+                            numPlayedMore,
+                            songs: scoresRecent.slice(0, numPlayedMore),
+                            type: "morePlayed",
+                            date: new Date().toISOString() 
+                        }))
                         for (let j = 0; j < numPlayedMore; j++) {                           // For each score.... 
                             const match = (myScoreIds.includes(scoresRecent[j].scoreId))    // check if song exist in our own Songlist
                             if (match) {                                                    // if so...
