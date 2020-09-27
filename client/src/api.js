@@ -235,14 +235,15 @@ export default {
             ) {
           needsUpdate = true
           const diff = ssUserData.totalPlayCount - dbUserData.totalPlayCount
-          console.log("###own new score###")
-          console.log("updateData -> diff", diff)
-          if (diff !== 0) updatedNews.push(new News({
-            text: `You gained ${diff} new Scores!`, 
-            diff, 
-            type: "ownNewScores", 
-            date: new Date().toISOString()}))
-          await this.getScores(currentId).then( result => newUserData = { ...newUserData, scoreData: result })
+          await this.getScores(currentId).then( result => {
+            newUserData = { ...newUserData, scoreData: result }
+            if (diff > 0) updatedNews.push(new News({
+              text: `You gained ${diff} new Scores!`, 
+              songs: newUserData.scoreData.scoresRecent.slice(0,diff), // get newly gained scores
+              diff, 
+              type: "ownNewScores", 
+              date: new Date().toISOString()}))
+          })
         }
       }
       // FRIENDS
