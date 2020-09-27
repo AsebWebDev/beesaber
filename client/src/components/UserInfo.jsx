@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { MDBBadge, MDBIcon, MDBTableBody, MDBTable } from 'mdbreact';
+import { parseAvatarUrl } from '../helper/parser'
 import BeeTag from './BeeTag'
 import avatarPlaceholder from '../media/bee.jpg'
 import '../styles/UserInfo.scss'
@@ -13,7 +14,7 @@ function UserInfo(props) {
 
         const url = ( userInfoData.avatar === '/images/steam.png' || userInfoData.avatar === '/images/oculus.png')
             ? avatarPlaceholder 
-            : `https://new.scoresaber.com/api/static/avatars/${userInfoData.playerId}.jpg`
+            : parseAvatarUrl(userInfoData.playerId)
 
         if (userInfoData) return (
             <div id="userinfo" className="col-md-12 card-container">

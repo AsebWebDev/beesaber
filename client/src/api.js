@@ -1,6 +1,7 @@
 import axios from 'axios'
 import mongoose from 'mongoose'
 import { checkForNews } from './helper/checkForNews'
+import { parseFullPlayerQueryUrl, parsePlayerByNameQueryUrl, parseGetRecentScoresUrl } from './helper/parser'
 import News from './prototypes/newsProto'
 
 const validId = (id) => mongoose.Types.ObjectId.isValid(id)
@@ -110,8 +111,8 @@ export default {
     if(!query) return
     let result = null
     const url = (mode === 'id') 
-                  ? 'https://new.scoresaber.com/api/player/'+ query +'/full'
-                  : 'https://new.scoresaber.com/api/players/by-name/' + query
+                  ? parseFullPlayerQueryUrl(query)
+                  : parsePlayerByNameQueryUrl(query)
     
     await axios(url, { validateStatus: false })
       .then(scoreReply => {
@@ -153,7 +154,8 @@ export default {
       let count = 1;
       let noResult = false
       while (!noResult) {
-        await axios('https://new.scoresaber.com/api/player/'+ currentId +'/scores/recent/'+ count++, { validateStatus: false })
+        // await axios('https://new.scoresaber.com/api/player/'+ currentId +'/scores/recent/'+ count++, { validateStatus: false })
+        await axios(parseGetRecentScoresUrl(currentId, count++ ) , { validateStatus: false })
           .then(scoreReply => {
             if (scoreReply.status === 404 || scoreReply.status === 429 || scoreReply.status === 422)  {
               noResult = true;
@@ -183,7 +185,8 @@ export default {
   async getlatestScore(currentId) {
       let score = null
       const fetchData = async () => {
-          await axios('https://new.scoresaber.com/api/player/'+ currentId +'/scores/recent/1', { validateStatus: false })
+          // await axios('https://new.scoresaber.com/api/player/'+ currentId +'/scores/recent/1', { validateStatus: false })
+          await axios(parseGetRecentScoresUrl(currentId, 1), { validateStatus: false })
             .then(scoreReply => {
               if (scoreReply.status === 404 || scoreReply.status === 429 || scoreReply.status === 422)  {
                 return score
