@@ -1,11 +1,12 @@
 import React from 'react'
 import { MDBTabPane, MDBBadge } from "mdbreact";
+import { parseSongPicUrl } from '../helper/parser'
 import moment from 'moment'
 import DiffTags from './DiffTag'
 import '../styles/ScoreTabs.scss'
 
 export default function ScoreTabs(props) {
-    const { tabId, data, size } = props
+    const { tabId, data, size } = props;
 
     return (
         <div id="scoretabs">
@@ -29,7 +30,7 @@ export default function ScoreTabs(props) {
                                             <td>
                                                 <div className="song-data">
                                                     <DiffTags diff={data.difficulty} />
-                                                    <img src={`https://new.scoresaber.com/api/static/covers/${data.songHash}.png`} alt="Cover"/>
+                                                    <img src={parseSongPicUrl(data.songHash)} alt="Cover"/>
                                                     <MDBBadge color="dark">{data.songAuthorName} - {data.songName}<span className="greyed-out"> by {data.levelAuthorName}</span></MDBBadge>
                                                 </div>
                                             </td>

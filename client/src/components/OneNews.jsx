@@ -4,7 +4,7 @@ import englishStrings from 'react-timeago/lib/language-strings/en'
 import buildFormatter from 'react-timeago/lib/formatters/buildFormatter'
 import DiffTags from './DiffTag'
 import Symbol from './Symbol'
-import { parseNewsTitle } from '../helper/news'
+import { parseSongPicUrl, parseNewsTitle } from '../helper/parser'
 import OneNewsText from './OneNewsText'
 import '../styles/OneNews.scss'
 
@@ -28,7 +28,7 @@ export default function OneNews(props) {
                     {difficulty && <span className="card-link"><DiffTags diff={difficulty} /></span>}
                     <span className="card-link blue-text"><b><TimeAgo date={date} formatter={formatter} /></b></span>
                 </div>
-                {song && <img className="pic-preview img-thumbnail" src={`https://new.scoresaber.com/api/static/covers/${song.songHash}.png`} alt="Cover"/>}
+                {song && <img className="pic-preview img-thumbnail" src={parseSongPicUrl(song.songHash)} alt="Cover"/>}
             </div>
         </div>
     )

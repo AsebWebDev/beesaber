@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { MDBBadge, MDBIcon, MDBTableBody, MDBTable } from 'mdbreact';
+import { parseAvatarUrl } from '../helper/parser'
 import BeeTag from './BeeTag'
-import avatar from '../media/bee.jpg'
+import avatarPlaceholder from '../media/bee.jpg'
 import '../styles/UserInfo.scss'
 
 function UserInfo(props) {
@@ -12,8 +13,8 @@ function UserInfo(props) {
         const isAlreadyAdded = props.userdata.bees.some(item => item.playerId === playerId)
 
         const url = ( userInfoData.avatar === '/images/steam.png' || userInfoData.avatar === '/images/oculus.png')
-            ? avatar 
-            : `https://new.scoresaber.com/api/static/avatars/${userInfoData.playerId}.jpg`
+            ? avatarPlaceholder 
+            : parseAvatarUrl(userInfoData.playerId)
 
         if (userInfoData) return (
             <div id="userinfo" className="col-md-12 card-container">
@@ -23,7 +24,7 @@ function UserInfo(props) {
                             <BeeTag bee={userInfoData}/>
                         </div>
                         <div className="d-flex player-head right">
-                            {rank && <MDBBadge color="light"><i className="fas fa-globe"></i>#{rank}</MDBBadge>}
+                            {rank && <MDBBadge color="light"><i className="fas fa-globe"/>#{rank}</MDBBadge>}
                             {countryRank && <MDBBadge color="light">{country && <i className={country.toLowerCase() +" flag"}></i>}#{countryRank}</MDBBadge>}
                             <img src={url} alt="Avatar"/>
                         </div>
