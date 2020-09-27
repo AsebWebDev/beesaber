@@ -21,6 +21,7 @@
         padding: 10px 10px 0 0;
         display: flex;
         flex-direction: column;
+        
 
         #beetag-header {
             display: flex;
@@ -29,9 +30,10 @@
         #beetag-tags {
             padding-bottom: 10px;
             display: flex;
+            flex-wrap: wrap;
             
             .badge {
-                margin: 0 3px;
+                margin: 3px;
             }
         }
 
