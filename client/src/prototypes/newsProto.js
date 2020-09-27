@@ -8,6 +8,7 @@ export default class News {
         this.beeSocre = news.beeSocre
         this.myScore = news.myScore
         this.song = news.song
+        this.songs = news.songs
         this.date = news.date
         this.numPlayedMore = news.numPlayedMore
         this.diff = news.diff
