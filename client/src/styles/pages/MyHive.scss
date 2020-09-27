@@ -5,10 +5,15 @@
     padding: 3%;
 
     #myhive-bees {
-        margin: 5% 0 0 0 ;
+        margin: 2% 0 0 0 ;
         display: flex;
         flex-wrap: wrap;
-        justify-content: flex-start;
+        justify-content: space-evenly;
+    }
+
+    #current-scores {
+        display: flex;
+        justify-content: center;
     }
 }
 
@@ -24,6 +29,25 @@
     #myhive {
         #userinfo.card-container {
             margin: 2%;
+        }
+        #userinfo {
+            min-width: fit-content;
+        }
+    }
+}
+
+@include lg { 
+    #myhive {
+        #scorebox {
+            width: 100%;
+        }
+    }
+}
+
+@include xl { 
+    #myhive {
+        #userinfo {
+            width: 30vw;
         }
     }
 }
