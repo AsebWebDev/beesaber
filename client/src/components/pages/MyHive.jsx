@@ -24,7 +24,7 @@ function MyHive(props) {
                 <h1 className="page-title"><span className="neon-red">My</span> <span className="neon-blue">Hive</span></h1>
                 <span onClick={toggleModal}><MDBAnimation infinite type="pulse"><NeonButton text="Add a Bee" color="blue"/></MDBAnimation></span>
                 <div id="myhive-bees">
-                    {userdata.bees && userdata.bees.map((bee, i) => <div onClick={() => handleChose(bee)}><UserInfo key={i} userInfoData={bee}/></div>)}
+                    {userdata.bees && userdata.bees.map((bee, i) => <div className="one-userinfo" onClick={() => handleChose(bee)}><UserInfo key={i} userInfoData={bee}/></div>)}
                     {!beesExists && <p>No bees yet</p>}
                 </div>
 
