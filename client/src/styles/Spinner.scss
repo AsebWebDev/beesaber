@@ -1,3 +1,6 @@
+// Utilities
+@import "./utilities/variables";
+
 #spinner {
     display: flex;
     flex-direction: column;
@@ -13,8 +16,20 @@
         width: 17px;
         margin-right: 7px;
     }
-    
-    span {
-        font-size: 1rem!important;
+}
+
+@include sm { 
+    #spinner {
+        span {
+            font-size: 0.8rem!important;
+        }
+    }
+}
+
+@include lg { 
+    #spinner {
+        span {
+            font-size: 1rem!important;
+        }
     }
 }
