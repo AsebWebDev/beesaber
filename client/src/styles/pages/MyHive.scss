@@ -22,16 +22,17 @@
         #neon-button {
             margin-bottom: 30px;
         }
+
+        .one-userinfo{
+            width: 100%;
+        }
     }
 }
 
 @include sm { 
     #myhive {
-        #userinfo.card-container {
-            margin: 2%;
-        }
-        #userinfo {
-            min-width: fit-content;
+        .one-userinfo{
+            width: 100%;
         }
     }
 }
@@ -41,13 +42,21 @@
         #scorebox {
             width: 100%;
         }
+        .one-userinfo{
+            width: 47%;
+        }
+
     }
 }
 
 @include xl { 
     #myhive {
         #userinfo {
-            width: 30vw;
+            width: 100%;
+        }
+
+        .one-userinfo{
+            width: 30%;
         }
     }
 }
