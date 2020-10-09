@@ -5,6 +5,7 @@
 
     display: flex;
     align-items: center;
+    min-width: 100%;
 
     #plusicon {
         color: whitesmoke;
@@ -48,6 +49,8 @@
 
     .table {
         margin-bottom: 0.5rem;
+        width: 99%;
+        padding-left: 0.5rem;
     }
 
     .badge {
@@ -136,7 +139,7 @@
 
 @include lg { 
     #userinfo {
-        min-width: fit-content;
-        max-width: 42%;
+        // min-width: fit-content;
+        // max-width: 42%;
     }
 }
