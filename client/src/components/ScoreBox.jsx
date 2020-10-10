@@ -3,6 +3,7 @@ import { MDBContainer, MDBTabContent, MDBNav, MDBNavItem, MDBNavLink } from "mdb
 import { connect } from 'react-redux';
 import ScoreTabs from './ScoreTabs'
 import Pagination from "./Pagination";
+import { isInQuery } from '../helper/utils'
 import '../styles/ScoreBox.scss'
 
 function ScoreOverview(props) {
@@ -11,6 +12,7 @@ function ScoreOverview(props) {
     let [pageLimit, setPageLimit] = useState(5)
     let [offset, setOffset] = useState(5)
     let [currentScores, setCurrentScores] = useState([])
+    let [query, setQuery] = useState('')
     const { data, size, bee } = props;
     const totalScores = allScores.length;
 
@@ -27,15 +29,15 @@ function ScoreOverview(props) {
     };
 
     useEffect(() => {
-        if (activeItem === '1') setAllScores(data.scoresRecent)
-        if (activeItem === '2') setAllScores(data.scoresTop)
-    }, [data, activeItem])
+        if (activeItem === '1') setAllScores(data.scoresRecent.filter(item => isInQuery(item, query)))
+        if (activeItem === '2') setAllScores(data.scoresTop.filter(item => isInQuery(item, query)))
+    }, [data, activeItem, query])
 
     useEffect(() => {
         setCurrentScores(allScores.slice(offset, offset + pageLimit))
     }, [allScores, offset, pageLimit])
 
-    if (totalScores === 0) return null;
+    if (totalScores === 0 && !query) return null;
     else return (
         <MDBContainer id="scorebox" className={"card-container score-box scores-size-" + size}>
                 <h3>{bee ? bee.playerName.toUpperCase() : 'MY SCORES'}</h3>
@@ -50,9 +52,20 @@ function ScoreOverview(props) {
                             Top
                         </MDBNavLink>
                     </MDBNavItem>
+                    <MDBNavItem>
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="formGroupExampleInput"
+                            value={query}
+                            onChange={e => setQuery(e.target.value)}
+                        />
+                    </MDBNavItem>
                 </MDBNav>
                 <MDBTabContent activeItem={activeItem} >
                     <ScoreTabs tabId={activeItem} data={currentScores} size={size}/>
+                    {(currentScores.length === 0) && <div className="no-scores">TEST</div>} 
+                    {/* // FIXME: Creat "No Scores Found Component" */}
                 </MDBTabContent>
                 <div className="pagination">
                     <div className="d-flex flex-row py-4 align-items-center">
