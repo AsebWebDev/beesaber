@@ -24,7 +24,8 @@ function MyProfile(props) {
             .then(async scoreSaberUserInfo => {
                 const userdata = { ...props.userdata, ...scoreSaberUserInfo, myScoreSaberId }
                 await api.saveUserData(props.userdata._id, userdata)
-                dispatch({ type: "UPDATE_USER_DATA", userdata })            
+                dispatch({ type: "UPDATE_USER_DATA", userdata }) 
+                await api.getlatestScore(userdata.myScoreSaberId)           
             })
             .catch((err) => console.log(err))  
         dispatch(setFetchStatus(false))
