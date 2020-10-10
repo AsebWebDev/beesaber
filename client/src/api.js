@@ -142,6 +142,41 @@ export default {
       .catch(errHandler)
   },
 
+  filterBeeInterceptions(userdata) {
+    if (Object.keys(userdata).length !== 0 && userdata.constructor === Object) {
+        const myIntersections = [];
+        const newUserData = { ...userdata }
+        const mySongHashes = newUserData.scoreData.scoredSongsHashes 
+        const myBees = newUserData.bees
+        myBees.forEach((bee,i) => {
+          const intersections = bee.scoreData.scoredSongsHashes.filter(item => mySongHashes.indexOf(item) > -1)
+          if (intersections.length > 0) {
+            myBees[i].intersections = intersections
+
+            intersections.forEach(songHash => {
+              const song = newUserData.scoreData.scoresRecent.filter(score => score.songHash === songHash)
+              const myScore = song[0].score
+              const beeScore = myBees[i].scoreData.scoresRecent.filter(score => score.songHash === songHash)[0].score
+              myIntersections.push({
+                songHash, 
+                bee, 
+                song,
+                myScore,
+                beeScore 
+              })
+            })
+          } else {
+            myBees[i].intersections = null
+          }
+          myBees[i].intersections = (intersections.length > 0) ? intersections : null
+        })
+      console.log(myIntersections)
+      newUserData.bees = myBees
+      newUserData.myIntersections = myIntersections.length > 0 ? myIntersections : null
+      return newUserData
+    } 
+  },
+
   // ==========
   // Scores
   // ==========
@@ -167,16 +202,17 @@ export default {
 
     await fetchData()
 
-    // PREPARE DATE FOR RETURNING 
+    // PREPARE DATA FOR RETURNING 
     const scoresTop = [...scoresRecent] 
     scoresTop.sort((a,b) => b.score - a.score )
-    const scoredSongsIds = []
-    scoresRecent.forEach(element => scoredSongsIds.push(element.scoreId));
+    const scoredSongsHashes = []
+    scoresRecent.forEach(element => scoredSongsHashes.push(element.songHash));
+    
     
     scoreData = {
       scoresRecent,
       scoresTop, 
-      scoredSongsIds
+      scoredSongsHashes
     }
     return scoreData
   },
