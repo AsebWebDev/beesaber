@@ -29,7 +29,7 @@ const userSchema = new Schema({
     lastSync: String, //lastSync currently not used
     scoresRecent: [],
     scoresTop: [],
-    scoredSongsIds: []
+    scoredSongsHashes: []
   },
   bees: {
     type: Array,
