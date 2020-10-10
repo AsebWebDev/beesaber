@@ -6,7 +6,7 @@ import '../styles/BeeTag.scss'
 
 export default function BeeTag(props) {
     const { playerName, country, countryRank, rank, avatar, playerId, averageRankedAccuracy, totalPlayCount, rankedPlayCount } = props.bee
-    const lastPlayedSong = props.bee.scoreData.scoresRecent[0]
+    const lastPlayedSong = props.bee.scoreData ? props.bee.scoreData.scoresRecent[0] : null
     const url = ( avatar === '/images/steam.png' || avatar === '/images/oculus.png')
             ? avatarPlaceholder 
             : parseAvatarUrl(playerId)
