@@ -143,6 +143,13 @@ export default {
   },
 
   filterBeeIntersections(userdata) {
+    // This functions scans all bees for song interceptions with the own songs of the user. The userdata will be updated with 
+    //      a) all interceptions that each bee has got with the user (beeIntersection)
+    //      b) all interceptions in general (myIntersections)
+    // There probably will occur duplicates, because an interception is mainly scanned for by the unique song hash, but there are
+    // different difficulty levels of a song with the same hash. Therefore this functions also identifies these duplicates and
+    // removes them, before returning the data. 
+
     if (Object.keys(userdata).length !== 0 && userdata.constructor === Object) {            // check if Userdata is Object
       const newUserData = { ...userdata }                                                   // make copy of original data  
       const myIntersections = [];                                                           // prepare Array to fill later 
@@ -166,7 +173,7 @@ export default {
 
           // AFTER ALL SONGS ARE SCANNED FOR INTERCEPTIONS 
           
-          const filteredDoubles = doubles.filter(                     // ... remove duplicates
+          const filteredDoubles = doubles.filter(                     // ... remove duplicates (same song hash + same song difficulty)
             (elem, i, self) => i === self.findIndex((t) => t.song.songHash === elem.song.songHash && t.song.difficulty === elem.song.difficulty)
           )
           
