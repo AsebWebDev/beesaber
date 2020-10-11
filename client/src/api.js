@@ -165,9 +165,9 @@ export default {
           beeSongs.forEach(song => {                                                        // ... for each song of current bee
             const songs = mySongs.filter(item => item.songHash === song.songHash)           // ... get all songs that user has also got in list (intersections)
             if (songs.length === 1) {                                                       // if there is only one intersection...
-              beeIntersections.push({song: songs[0], bee})                                  // ... add it to prepared array
+              beeIntersections.push({song: songs[0], bee: bee.playerName})                                  // ... add it to prepared array
             } else if (songs.length > 1) {                                                  // if there are more intersections, there will be duplicates (same hash, but different difficulties, that are counted twice)
-              songs.forEach(song => doubles.push({song, bee}))                              // ... add them to filter duplicates later
+              songs.forEach(song => doubles.push({song, bee: bee.playerName}))                              // ... add them to filter duplicates later
             } 
           })
 
@@ -298,6 +298,9 @@ export default {
           updatedNews = [ ...updatedNews, ...checkForNewsResult.news]   // Push new News to news Array
           newUserData.bees = checkForNewsResult.bees                    // Use updated Bees that comes from checkForNews
         }
+
+    // WHEN PROFILE DOES NOT HAVE INTERCEPTIONS AT ALL, UPDATE TO CHECK FOR THEM
+        if (!dbUserData.myIntersections) needsUpdate = true;      
       
     // RETURN NEW USERDATA AND NEW TO SHOW IN NOTIFICATIONS
         newUserData = { ...newUserData, news: [...updatedNews, ...newUserData.news, ] }
