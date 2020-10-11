@@ -142,37 +142,35 @@ export default {
       .catch(errHandler)
   },
 
-  filterBeeInterceptions(userdata) {
+  filterBeeIntersections(userdata) {
+    // TODO: Comment this part 
     if (Object.keys(userdata).length !== 0 && userdata.constructor === Object) {
         const myIntersections = [];
         const newUserData = { ...userdata }
-        const mySongHashes = newUserData.scoreData.scoredSongsHashes 
+        const mySongs = newUserData.scoreData.scoresRecent
         const myBees = newUserData.bees
+        // ITERATE OVER ALL BEES
         myBees.forEach((bee,i) => {
-          const intersections = bee.scoreData.scoredSongsHashes.filter(item => mySongHashes.indexOf(item) > -1)
-          if (intersections.length > 0) {
-            myBees[i].intersections = intersections
+          const beeSongs = bee.scoreData.scoresRecent
+          const doubles = []
+          const beeIntersections = []
+  
+          beeSongs.forEach(song => {
+            const songs = mySongs.filter(item => item.songHash === song.songHash)
+            if (songs.length === 1) {
+              beeIntersections.push({song: songs[0], bee})
+            } else if (songs.length > 1) {
+              songs.forEach(song => doubles.push({song, bee}))
+            } 
+          })
 
-            intersections.forEach(songHash => {
-              const song = newUserData.scoreData.scoresRecent.filter(score => score.songHash === songHash)
-              const myScore = song[0].score
-              const beeScore = myBees[i].scoreData.scoresRecent.filter(score => score.songHash === songHash)[0].score
-              myIntersections.push({
-                songHash, 
-                bee, 
-                song,
-                myScore,
-                beeScore 
-              })
-            })
-          } else {
-            myBees[i].intersections = null
-          }
-          myBees[i].intersections = (intersections.length > 0) ? intersections : null
+          const filteredDoubles = doubles.filter((elem, i, self) => i === self.findIndex((t) => t.song.songHash === elem.song.songHash && t.song.difficulty === elem.song.difficulty))
+          beeIntersections.push(...filteredDoubles)
+          myBees[i].beeIntersections = beeIntersections
+          myIntersections.push(...beeIntersections)
         })
-      console.log(myIntersections)
-      newUserData.bees = myBees
-      newUserData.myIntersections = myIntersections.length > 0 ? myIntersections : null
+        newUserData.myIntersections = myIntersections
+        newUserData.bees = myBees
       return newUserData
     } 
   },
