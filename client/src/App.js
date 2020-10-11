@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { newNotification, setFetchStatus } from './actioncreators'
 import api from './api';
+import { filterBeeIntersections } from './helper/utils'
 import Menu from './components/pages/Menu';
 import Main from './components/pages/Main';
 import Notification from './components/Notification'
@@ -35,7 +36,7 @@ function App(props) {
         if (!!updatedNews.length) updatedNews.map( news => dispatch(newNotification(news) ) )
         if (needsUpdate) {
           dispatch(setFetchStatus(true, 'Updating data...'))
-          newUserData = await api.filterBeeIntersections(newUserData)                          // updated with intersections
+          newUserData = await filterBeeIntersections(newUserData)                          // updated with intersections
           newUserData.news.sort((a,b) => (a.date > b.date) ? -1 : ((a.date < b.date) ? 1 : 0)) // SORT NEWS BY DATE
           await api.saveUserData(_id, newUserData)
             .then(() => dispatch({ type: "UPDATE_USER_DATA", userdata: newUserData }))
