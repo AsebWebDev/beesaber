@@ -60,14 +60,12 @@ export default {
         // If we have localStorage.getItem('user') saved, the application will consider we are loggedin
         localStorage.setItem('user', JSON.stringify(res.data))
         return res.data
-      })
-      .catch(errHandler)
+      }).catch(errHandler)
   },
 
   logout() {
     localStorage.removeItem('user')
-    return service
-      .get('/logout')
+    return service.get('/logout')
   },
 
   // ===========
@@ -91,16 +89,15 @@ export default {
   },
 
   saveUserData(userId, userdata) {
-      return service
-        .post('/user/' + userId, userdata)
-        .then(res => res.data)
-        .catch(errHandler)
+    return service
+      .post('/user/' + userId, userdata)
+      .then(res => res.data).catch(errHandler)
   },
 
   saveUserSettings(userId, settings, settingType) {
     return service
       .post('/user/' + userId + '/settings', settings)
-      .then(res => res.data)
+      .then(res => res.data).catch(errHandler)
   },
 
   // ===============
@@ -108,7 +105,7 @@ export default {
   // ===============
 
   async getScoreSaberUserInfo(query, mode) {
-    if(!query) return
+    if (!query) return
     let result = null
     const url = (mode === 'id') 
                   ? parseFullPlayerQueryUrl(query)
@@ -131,20 +128,20 @@ export default {
   saveBee(userId, bee) {
     return service
       .post('/user/' + userId + '/bee', bee)
-      .then(res => res.data)
-      .catch(errHandler)
+      .then(res => res.data).catch(errHandler)
   },
 
   updateBeeScore(userId, bees) {
     return service
       .post('/user/' + userId + '/bee/update', bees)
-      .then(res => res.data)
-      .catch(errHandler)
+      .then(res => res.data).catch(errHandler)
   },
 
   // ==========
   // Scores
   // ==========
+
+      // ******* GET ALL SCORES ********
 
   async getScores(currentId) {
     if (!currentId) return
@@ -161,7 +158,7 @@ export default {
               return scoresRecent
             }
             else scoresRecent.push(...scoreReply.data.scores)
-          })
+          }).catch(errHandler)
       }; 
     }
 
@@ -172,15 +169,12 @@ export default {
     scoresTop.sort((a,b) => b.score - a.score )
     const scoredSongsHashes = []
     scoresRecent.forEach(element => scoredSongsHashes.push(element.songHash));
-    
-    
-    scoreData = {
-      scoresRecent,
-      scoresTop, 
-      scoredSongsHashes
-    }
+    scoreData = { scoresRecent, scoresTop, scoredSongsHashes }
+
     return scoreData
   },
+
+  // ******* GET LATEST SCORES ********
 
   async getlatestScore(currentId) {
       let score = null
@@ -191,11 +185,13 @@ export default {
                 return score
               }
               else score = scoreReply.data.scores[0]
-            })
+            }).catch(errHandler)
       }
     await fetchData()
     return score
   },
+
+  // ******* UPDATE DATA ********
 
   async updateData(currentId, _id) {
     let dbUserData, ssUserData, newUserData, checkForNewsResult
@@ -203,7 +199,7 @@ export default {
     let needsUpdate = false
     // GET USERDATA FROM DATABASE
     await this.getUserData(_id).then(result => {
-      dbUserData = result
+dbUserData = result
     })
 
     // IF, BY ANY CHANCE, NO SCOREDATA IS PRESENT, FETCH IT AGAIN
@@ -248,13 +244,12 @@ export default {
       // FRIENDS
         if (!!checkForNewsResult.news.length) {                         // ==> Changes Exists
           needsUpdate = true
-          updatedNews = [ ...updatedNews, ...checkForNewsResult.news]   // Push new News to news Array
+          updatedNews = [ ...updatedNews, ...checkForNewsResult.news ]  // Push new News to news Array
           newUserData.bees = checkForNewsResult.bees                    // Use updated Bees that comes from checkForNews
         }
 
     // WHEN PROFILE DOES NOT HAVE INTERCEPTIONS AT ALL, UPDATE TO CHECK FOR THEM
         if (!dbUserData.myIntersections) needsUpdate = true;  
-        needsUpdate = true    
       
     // RETURN NEW USERDATA AND NEW TO SHOW IN NOTIFICATIONS
         newUserData = { ...newUserData, news: [...updatedNews, ...newUserData.news, ] }
