@@ -54,6 +54,7 @@ function ScoreOverview(props) {
                     </MDBNavItem>
                     <MDBNavItem>
                         <input
+                            placeholder="Filter Songs..."
                             type="text"
                             className="form-control"
                             id="formGroupExampleInput"
