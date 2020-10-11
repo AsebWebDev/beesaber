@@ -27,11 +27,19 @@ export function filterBeeIntersections(userdata) {
           // === ITERATE OVER ALL SONGS OF EACH BEE ===                                     
           beeSongs.forEach(song => {                                                        // ... for each song of current bee
             const songs = mySongs.filter(item => item.songHash === song.songHash)           // ... get all songs that user has also got in list (intersections)
-            if (songs.length === 1) {                                                       // if there is only one intersection...
-              beeIntersections.push({song: songs[0], bee: bee.playerName})                                  // ... add it to prepared array
-            } else if (songs.length > 1) {                                                  // if there are more intersections, there will be duplicates (same hash, but different difficulties, that are counted twice)
-              songs.forEach(song => doubles.push({song, bee: bee.playerName}))                              // ... add them to filter duplicates later
-            } 
+            songs.forEach(song => {
+              const beeScore = beeSongs.filter(score => score.songHash === song.songHash)[0].score   
+              const myScore = mySongs.filter(score => score.songHash === song.songHash)[0].score  
+              const beeIntersection = {                                               // prepare new Intersection... 
+                song,
+                bee: bee.playerName,
+                beeId: bee.playerId,
+                beeScore,
+                myScore
+              }                                                                       // ... and push it to the correct array: 
+              if (songs.length === 1) beeIntersections.push(beeIntersection)          // if there is only one intersection add it to prepared array
+              if (songs.length > 1) doubles.push(beeIntersection)                     // if there are more intersections, add them to filter duplicates later
+            })
           })
 
           // AFTER ALL SONGS ARE SCANNED FOR INTERCEPTIONS 
@@ -48,6 +56,9 @@ export function filterBeeIntersections(userdata) {
         // AFTER ALL BEES ARE SCANNED FOR INTERCEPTIONS 
         newUserData.myIntersections = myIntersections                 // ... add all my Intersections to new userdata that will be returned
         newUserData.bees = myBees                                     // ... update all my bees in new userdata with their interceptions
+
+        // TODO: FLAG MY SONGS, THAT ARE PLAYED BY OTHER BEES
+        console.log(newUserData.myIntersections)
       return newUserData                                              // finaly return updated userdata
     } 
   }
