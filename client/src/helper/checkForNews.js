@@ -4,8 +4,8 @@ import News from '../prototypes/newsProto'
 
 export async function checkForNews(userdata) {
     let bees = userdata.bees
-    const myScoreIds = userdata.scoreData.scoredSongsIds
-    myScoreIds.push(41918150) // FIXME: for testing
+    const myScoreIds = userdata.scoreData.scoredSongsHashes
+    // myScoreIds.push(41918150) // FIXME: for testing
     let news = [];
 
     // CHECK FOR EACH BEE IN FRIENDS LIST

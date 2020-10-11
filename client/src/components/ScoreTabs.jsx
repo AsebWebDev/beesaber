@@ -8,6 +8,9 @@ import '../styles/ScoreTabs.scss'
 export default function ScoreTabs(props) {
     const { tabId, data, size } = props;
 
+    const logid = (scoreId) => console.log("scoreId: !", scoreId)
+
+    if(data.length === 0) return null
     return (
         <div id="scoretabs">
             <MDBTabPane tabId={tabId} role="tabpanel" className={"score-box tabs-size-" + size}>
@@ -31,7 +34,7 @@ export default function ScoreTabs(props) {
                                                 <div className="song-data">
                                                     <DiffTags diff={data.difficulty} />
                                                     <img src={parseSongPicUrl(data.songHash)} alt="Cover"/>
-                                                    <MDBBadge color="dark">{data.songAuthorName} - {data.songName}<span className="greyed-out"> by {data.levelAuthorName}</span></MDBBadge>
+                                                    <MDBBadge onClick={() => logid(data.songHash)} color="dark">{data.songAuthorName} - {data.songName}<span className="greyed-out"> by {data.levelAuthorName}</span></MDBBadge>
                                                 </div>
                                             </td>
                                             <td><MDBBadge color="orange">{data.score}</MDBBadge></td>

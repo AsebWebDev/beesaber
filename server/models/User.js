@@ -17,6 +17,10 @@ const userSchema = new Schema({
     default: false
   },
   settings: userSettings,
+  myIntersections: {
+    type: Array,
+    default: null
+  },
   myScoreSaberId: {
     type: String,
     default: null
@@ -29,7 +33,7 @@ const userSchema = new Schema({
     lastSync: String, //lastSync currently not used
     scoresRecent: [],
     scoresTop: [],
-    scoredSongsIds: []
+    scoredSongsHashes: []
   },
   bees: {
     type: Array,

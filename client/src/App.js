@@ -10,8 +10,8 @@ import './styles/pages/App.scss';
 function App(props) {
   const { dispatch, userdata, notifications, isLoggedIn } = props;
   const { _id } = userdata
-  const myScoreSaberId = (userdata) ? userdata.myScoreSaberId : null; // get ScoreSaberID from Store or use null
-  let intervalUpdatecheck = (userdata & userdata.settings) // set Interval Frequency
+  const myScoreSaberId = (userdata) ? userdata.myScoreSaberId : null;                 // get ScoreSaberID from Store or use null
+  let intervalUpdatecheck = (userdata & userdata.settings)                            // set Interval Frequency
                                   ? userdata.settings.Performance.intervalUpdatecheck // get Interval Frequency for cheking data
                                   : 120000 // or use 2 minutes as default 120000
   let [intervalIds, setIntervalIds] = useState([])
@@ -30,13 +30,16 @@ function App(props) {
     dispatch(setFetchStatus(true, 'Checking data...'))
     if (myScoreSaberId) {
       await api.updateData(myScoreSaberId, _id).then(async result => {
-        const { updatedNews, newUserData, needsUpdate } = result
+        const { updatedNews, needsUpdate } = result
+        let { newUserData } = result
         if (!!updatedNews.length) updatedNews.map( news => dispatch(newNotification(news) ) )
         if (needsUpdate) {
-          newUserData.news.sort((a,b) => (a.date > b.date) ? -1 : ((a.date < b.date) ? 1 : 0)) // SORT NEWS BY DATE
           dispatch(setFetchStatus(true, 'Updating data...'))
+          newUserData = await api.filterBeeIntersections(newUserData)                          // updated with intersections
+          newUserData.news.sort((a,b) => (a.date > b.date) ? -1 : ((a.date < b.date) ? 1 : 0)) // SORT NEWS BY DATE
           await api.saveUserData(_id, newUserData)
             .then(() => dispatch({ type: "UPDATE_USER_DATA", userdata: newUserData }))
+            .catch(err => console.log("Saving went wrong: ", err.message))
       }
       }).catch((err) => errHandler(err))
     }
