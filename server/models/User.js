@@ -17,6 +17,10 @@ const userSchema = new Schema({
     default: false
   },
   settings: userSettings,
+  myIntersections: {
+    type: Array,
+    default: null
+  },
   myScoreSaberId: {
     type: String,
     default: null
