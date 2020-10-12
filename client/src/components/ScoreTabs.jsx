@@ -35,10 +35,9 @@ export default function ScoreTabs(props) {
                                                 <div className="song-data">
                                                     <DiffTags diff={data.difficulty} />
                                                     <img src={parseSongPicUrl(data.songHash)} alt="Cover"/>
-                                                    {/* {data.playedByHive &&  <MDBBadge color="light"><MDBIcon far icon="play-circle" /></MDBBadge>} */}
                                                     {data.playedByHive && 
                                                         <MDBTooltip domElement clickable tag="span" placement="top">
-                                                            <span><MDBAnimation type="pulse" infinite><MDBIcon far icon="play-circle" /></MDBAnimation></span>
+                                                            <span><MDBAnimation type="pulse" infinite><MDBIcon far icon="handshake" /></MDBAnimation></span>
                                                             <div className="also-played-by">
                                                                 <table>
                                                                     <thead>
