@@ -41,11 +41,16 @@ export default function ScoreTabs(props) {
                                                             <span><MDBAnimation type="pulse" infinite><MDBIcon far icon="play-circle" /></MDBAnimation></span>
                                                             <div className="also-played-by">
                                                                 <table>
+                                                                    <thead>
+                                                                        <th>Bee</th>
+                                                                        <th>Score</th>
+                                                                        <th>My Score</th>
+                                                                    </thead>
                                                                     <tbody id="bees">
                                                                         {data.playedBy.map((bee, i) => <tr key={i} >
                                                                             <td><BeeTag bee={bee}/></td>
-                                                                            {/* <td>{bee.myScore.score}</td> */}
-                                                                            {/* <td>{bee.beeScore.score}</td> */}
+                                                                            <td>{bee.beeScore}</td>
+                                                                            <td>{bee.myScore}</td>
                                                                         </tr>)}
                                                                     </tbody>
                                                                 </table>
