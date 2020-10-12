@@ -1,6 +1,35 @@
 // Utilities
 @import "./utilities/variables";
 
+#scoretabs {
+    // #bees {
+    //     display: flex;
+    //     flex-direction: row;
+    //     flex-wrap: wrap;
+
+    //     .container {
+    //         width:fit-content;
+    //     }
+    // }
+
+    i.fa-play-circle {
+        font-size: 2rem;
+    }
+
+    i:hover {
+        color: $main-yellow;
+    }
+
+    .played-by-hive {
+        background: rgb(0,0,0);
+        background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8463760504201681) 30%, rgba(194,217,0,0.835171568627451) 50%, rgba(0,0,0,0.8687850140056023) 70%);
+    }
+
+    .also-played-by {
+
+    }
+}
+
 @include mobile {
     #scoretabs {
         th {
