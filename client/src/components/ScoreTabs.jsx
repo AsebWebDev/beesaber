@@ -1,8 +1,9 @@
 import React from 'react'
-import { MDBTabPane, MDBBadge } from "mdbreact";
+import { MDBTabPane, MDBBadge, MDBIcon, MDBAnimation, MDBTooltip } from "mdbreact";
 import { parseSongPicUrl } from '../helper/parser'
 import moment from 'moment'
 import DiffTags from './DiffTag'
+import BeeTag from './BeeTag'
 import '../styles/ScoreTabs.scss'
 
 export default function ScoreTabs(props) {
@@ -26,14 +27,22 @@ export default function ScoreTabs(props) {
                                 </tr>
                             </thead>
                             <tbody>
-                                {data.map((data, index) => {
+                                {data.map((data, i) => {
                                     return(
-                                        <tr key={index}>
+                                        <tr key={i} className={data.playedByHive ? "played-by-hive" : ""}>
                                             <td><MDBBadge color="pink">{data.rank}</MDBBadge></td>
                                             <td>
                                                 <div className="song-data">
                                                     <DiffTags diff={data.difficulty} />
                                                     <img src={parseSongPicUrl(data.songHash)} alt="Cover"/>
+                                                    {/* {data.playedByHive &&  <MDBBadge color="light"><MDBIcon far icon="play-circle" /></MDBBadge>} */}
+                                                    {data.playedByHive && 
+                                                        <MDBTooltip domElement popover tag="span" placement="top">
+                                                            <span><MDBAnimation type="pulse" infinite><MDBIcon far icon="play-circle" /></MDBAnimation></span>
+                                                            <div className="also-played-by">
+                                                                {data.playedBy.map((bee, i) => <div id="bees" key={i} ><BeeTag bee={bee}/></div>)}
+                                                            </div>
+                                                        </MDBTooltip>}
                                                     <MDBBadge onClick={() => logid(data.songHash)} color="dark">{data.songAuthorName} - {data.songName}<span className="greyed-out"> by {data.levelAuthorName}</span></MDBBadge>
                                                 </div>
                                             </td>
