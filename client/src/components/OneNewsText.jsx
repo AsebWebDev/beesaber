@@ -39,7 +39,7 @@ export default function OneNewsText(props) {
                 <MDBContainer>
                     <MDBTooltip domElement tag="span" placement="top">
                         <span className={classNm}>
-                            {beeNm} spanlayed <b>{numPlayedMore}</b> new song{(numPlayedMore > 1)?'s':''}!
+                            {beeNm} played <b>{numPlayedMore}</b> new song{(numPlayedMore > 1)?'s':''}!
                         </span>
                         {scoreTooltip}
                     </MDBTooltip>
