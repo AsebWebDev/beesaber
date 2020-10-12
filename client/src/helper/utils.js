@@ -60,6 +60,8 @@ export function filterBeeIntersections(userdata) {
         const myIntersectionsIds = myIntersections.map(item => item.song.songHash)
         flagSongs(myRecentSongs, myIntersectionsIds, myIntersections)
         flagSongs(myTopSongs, myIntersectionsIds, myIntersections)
+        console.log("Intersections scanned")
+        console.log(newUserData)
       return newUserData                                              // finaly return updated userdata
     } 
   }
