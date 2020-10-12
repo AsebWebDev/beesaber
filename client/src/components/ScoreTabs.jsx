@@ -37,7 +37,7 @@ export default function ScoreTabs(props) {
                                                     <img src={parseSongPicUrl(data.songHash)} alt="Cover"/>
                                                     {/* {data.playedByHive &&  <MDBBadge color="light"><MDBIcon far icon="play-circle" /></MDBBadge>} */}
                                                     {data.playedByHive && 
-                                                        <MDBTooltip domElement popover tag="span" placement="top">
+                                                        <MDBTooltip domElement clickable tag="span" placement="top">
                                                             <span><MDBAnimation type="pulse" infinite><MDBIcon far icon="play-circle" /></MDBAnimation></span>
                                                             <div className="also-played-by">
                                                                 <table>
