@@ -40,7 +40,16 @@ export default function ScoreTabs(props) {
                                                         <MDBTooltip domElement popover tag="span" placement="top">
                                                             <span><MDBAnimation type="pulse" infinite><MDBIcon far icon="play-circle" /></MDBAnimation></span>
                                                             <div className="also-played-by">
-                                                                {data.playedBy.map((bee, i) => <div id="bees" key={i} ><BeeTag bee={bee}/></div>)}
+                                                                <table>
+                                                                    <tbody id="bees">
+                                                                        {data.playedBy.map((bee, i) => <tr key={i} >
+                                                                            <td><BeeTag bee={bee}/></td>
+                                                                            {/* <td>{bee.myScore.score}</td> */}
+                                                                            {/* <td>{bee.beeScore.score}</td> */}
+                                                                        </tr>)}
+                                                                    </tbody>
+                                                                </table>
+                                                                {/* {data.playedBy.map((bee, i) => <div id="bees" key={i} ><BeeTag bee={bee}/></div>)} */}
                                                             </div>
                                                         </MDBTooltip>}
                                                     <MDBBadge onClick={() => logid(data.songHash)} color="dark">{data.songAuthorName} - {data.songName}<span className="greyed-out"> by {data.levelAuthorName}</span></MDBBadge>
