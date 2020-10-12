@@ -250,7 +250,7 @@ dbUserData = result
 
     // WHEN PROFILE DOES NOT HAVE INTERCEPTIONS AT ALL, UPDATE TO CHECK FOR THEM
         if (!dbUserData.myIntersections) needsUpdate = true;  
-        // needsUpdate = true; //FIXME: for testing
+        needsUpdate = true; //FIXME: for testing
     // RETURN NEW USERDATA AND NEW TO SHOW IN NOTIFICATIONS
         newUserData = { ...newUserData, news: [...updatedNews, ...newUserData.news, ] }
         return { newUserData, updatedNews, needsUpdate }
