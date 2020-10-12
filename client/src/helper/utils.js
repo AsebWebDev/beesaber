@@ -16,7 +16,8 @@ export function filterBeeIntersections(userdata) {
     if (Object.keys(userdata).length !== 0 && userdata.constructor === Object) {            // check if Userdata is Object
       const newUserData = { ...userdata }                                                   // make copy of original data  
       const myIntersections = [];                                                           // prepare Array to fill later 
-        const mySongs = newUserData.scoreData.scoresRecent
+        const myRecentSongs = newUserData.scoreData.scoresRecent
+        const myTopSongs = newUserData.scoreData.scoresTop
         const myBees = newUserData.bees
         // === ITERATE OVER ALL BEES ===
         myBees.forEach((bee,i) => {                                                         // for each bee....
@@ -26,12 +27,18 @@ export function filterBeeIntersections(userdata) {
 
           // === ITERATE OVER ALL SONGS OF EACH BEE ===                                     
           beeSongs.forEach(song => {                                                        // ... for each song of current bee
-            const songs = mySongs.filter(item => item.songHash === song.songHash)           // ... get all songs that user has also got in list (intersections)
-            if (songs.length === 1) {                                                       // if there is only one intersection...
-              beeIntersections.push({song: songs[0], bee: bee.playerName})                                  // ... add it to prepared array
-            } else if (songs.length > 1) {                                                  // if there are more intersections, there will be duplicates (same hash, but different difficulties, that are counted twice)
-              songs.forEach(song => doubles.push({song, bee: bee.playerName}))                              // ... add them to filter duplicates later
-            } 
+            const songs = myRecentSongs.filter(item => item.songHash === song.songHash)           // ... get all songs that user has also got in list (intersections)
+            songs.forEach(song => {
+              const myScore = myRecentSongs.filter(score => score.songHash === song.songHash)[0].score
+              const beeScore = beeSongs.filter(score => score.songHash === song.songHash)[0].score
+              const { playerName, country, countryRank, rank, avatar, playerId, averageRankedAccuracy, totalPlayCount, rankedPlayCount } = bee
+              const beeIntersection = {                                               // prepare new Intersection... 
+                song,
+                bee: { beeScore, myScore, playerId, playerName, country, countryRank, rank, avatar, playerId, averageRankedAccuracy, totalPlayCount, rankedPlayCount },
+              }                                                                       // ... and push it to the correct array: 
+              if (songs.length === 1) beeIntersections.push(beeIntersection)          // if there is only one intersection add it to prepared array
+              if (songs.length > 1) doubles.push(beeIntersection)                     // if there are more intersections, add them to filter duplicates later
+            })
           })
 
           // AFTER ALL SONGS ARE SCANNED FOR INTERCEPTIONS 
@@ -48,6 +55,26 @@ export function filterBeeIntersections(userdata) {
         // AFTER ALL BEES ARE SCANNED FOR INTERCEPTIONS 
         newUserData.myIntersections = myIntersections                 // ... add all my Intersections to new userdata that will be returned
         newUserData.bees = myBees                                     // ... update all my bees in new userdata with their interceptions
+
+        // FLAG MY SONGS, THAT ARE PLAYED BY OTHER BEES
+        const myIntersectionsIds = myIntersections.map(item => item.song.songHash)
+        flagSongs(myRecentSongs, myIntersectionsIds, myIntersections)
+        flagSongs(myTopSongs, myIntersectionsIds, myIntersections)
       return newUserData                                              // finaly return updated userdata
     } 
+  }
+
+  function flagSongs(songs, myIntersectionsIds, myIntersections) {
+    const mySongs = [...songs]
+    mySongs.forEach((song, i)  => {
+      if(myIntersectionsIds.indexOf(song.songHash) > -1) {
+        mySongs[i].playedByHive = true
+        mySongs[i].playedBy = []
+        const playedByArray = myIntersections.filter(intersection => song.songHash === intersection.song.songHash).map(item => item.bee)
+        mySongs[i].playedBy = playedByArray.filter(                     // ... remove duplicates (same playerId)
+          (elem, i, self) => i === self.findIndex((t) => t.playerId === elem.playerId)
+        )
+      }
+    })
+    return mySongs
   }
