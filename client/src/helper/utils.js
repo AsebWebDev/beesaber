@@ -29,14 +29,12 @@ export function filterBeeIntersections(userdata) {
           beeSongs.forEach(song => {                                                        // ... for each song of current bee
             const songs = myRecentSongs.filter(item => item.songHash === song.songHash)           // ... get all songs that user has also got in list (intersections)
             songs.forEach(song => {
-              const myScore = myRecentSongs.filter(score => score.songHash === song.songHash)[0]
-              const beeScore = beeSongs.filter(score => score.songHash === song.songHash)[0]
+              const myScore = myRecentSongs.filter(score => score.songHash === song.songHash)[0].score
+              const beeScore = beeSongs.filter(score => score.songHash === song.songHash)[0].score
               const { playerName, country, countryRank, rank, avatar, playerId, averageRankedAccuracy, totalPlayCount, rankedPlayCount } = bee
               const beeIntersection = {                                               // prepare new Intersection... 
                 song,
-                bee: { playerId, playerName, country, countryRank, rank, avatar, playerId, averageRankedAccuracy, totalPlayCount, rankedPlayCount },
-                beeScore,
-                myScore,
+                bee: { beeScore, myScore, playerId, playerName, country, countryRank, rank, avatar, playerId, averageRankedAccuracy, totalPlayCount, rankedPlayCount },
               }                                                                       // ... and push it to the correct array: 
               if (songs.length === 1) beeIntersections.push(beeIntersection)          // if there is only one intersection add it to prepared array
               if (songs.length > 1) doubles.push(beeIntersection)                     // if there are more intersections, add them to filter duplicates later
