@@ -5,8 +5,7 @@
 /.pnp
 .pnp.js
 .env
-.idea
-.DS_Store
+
 
 # testing
 /coverage
@@ -15,6 +14,8 @@
 /build
 
 # misc
+.idea
+yarn.lock
 .DS_Store
 .env.local
 .env.development.local
