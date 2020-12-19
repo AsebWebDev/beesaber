@@ -1,10 +1,10 @@
 import React from 'react'
 import { MDBTabPane, MDBBadge, MDBIcon, MDBAnimation, MDBTooltip } from "mdbreact";
-import { parseSongPicUrl } from '../helper/parser'
+import { parseSongPicUrl } from '../../helper/parser'
 import moment from 'moment'
-import DiffTags from './DiffTag'
-import BeeTag from './BeeTag'
-import '../styles/ScoreTabs.scss'
+import DiffTags from '../DiffTag'
+import HighscoreTable from './HighscoreTable'
+import '../../styles/ScoreTabs.scss'
 
 export default function ScoreTabs(props) {
     const { tabId, data, size } = props;
@@ -46,11 +46,7 @@ export default function ScoreTabs(props) {
                                                                         <th>My Score</th>
                                                                     </thead>
                                                                     <tbody id="bees">
-                                                                        {data.playedBy.map((bee, i) => <tr key={i} >
-                                                                            <td><BeeTag bee={bee}/></td>
-                                                                            <td>{bee.beeScore}</td>
-                                                                            <td>{bee.myScore}</td>
-                                                                        </tr>)}
+                                                                        {data.playedBy.map((bee, i) => <HighscoreTable bee={bee} i={i} />)}
                                                                     </tbody>
                                                                 </table>
                                                                 {/* {data.playedBy.map((bee, i) => <div id="bees" key={i} ><BeeTag bee={bee}/></div>)} */}

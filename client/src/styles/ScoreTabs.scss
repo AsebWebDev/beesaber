@@ -30,6 +30,10 @@
             color: black;
         }
     }
+
+    .bold-text {
+        font-weight: bolder;
+    }
 }
 
 @include mobile {
