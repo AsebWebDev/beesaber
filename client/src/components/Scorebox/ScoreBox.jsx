@@ -31,6 +31,8 @@ function ScoreOverview(props) {
     useEffect(() => {
         if (activeItem === '1') setAllScores(data.scoresRecent.filter(item => isInQuery(item, query)))
         if (activeItem === '2') setAllScores(data.scoresTop.filter(item => isInQuery(item, query)))
+        if (activeItem === '3') setAllScores(data.scoresRecent.filter(item => isInQuery(item, query) && item.playedByHive))
+        if (activeItem === '4') setAllScores(data.scoresTop.filter(item => isInQuery(item, query) && item.playedByHive))
     }, [data, activeItem, query])
 
     useEffect(() => {
