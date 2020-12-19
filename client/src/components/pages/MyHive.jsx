@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { MDBAnimation } from 'mdbreact';
-import ScoreBox from "../ScoreBox";
+import ScoreBox from "../Scorebox/ScoreBox";
 import AddBeeModal from '../AddBeeModal';
 import UserInfo from '../UserInfo';
 import NeonButton from "../NeonButton";

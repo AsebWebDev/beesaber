@@ -1,7 +1,7 @@
 import React from 'react'
 import { MDBTabPane } from "mdbreact";
 import HighScoresForOneSong from './HighScoresForOneSong'
-import '../../styles/ScoreTabs.scss'
+import './ScoreTabs.scss'
 
 export default function ScoreTabs(props) {
     const { tabId, scores, size } = props;

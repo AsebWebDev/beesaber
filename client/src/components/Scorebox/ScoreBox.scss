@@ -1,14 +1,45 @@
 // Utilities
-@import "./utilities/variables";
+@import "../../styles/utilities/variables";
 
 #scorebox {
+  display: flex; 
+  flex-direction: column;
+
+  a { 
+    color: inherit; 
+  } 
+
+  .nav-tabs {
+    text-transform: uppercase;
+    a:active {
+      color: whitesmoke;
+    }
+  }
 
   h3 { 
     color: whitesmoke;
     font-family: 'NeonTubes2';
     margin: 5px 0 0 5px;
   }
+
+  #scorebox-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1em;
+    margin: 0;
+    color: $main-blue-light;
+
+    .md-form {
+      margin: 0;
+    }
+  }
   
+  #input-search {
+    margin: 0 0 0 1em;
+    padding: 3px 0 5px 0;
+  }
+
   #page-numbers {
     display: flex;
     list-style: none;

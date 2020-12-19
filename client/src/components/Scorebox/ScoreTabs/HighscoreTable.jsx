@@ -1,5 +1,5 @@
 import React from 'react'
-import BeeTag from '../BeeTag'
+import BeeTag from '../../BeeTag'
 
 function HighscoreTable(props) {
     const { i, bee } = props;
