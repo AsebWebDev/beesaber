@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { setFetchStatus } from '../../actioncreators'
 import api from '../../api';
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBIcon, MDBInput } from 'mdbreact';
-import ScoreBox from "../ScoreBox";
+import ScoreBox from "../Scorebox/ScoreBox";
 import '../../styles/pages/MyProfile.scss'
 
 function MyProfile(props) {
