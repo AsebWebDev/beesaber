@@ -1,7 +1,7 @@
 import React, { useState, useEffect} from 'react';
 import { MDBContainer, MDBTabContent, MDBNav, MDBNavItem, MDBNavLink } from "mdbreact";
 import { connect } from 'react-redux';
-import ScoreTabs from './ScoreTabs'
+import ScoreTabs from './ScoreTabs/ScoreTabs'
 import Pagination from "./Pagination";
 import { isInQuery } from '../helper/utils'
 import '../styles/ScoreBox.scss'
@@ -64,7 +64,7 @@ function ScoreOverview(props) {
                     </MDBNavItem>
                 </MDBNav>
                 <MDBTabContent activeItem={activeItem} >
-                    <ScoreTabs tabId={activeItem} data={currentScores} size={size}/>
+                    <ScoreTabs tabId={activeItem} scores={currentScores} size={size}/>
                     {(currentScores.length === 0) && <div className="no-scores">TEST</div>} 
                     {/* // FIXME: Creat "No Scores Found Component" */}
                 </MDBTabContent>

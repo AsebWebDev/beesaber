@@ -20,15 +20,26 @@
         color: $main-yellow;
     }
 
-    .played-by-hive {
+    .played-by-hive-lost {
         background: rgb(0,17,31);
         background: linear-gradient(90deg, rgba(0,17,31,1) 10%, rgba(255,0,37,1) 44%, rgba(255,0,37,1) 55%, rgba(0,17,31,1) 100%);
     }
+
+    .played-by-hive-won {
+        background: rgb(0,17,31);
+        background: linear-gradient(90deg, rgba(0,17,31,1) 10%, rgba(98, 0, 255, 0.5) 44%, rgba(98, 0, 255, 0.5) 55%, rgba(0,17,31,1) 100%);
+
+    }
+
 
     .also-played-by {
         td, th {
             color: black;
         }
+    }
+
+    .bold-text {
+        font-weight: bolder;
     }
 }
 
