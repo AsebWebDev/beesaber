@@ -1,8 +1,8 @@
 import React from 'react'
 import { MDBBadge, MDBIcon, MDBAnimation, MDBTooltip } from "mdbreact";
-import { parseSongPicUrl } from '../../helper/parser'
+import { parseSongPicUrl } from '../../../helper/parser'
 import moment from 'moment'
-import DiffTags from '../DiffTag'
+import DiffTags from '../../DiffTag'
 import HighscoreTable from './HighscoreTable'
 
 function HighScoresForOneSong(props) {

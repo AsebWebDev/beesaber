@@ -1,7 +1,7 @@
 import React, { useState, useEffect} from 'react';
 import { MDBContainer, MDBTabContent, MDBNav, MDBNavItem, MDBNavLink, MDBInput} from "mdbreact";
 import { connect } from 'react-redux';
-import ScoreTabs from '../ScoreTabs/ScoreTabs'
+import ScoreTabs from './ScoreTabs/ScoreTabs'
 import Pagination from "../Pagination";
 import { isInQuery } from '../../helper/utils'
 import './ScoreBox.scss'
