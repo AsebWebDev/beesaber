@@ -64,7 +64,7 @@ function ScoreOverview(props) {
                     </MDBNavItem>
                 </MDBNav>
                 <MDBTabContent activeItem={activeItem} >
-                    <ScoreTabs tabId={activeItem} data={currentScores} size={size}/>
+                    <ScoreTabs tabId={activeItem} scores={currentScores} size={size}/>
                     {(currentScores.length === 0) && <div className="no-scores">TEST</div>} 
                     {/* // FIXME: Creat "No Scores Found Component" */}
                 </MDBTabContent>

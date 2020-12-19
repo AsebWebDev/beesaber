@@ -5,17 +5,26 @@ import moment from 'moment'
 import DiffTags from '../DiffTag'
 import HighscoreTable from './HighscoreTable'
 
-function OneHighScore(props) {
-    const { highscore } = props;
+function HighScoresForOneSong(props) {
+    const { highscores } = props;
     const logid = (scoreId) => console.log("scoreId: !", scoreId)
+
+    let scoreColorClass = '';
+
+    if (highscores.playedByHive) {
+       scoreColorClass = ( highscores.playedBy.filter(bee => bee.myScore < bee.beeScore).length > 0 )
+            ? 'played-by-hive-lost'
+            : 'played-by-hive-won'
+    } 
+
     return (
-        <tr className={highscore.playedByHive ? "played-by-hive" : ""}>
-            <td><MDBBadge color="pink">{highscore.rank}</MDBBadge></td>
+        <tr className={scoreColorClass}>
+            <td><MDBBadge color="pink">{highscores.rank}</MDBBadge></td>
             <td>
                 <div className="song-data">
-                    <DiffTags diff={highscore.difficulty} />
-                    <img src={parseSongPicUrl(highscore.songHash)} alt="Cover"/>
-                    {highscore.playedByHive && 
+                    <DiffTags diff={highscores.difficulty} />
+                    <img src={parseSongPicUrl(highscores.songHash)} alt="Cover"/>
+                    {highscores.playedByHive && 
                         <MDBTooltip domElement clickable tag="span" placement="top">
                             <span><MDBAnimation type="pulse" infinite><MDBIcon far icon="handshake" /></MDBAnimation></span>
                             <div className="also-played-by">
@@ -26,18 +35,18 @@ function OneHighScore(props) {
                                         <th>My Score</th>
                                     </thead>
                                     <tbody id="bees">
-                                        {highscore.playedBy.map((bee, i) => <HighscoreTable bee={bee} i={i} />)}
+                                        {highscores.playedBy.map((bee, i) => <HighscoreTable bee={bee} key={i} />)}
                                     </tbody>
                                 </table>
                             </div>
                         </MDBTooltip>}
-                    <MDBBadge onClick={() => logid(highscore.songHash)} color="dark">{highscore.songAuthorName} - {highscore.songName}<span className="greyed-out"> by {highscore.levelAuthorName}</span></MDBBadge>
+                    <MDBBadge onClick={() => logid(highscores.songHash)} color="dark">{highscores.songAuthorName} - {highscores.songName}<span className="greyed-out"> by {highscores.levelAuthorName}</span></MDBBadge>
                 </div>
             </td>
-            <td><MDBBadge color="orange">{highscore.score}</MDBBadge></td>
-            <td className="time"><b className="card-link blue-text">{moment(highscore.timeSet).format('lll')}</b></td>
+            <td><MDBBadge color="orange">{highscores.score}</MDBBadge></td>
+            <td className="time"><b className="card-link blue-text">{moment(highscores.timeSet).format('lll')}</b></td>
         </tr>
     )
 }
 
-export default OneHighScore
+export default HighScoresForOneSong

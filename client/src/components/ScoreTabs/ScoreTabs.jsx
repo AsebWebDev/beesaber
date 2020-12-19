@@ -1,12 +1,13 @@
 import React from 'react'
 import { MDBTabPane } from "mdbreact";
-import OneHighScore from './OneHighScore'
+import HighScoresForOneSong from './HighScoresForOneSong'
 import '../../styles/ScoreTabs.scss'
 
 export default function ScoreTabs(props) {
-    const { tabId, data, size } = props;
+    const { tabId, scores, size } = props;
 
-    if(data.length === 0) return null
+    if(scores.length === 0) return null
+
     return (
         <div id="scoretabs">
             <MDBTabPane tabId={tabId} role="tabpanel" className={"score-box tabs-size-" + size}>
@@ -22,7 +23,7 @@ export default function ScoreTabs(props) {
                                 </tr>
                             </thead>
                             <tbody>
-                                {data.map((highscore, i) => <OneHighScore highscore={highscore} key={i} />)}
+                                {scores.map((highscoresForOneSong, i) => <HighScoresForOneSong highscores={highscoresForOneSong} key={i} />)}
                             </tbody>
                         </table>
                     </div>

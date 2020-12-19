@@ -3,13 +3,14 @@ import BeeTag from '../BeeTag'
 
 function HighscoreTable(props) {
     const { i, bee } = props;
+    const won = bee.myScore > bee.beeScore;
     return (
         <tr key={i} >
             <td><BeeTag bee={bee}/></td>
-            <td className={bee.beeScore > bee.myScore ? "bold-text" : ""}>
+            <td className={!won? "bold-text" : ""}>
                 {bee.beeScore}
             </td>
-            <td className={bee.beeScore < bee.myScore ? "bold-text" : ""}>
+            <td className={won ? "bold-text" : ""}>
                 {bee.myScore}
             </td>
         </tr>
