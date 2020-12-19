@@ -51,7 +51,7 @@
         transform: rotate(30deg);
         background-color: $main-red-light;
         box-shadow: 
-        0px 0px 8px 2px #ff8d9e, 
+        0px 0px 8px 2px $main-red-shadow, 
         0px 0px 12px 6px $main-red;
     }
     
@@ -60,7 +60,7 @@
         transform: rotate(-30deg);
         background-color: $main-blue-light;
         box-shadow: 
-        0px 0px 8px 2px #7979ff, 
+        0px 0px 8px 2px $main-blue-shadow, 
         0px 0px 12px 6px $main-blue;
     }
 }

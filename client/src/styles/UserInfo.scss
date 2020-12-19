@@ -8,7 +8,7 @@
     min-width: 100%;
 
     #plusicon {
-        color: whitesmoke;
+        color: $main-white;
         font-size: 3rem;
         right: 0;
         margin: 0 6px;
@@ -27,11 +27,11 @@
     }
 
     #userinfo-body {
-        color: whitesmoke;
+        color: $main-white;
         font-size: 0.8rem;
 
         .table {
-            color: whitesmoke;
+            color: $main-white;
         }
     }
 
@@ -134,12 +134,5 @@
         i.flag {
             padding: 3px;
         }
-    }
-}
-
-@include lg { 
-    #userinfo {
-        // min-width: fit-content;
-        // max-width: 42%;
     }
 }
