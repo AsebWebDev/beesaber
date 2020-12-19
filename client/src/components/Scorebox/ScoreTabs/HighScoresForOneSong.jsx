@@ -59,7 +59,7 @@ function HighScoresForOneSong(props) {
         </div>
       </td>
       <td>
-        <MDBBadge color="orange">{highscores.score}</MDBBadge>
+        <MDBBadge id="badge-light">{highscores.score}</MDBBadge>
       </td>
       <td className="time">
         <b className="card-link">{moment(highscores.timeSet).format("lll")}</b>

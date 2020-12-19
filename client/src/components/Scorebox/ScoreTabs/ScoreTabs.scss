@@ -32,6 +32,10 @@
     .bold-text {
         font-weight: bolder;
     }
+
+    td.time{
+        color: $main-grey;
+    }
 }
 
 @include mobile {

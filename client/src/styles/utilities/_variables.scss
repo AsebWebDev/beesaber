@@ -23,9 +23,19 @@ $main-grey:         grey;       // Bee Saber Grey
 $main-grey-light:   #ced4da;    // Bee Saber Grey-light
 $main-grey-dark:    #131c24;    // Bee Saber Grey-dark
 
+
+// B A D G E S 
+
 #badge-yellow {
     background-color: $main-yellow!important;
-    color: $bg-color!important
+    color: $bg-color!important;
+    min-width: 30px;
+}
+
+#badge-light {
+    background-color: $main-grey-light!important;
+    color: $bg-color!important;
+    min-width: 30px;
 }
 
 
