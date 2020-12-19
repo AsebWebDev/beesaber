@@ -5,8 +5,14 @@
 /.pnp
 .pnp.js
 .env
+<<<<<<< HEAD
 .eslintcache
 
+=======
+.idea
+.DS_Store
+.eslintcache
+>>>>>>> Update Packages
 
 # testing
 /coverage
