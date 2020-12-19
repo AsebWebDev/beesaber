@@ -1,0 +1,38 @@
+// Utilities
+@import "../../styles/utilities/variables";
+
+#hivebox {
+  #bees {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    .avatar-img {
+      width: 72px;
+      border-radius: 3px;
+      margin: 0 0 0 1.1px;
+    }
+
+    .container {
+      width: fit-content;
+    }
+  }
+
+  h3 {
+    color: $main-white;
+    font-family: "NeonTubes2";
+    margin: 5px 0 20px 5px;
+  }
+}
+
+@include mobile {
+  #hivebox {
+    width: 100%;
+  }
+}
+
+@include sm {
+  #hivebox {
+    min-width: 30%;
+  }
+}
