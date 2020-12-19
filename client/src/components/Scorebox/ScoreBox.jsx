@@ -2,12 +2,14 @@ import React, { useState, useEffect} from 'react';
 import { MDBContainer, MDBTabContent, MDBNav, MDBNavItem, MDBNavLink, MDBInput} from "mdbreact";
 import { connect } from 'react-redux';
 import ScoreTabs from './ScoreTabs/ScoreTabs'
+import Switch from '../Switch'
 import Pagination from "../Pagination";
 import { isInQuery } from '../../helper/utils'
 import './ScoreBox.scss'
 
 function ScoreOverview(props) {
     let [activeItem, setActiveItem] = useState('1')
+    let [isSharedToggleOn, setIsSharedToggleOn] = useState(false)
     let [allScores, setAllScores] = useState([])
     let [pageLimit, setPageLimit] = useState(5)
     let [offset, setOffset] = useState(5)
@@ -24,16 +26,18 @@ function ScoreOverview(props) {
         setCurrentScores(allScores.slice(offset, offset + pageLimit))
     };
 
-    const toggle = tab => {
+    const toggleTab = tab => {
         if (activeItem !== tab) setActiveItem(tab)
     };
 
     useEffect(() => {
-        if (activeItem === '1') setAllScores(data.scoresRecent.filter(item => isInQuery(item, query)))
-        if (activeItem === '2') setAllScores(data.scoresTop.filter(item => isInQuery(item, query)))
-        if (activeItem === '3') setAllScores(data.scoresRecent.filter(item => isInQuery(item, query) && item.playedByHive))
-        if (activeItem === '4') setAllScores(data.scoresTop.filter(item => isInQuery(item, query) && item.playedByHive))
-    }, [data, activeItem, query])
+        const scoreType = (activeItem === '1') ? 'scoresRecent' : 'scoresTop';  // 1 = Recent / 2 = Top
+
+        setAllScores(data[scoreType].filter(item => isSharedToggleOn
+            ? isInQuery(item, query) && item.playedByHive   // only show scores played by others
+            : isInQuery(item, query)
+        ))
+    }, [data, activeItem, query, isSharedToggleOn])
 
     useEffect(() => {
         setCurrentScores(allScores.slice(offset, offset + pageLimit))
@@ -44,6 +48,7 @@ function ScoreOverview(props) {
         <MDBContainer id="scorebox" className={"card-container score-box scores-size-" + size}>
                 <div id="scorebox-header" className="pt-2">
                     <h3>{bee ? bee.playerName.toUpperCase() : 'MY SCORES'}</h3>
+                    <Switch label="show only shared" onToggleCallback={(isOn) => setIsSharedToggleOn(isOn) }/>
                     <MDBInput 
                         label="Filter Songs..." 
                         size="sm" 
@@ -53,23 +58,13 @@ function ScoreOverview(props) {
                 </div>
                 <MDBNav className="nav-tabs mt-4 ml-2 mr-2">
                     <MDBNavItem>
-                        <MDBNavLink link to="#" active={activeItem === '1'} onClick={() => toggle('1')} role="tab" >
+                        <MDBNavLink link to="#" active={activeItem === '1'} onClick={() => toggleTab('1')} role="tab" >
                             Recent
                         </MDBNavLink>
                     </MDBNavItem>
                     <MDBNavItem>
-                        <MDBNavLink link to="#" active={activeItem === '2'} onClick={() => toggle('2')} role="tab" >
+                        <MDBNavLink link to="#" active={activeItem === '2'} onClick={() => toggleTab('2')} role="tab" >
                             Top
-                        </MDBNavLink>
-                    </MDBNavItem>
-                    <MDBNavItem>
-                        <MDBNavLink link to="#" active={activeItem === '3'} onClick={() => toggle('3')} role="tab" >
-                            Recent Shared
-                        </MDBNavLink>
-                    </MDBNavItem>
-                    <MDBNavItem>
-                        <MDBNavLink link to="#" active={activeItem === '4'} onClick={() => toggle('4')} role="tab" >
-                            Top Shared
                         </MDBNavLink>
                     </MDBNavItem>
                 </MDBNav>
