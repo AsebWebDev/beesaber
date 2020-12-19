@@ -3,17 +3,17 @@
 
 #newsbox {
     h3 { 
-        color: whitesmoke;
+        color: $main-white;
         font-family: 'NeonTubes2';
         margin: 5px 0 0 5px;
     }
 
     .scrollnav {
         margin: 0 40px;
-        color: white;
+        color: $main-white;
         display: flex;
         justify-content: center;
-        border: 0.5px solid grey;
+        border: 0.5px solid $main-grey;
         border-radius: 25px;
         i {
             font-size: 1.5rem;

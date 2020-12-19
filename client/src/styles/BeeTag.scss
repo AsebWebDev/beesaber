@@ -2,7 +2,6 @@
 @import "./utilities/variables";
 
 #beetag {
-
     padding: 0;
 
     i {
@@ -17,7 +16,7 @@
     }
 
     .userInfoPopup {
-        color: black;
+        color: $bg-color;
         padding: 10px 10px 0 0;
         display: flex;
         flex-direction: column;
@@ -51,8 +50,4 @@
             margin: 0 10px 5px 0;
         }
       }
-}
-
-@include mobile { 
-
 }

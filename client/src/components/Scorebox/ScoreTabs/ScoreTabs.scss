@@ -2,15 +2,6 @@
 @import "../../../styles/utilities/variables";
 
 #scoretabs {
-    // #bees {
-    //     display: flex;
-    //     flex-direction: row;
-    //     flex-wrap: wrap;
-
-    //     .container {
-    //         width:fit-content;
-    //     }
-    // }
 
     i.fa-handshake {
         font-size: 1.5rem;
@@ -21,20 +12,20 @@
     }
 
     .played-by-hive-lost {
-        background: rgb(0,17,31);
-        background: linear-gradient(90deg, rgba(0,17,31,1) 10%, rgba(255,0,37,1) 44%, rgba(255,0,37,1) 55%, rgba(0,17,31,1) 100%);
+        background: $bg-color;
+        background: linear-gradient(90deg, $bg-color 10%, $main-red 44%, $main-red 55%, $bg-color 100%);
     }
 
     .played-by-hive-won {
-        background: rgb(0,17,31);
-        background: linear-gradient(90deg, rgba(0,17,31,1) 10%, rgba(98, 0, 255, 0.5) 44%, rgba(98, 0, 255, 0.5) 55%, rgba(0,17,31,1) 100%);
+        background: $bg-color;
+        background: linear-gradient(90deg, $bg-color 10%, $main-blue 44%, $main-blue 55%, $bg-color 100%);
 
     }
 
 
     .also-played-by {
         td, th {
-            color: black;
+            color: $bg-color;
         }
     }
 

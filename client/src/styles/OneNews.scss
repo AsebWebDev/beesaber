@@ -1,8 +1,12 @@
+// Utilities
+@import "./utilities/variables";
+
 #one-news{
     margin: 10px;
 
     .card {
         position: relative;
+        background-color: $main-grey-dark;
 
         .pic-preview {
             position: absolute;
@@ -30,6 +34,7 @@
     .card-text {
         margin: 0;
         width: 80%;
+        color: $main-white-light;
     }
 
     .tooltip {
@@ -39,7 +44,7 @@
     .scores-tooltip {
         margin: 3px 3px 8px 3px;
         width: 100%;
-        // width: ft-content;
+        
         p {
             margin: 0;
         }

@@ -14,7 +14,7 @@ export default function BeeTag(props) {
     return (
         <MDBContainer id="beetag" >
             <MDBTooltip domElement tag="span" placement="top">
-                <span className="tag badge badge-warning"><i className="fab fa-forumbee" aria-hidden="true"></i>{playerName}</span>
+                <span id="badge-yellow" className="tag badge badge-warning"><i className="fab fa-forumbee" aria-hidden="true"></i>{playerName}</span>
 
                 {/* TOOLTIP SHOWING ONLY ON HOVER */}
                 <div className="userInfoPopup">

@@ -8,18 +8,16 @@
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   }
   ul.pagination li.page-item.active a.page-link {
-  color: #445565 ;
-    background-color: #e3e7eb!important ;
-    border-color: #ced4da ;
+  color: $main-grey-dark ;
+    background-color: $main-white!important ;
+    border-color: $main-grey-light ;
   }
   ul.pagination a.page-link {
-    background-color: #445565!important;
-    // padding: 0.75rem 1rem;
-    // min-width: 3.5rem;
+    background-color: $main-grey-dark!important;
     text-align: center;
     box-shadow: none ;
-    border-color: #ced4da ;
-    color: #6b88a4;
+    border-color: $main-grey-light;
+    color: $main-white-light;
     font-weight: 900;
     font-size: 1rem;
   }
