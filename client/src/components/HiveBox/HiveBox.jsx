@@ -9,7 +9,7 @@ function HiveBox(props) {
       <h3>HiveBox</h3>
       <div id="bees">
         {props.userdata.bees.slice(0, 5).map((bee, i) => (
-          <BeeTag key={i} bee={bee} />
+          <BeeTag key={i} bee={bee} withImage />
         ))}
       </div>
     </div>

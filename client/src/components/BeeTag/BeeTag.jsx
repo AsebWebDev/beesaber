@@ -16,6 +16,7 @@ export default function BeeTag(props) {
     totalPlayCount,
     rankedPlayCount,
   } = props.bee;
+  const { withImage } = props;
   const lastPlayedSong = props.bee.scoreData
     ? props.bee.scoreData.scoresRecent[0]
     : null;
@@ -90,7 +91,7 @@ export default function BeeTag(props) {
           </div>
         </div>
       </MDBTooltip>
-      <img className="avatar-img" src={url} alt="Avatar" />
+      {withImage && <img className="avatar-img" src={url} alt="Avatar" />}
     </MDBContainer>
   );
 }
