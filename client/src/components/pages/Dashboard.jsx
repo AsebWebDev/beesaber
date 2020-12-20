@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import ScoreBox from "../Scorebox/ScoreBox";
 import HiveBox from "../HiveBox/HiveBox";
-import NewsBox from "../NewsBox";
+import NewsBox from "../NewsBox/NewsBox";
 import Spinner from "../Spinner";
 import "../../styles/pages/Dashboard.scss";
 

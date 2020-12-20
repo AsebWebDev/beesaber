@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { MDBIcon } from "mdbreact";
-import OneNews from "./OneNews";
-import "../styles/NewsBox.scss";
+import OneNews from "../OneNews";
+import "./NewsBox.scss";
 
 function NewsBox(props) {
   let news = [...props.userdata.news];
