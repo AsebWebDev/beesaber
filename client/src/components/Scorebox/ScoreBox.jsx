@@ -60,7 +60,7 @@ function ScoreOverview(props) {
         id="scorebox"
         className={"card-container score-box scores-size-" + size}
       >
-        <div id="scorebox-header" className="pt-2">
+        <div id="scorebox-header">
           <h3>{bee ? bee.playerName.toUpperCase() : "MY SCORES"}</h3>
           {/* <Switch
             label="only shared"
