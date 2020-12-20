@@ -2,33 +2,33 @@
 @import "./utilities/variables";
 
 #newsbox {
-    h3 { 
-        color: $main-white;
-        font-family: 'NeonTubes2';
-        margin: 5px 0 0 5px;
-    }
+  h3 {
+    color: $main-white;
+    font-family: "NeonTubes2";
+    margin: 5px 0 10px 5px;
+  }
 
-    .scrollnav {
-        margin: 0 40px;
-        color: $main-white;
-        display: flex;
-        justify-content: center;
-        border: 0.5px solid $main-grey;
-        border-radius: 25px;
-        i {
-            font-size: 1.5rem;
-        }
+  .scrollnav {
+    margin: 0 40px;
+    color: $main-white;
+    display: flex;
+    justify-content: center;
+    border: 0.5px solid $main-grey;
+    border-radius: 25px;
+    i {
+      font-size: 1.5rem;
     }
+  }
 }
 
 @include mobile {
-    #newsbox {
-        width: 100%
-    }
+  #newsbox {
+    width: 100%;
   }
-  
+}
+
 @include sm {
-    #newsbox {
-        min-width: 40%
-    }
+  #newsbox {
+    min-width: 40%;
+  }
 }
