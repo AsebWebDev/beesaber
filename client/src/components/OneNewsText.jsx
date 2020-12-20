@@ -16,9 +16,9 @@ export default function OneNewsText(props) {
   const scoreTooltip =
     songs && songs.length > 0 ? (
       <table className="scores-tooltip">
-        <tbody>
-          {songs &&
-            songs.slice(0, maxSongs).map((song, i) => (
+        {songs && (
+          <tbody>
+            {songs.slice(0, maxSongs).map((song, i) => (
               <tr key={i}>
                 <td>
                   <MDBBadge color="pink">{song.rank}</MDBBadge>
@@ -31,10 +31,14 @@ export default function OneNewsText(props) {
                 </td>
               </tr>
             ))}
-          {songs && songs.length > maxSongs && (
-            <p>+{songs.length - maxSongs} more!</p>
-          )}
-        </tbody>
+
+            {songs.length > maxSongs && (
+              <tr>
+                <td>+{songs.length - maxSongs} more</td>
+              </tr>
+            )}
+          </tbody>
+        )}
       </table>
     ) : (
       // FIXME: Due to a known error when login in after a long time and songs played
