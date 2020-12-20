@@ -2,14 +2,20 @@
 @import "../../styles/utilities/variables";
 
 #scorebox {
-  display: flex; 
+  display: flex;
   flex-direction: column;
 
-  a { 
-    color: $main-grey; 
-  } 
+  a {
+    color: $main-grey;
+  }
 
-  .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+  .custom-switch {
+    margin: 0.5em 0 0 2em;
+    color: $main-white;
+  }
+
+  .nav-tabs .nav-item.show .nav-link,
+  .nav-tabs .nav-link.active {
     background-color: $main-grey-dark;
     color: $main-white;
   }
@@ -18,9 +24,9 @@
     text-transform: uppercase;
   }
 
-  h3 { 
+  h3 {
     color: $main-white;
-    font-family: 'NeonTubes2';
+    font-family: "NeonTubes2";
     margin: 5px 0 0 5px;
   }
 
@@ -36,28 +42,28 @@
       margin: 0;
     }
   }
-  
+
   #input-search {
     margin: 0 0 0 1em;
     padding: 3px 0 5px 0;
   }
-  
+
   .table-box {
-    table-layout:fixed;
+    table-layout: fixed;
   }
-  
+
   .table-box td {
     max-width: 300px;
     overflow: hidden;
     white-space: nowrap;
   }
-  
+
   table img {
     max-width: 40px;
     margin-right: 8px;
     border-radius: 3px;
   }
-  
+
   .pagination {
     margin: auto;
     display: flex;
@@ -66,9 +72,9 @@
   }
 
   .score-box {
-    h3{ 
+    h3 {
       color: $main-white;
-      font-family: 'NeonTubes2';
+      font-family: "NeonTubes2";
       margin: 5px 0 20px 5px;
       color: $main-white;
     }
@@ -86,26 +92,26 @@
     }
 
     .table {
+      td {
+        border-top: none;
+        border-bottom: 1px solid $main-grey;
+        img {
+          margin-left: 1rem;
+        }
+      }
+      tr:last-child {
         td {
-          border-top: none;
-          border-bottom: 1px solid $main-grey;
-          img {
-            margin-left: 1rem;
-          }
+          border: none;
         }
-        tr:last-child {
-          td {
-            border: none
-          }
-        }
+      }
     }
 
     .table.table td {
-      padding: 0.5rem
+      padding: 0.5rem;
     }
 
     .card-link {
-      font-size: 0.7rem
+      font-size: 0.7rem;
     }
 
     td.song {
@@ -129,7 +135,7 @@
 
 @include mobile {
   #scorebox {
-    width: 90%
+    width: 90%;
   }
 }
 
