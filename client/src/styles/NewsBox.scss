@@ -7,6 +7,20 @@
     font-family: "NeonTubes2";
     margin: 5px 0 10px 5px;
   }
+  @keyframes example {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  .spinner-icon {
+    animation-name: example;
+    display: inline-block;
+    animation-iteration-count: infinite;
+    animation-duration: 2s;
+  }
 
   .scrollnav {
     margin: 0 40px;
