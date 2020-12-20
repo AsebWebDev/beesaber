@@ -39,9 +39,11 @@ function HighScoresForOneSong(props) {
               <div className="also-played-by">
                 <table>
                   <thead>
-                    <th>Bee</th>
-                    <th>Score</th>
-                    <th>My Score</th>
+                    <tr>
+                      <th>Bee</th>
+                      <th>Score</th>
+                      <th>My Score</th>
+                    </tr>
                   </thead>
                   <tbody id="bees">
                     {highscores.playedBy.map((bee, i) => (
