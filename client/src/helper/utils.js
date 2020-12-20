@@ -34,7 +34,7 @@ export function filterBeeIntersections(userdata) {
               const { playerName, country, countryRank, rank, avatar, playerId, averageRankedAccuracy, totalPlayCount, rankedPlayCount } = bee
               const beeIntersection = {                                               // prepare new Intersection... 
                 song,
-                bee: { beeScore, myScore, playerId, playerName, country, countryRank, rank, avatar, playerId, averageRankedAccuracy, totalPlayCount, rankedPlayCount },
+                bee: { beeScore, myScore, playerId, playerName, country, countryRank, rank, avatar, averageRankedAccuracy, totalPlayCount, rankedPlayCount },
               }                                                                       // ... and push it to the correct array: 
               if (songs.length === 1) beeIntersections.push(beeIntersection)          // if there is only one intersection add it to prepared array
               if (songs.length > 1) doubles.push(beeIntersection)                     // if there are more intersections, add them to filter duplicates later
