@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { MDBIcon } from "mdbreact";
 import OneNews from "../OneNews";
+import ScrollNav from "./ScrollNav";
 import "./NewsBox.scss";
 
 function NewsBox(props) {
@@ -43,33 +43,18 @@ function NewsBox(props) {
     setEndIndex(Math.min(newsLength, maxNumOfNews));
   }, [props.userdata, newsLength]);
 
-  useEffect(() => {}, [props.fetchingdata]);
-
   return (
     <div id="newsbox" className="card-container">
       <h3>NewsBox</h3>
       {!isFetchingData && scrollCounter !== 0 && (
-        <div className="scrollnav" onClick={handleUpClick}>
-          <MDBIcon
-            className={isFetchingData ? "spinner-icon" : ""}
-            icon={isFetchingData ? "spinner" : "angle-up"}
-          />
-        </div>
+        <ScrollNav direction="up" handleClick={handleUpClick} />
       )}
       {news &&
         news
           .slice(startIndex, endIndex)
           .map((oneNews, i) => <OneNews key={i} oneNews={oneNews} />)}
       {scrollCounter < maxScrolls && (
-        <div
-          className="scrollnav"
-          onClick={isFetchingData ? null : handleDownClick}
-        >
-          <MDBIcon
-            className={isFetchingData ? "spinner-icon" : ""}
-            icon={isFetchingData ? "spinner" : "angle-down"}
-          />
-        </div>
+        <ScrollNav direction="down" handleClick={handleDownClick} />
       )}
     </div>
   );
