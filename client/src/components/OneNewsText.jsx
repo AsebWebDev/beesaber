@@ -48,10 +48,10 @@ export default function OneNewsText(props) {
     case "ownNewScores": {
       return (
         <MDBContainer>
-          <MDBTooltip domElement tag="p" placement="top">
-            <p className={classNm}>
+          <MDBTooltip domElement tag="span" placement="top">
+            <span className={classNm}>
               You gained <b>{diff}</b> new Score{diff > 1 ? "s" : ""}!
-            </p>
+            </span>
             {scoreTooltip}
           </MDBTooltip>
         </MDBContainer>
